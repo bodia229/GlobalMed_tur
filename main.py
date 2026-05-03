@@ -7,6 +7,9 @@ from fastapi import FastAPI, Request, Form, Depends, Cookie, Response
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
+from slowapi import Limiter, _rate_limit_exceeded_handler
+from slowapi.util import get_remote_address
+from slowapi.errors import RateLimitExceeded
 from sqlalchemy import create_engine, Column, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, Session
@@ -72,9 +75,21 @@ class Review(Base):
 Base.metadata.create_all(bind=engine)
 
 # --- ИНИЦИАЛИЗАЦИЯ ---
+limiter = Limiter(key_func=get_remote_address)
 app = FastAPI()
+app.state.limiter = limiter
+app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 app.mount("/static", StaticFiles(directory=os.path.join(_BASE_DIR, "static")), name="static")
 templates = Jinja2Templates(directory=os.path.join(_BASE_DIR, "templates"))
+
+@app.exception_handler(404)
+async def not_found_handler(request: Request, exc):
+    return templates.TemplateResponse(
+        request=request,
+        name="404.html",
+        context={"page_title": "Сторінку не знайдено — GlobalMed"},
+        status_code=404
+    )
 
 @app.on_event("startup")
 async def startup():
@@ -171,6 +186,7 @@ async def reviews_page(request: Request, db: Session = Depends(get_db)):
     )
 
 @app.post("/reviews/submit")
+@limiter.limit("5/minute")
 async def submit_review(
     request: Request,
     author_name: str = Form(...),
@@ -211,7 +227,8 @@ async def register_page(request: Request):
     )
 
 @app.post("/register")
-async def register(email: str = Form(...), password: str = Form(...), db: Session = Depends(get_db)):
+@limiter.limit("5/minute")
+async def register(request: Request, email: str = Form(...), password: str = Form(...), db: Session = Depends(get_db)):
     user_exists = db.query(User).filter(User.email == email).first()
     if user_exists:
         return {"error": "Email вже зареєстрований"}
@@ -221,7 +238,8 @@ async def register(email: str = Form(...), password: str = Form(...), db: Sessio
     return {"message": "Акаунт створено!"}
 
 @app.post("/login")
-async def login(response: Response, email: str = Form(...), password: str = Form(...), db: Session = Depends(get_db)):
+@limiter.limit("10/minute")
+async def login(request: Request, response: Response, email: str = Form(...), password: str = Form(...), db: Session = Depends(get_db)):
     user = db.query(User).filter(User.email == email).first()
     if not user or not verify_password(password, user.password_hash):
         return {"error": "Невірний email або пароль"}
@@ -292,6 +310,7 @@ async def admin_panel(request: Request, db: Session = Depends(get_db)):
     )
 
 @app.post("/submit-order")
+@limiter.limit("10/minute")
 async def create_order(
     request: Request,
     name: str = Form(...),
