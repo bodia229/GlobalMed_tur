@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%230B6B6B'/><rect x='13' y='4' width='6' height='24' rx='3' fill='white'/><rect x='4' y='13' width='24' height='6' rx='3' fill='white'/></svg>">
+  <title>Політика конфіденційності — GlobalMed</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --primary:       #0B6B6B;
+      --primary-light: #14A8A8;
+      --accent:        #E8A838;
+      --bg:            #F2FAFA;
+      --text:          #1A3340;
+      --text-light:    #5A7A84;
+      --white:         #FFFFFF;
+      --shadow:        rgba(11, 107, 107, 0.10);
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Montserrat', sans-serif; color: var(--text); background: var(--bg); }
+
+    /* ─── HEADER ─── */
+    header { position: sticky; top: 0; z-index: 200; background: var(--white); box-shadow: 0 2px 18px var(--shadow); }
+    nav { max-width: 1200px; margin: 0 auto; padding: 0 28px; height: 70px; display: flex; align-items: center; gap: 24px; }
+    .logo { display: flex; align-items: center; gap: 11px; text-decoration: none; flex-shrink: 0; }
+    .logo-icon { width: 44px; height: 44px; background: var(--primary); border-radius: 11px; display: flex; align-items: center; justify-content: center; }
+    .logo-text .brand { font-size: 18px; font-weight: 700; color: var(--primary); letter-spacing: -0.3px; line-height: 1.2; }
+    .logo-text .tagline { font-size: 10px; color: var(--text-light); font-weight: 500; text-transform: uppercase; letter-spacing: 0.6px; }
+    .nav-links { display: flex; list-style: none; gap: 4px; margin-left: 8px; flex: 1; }
+    .nav-links a { text-decoration: none; color: var(--text); font-size: 14px; font-weight: 500; padding: 8px 14px; border-radius: 8px; transition: background 0.2s, color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--primary); background: rgba(11, 107, 107, 0.07); }
+    .nav-right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; margin-left: auto; }
+    .translate-wrapper { border: 1.5px solid #C8E8E8; border-radius: 8px; padding: 3px 10px; background: #F5FDFD; display: flex; align-items: center; }
+    .goog-te-gadget { font-family: 'Montserrat', sans-serif !important; font-size: 0 !important; }
+    .goog-te-gadget .goog-te-combo { border: none !important; outline: none !important; font-family: 'Montserrat', sans-serif !important; font-size: 13px !important; font-weight: 600 !important; color: var(--primary) !important; cursor: pointer; background: transparent; padding: 4px 0; }
+    .goog-logo-link, .goog-te-gadget > span { display: none !important; }
+    .btn-login { text-decoration: none; color: var(--primary); font-size: 14px; font-weight: 600; padding: 8px 18px; border: 2px solid var(--primary); border-radius: 9px; transition: all 0.2s; }
+    .btn-login:hover { background: var(--primary); color: var(--white); }
+    .btn-register { text-decoration: none; color: var(--white); font-size: 14px; font-weight: 600; padding: 8px 18px; background: var(--primary); border: 2px solid var(--primary); border-radius: 9px; transition: all 0.2s; }
+    .btn-register:hover { background: var(--primary-light); border-color: var(--primary-light); }
+    .btn-profile { text-decoration: none; color: var(--white); font-size: 14px; font-weight: 600; padding: 8px 18px; background: var(--primary); border: 2px solid var(--primary); border-radius: 9px; transition: all 0.2s; display: none; align-items: center; gap: 6px; }
+    .btn-profile:hover { background: var(--primary-light); border-color: var(--primary-light); }
+
+    /* ─── DROPDOWN ─── */
+    .has-dropdown { position: relative; }
+    .has-dropdown > a { display: flex !important; align-items: center; gap: 5px; }
+    .chevron-icon { width: 12px; height: 8px; flex-shrink: 0; transition: transform 0.22s; color: currentColor; }
+    .has-dropdown:hover > a .chevron-icon { transform: rotate(180deg); }
+    .nav-dropdown { position: absolute; top: 100%; left: 0; padding-top: 10px; opacity: 0; pointer-events: none; transform: translateY(-6px); transition: opacity 0.18s, transform 0.18s; z-index: 150; }
+    .has-dropdown:hover .nav-dropdown { opacity: 1; pointer-events: all; transform: translateY(0); }
+    .dropdown-inner { background: var(--white); border-radius: 16px; box-shadow: 0 12px 48px rgba(11,107,107,0.16), 0 2px 8px rgba(0,0,0,0.06); padding: 22px 28px; display: grid; grid-template-columns: 1fr 1px 1fr; gap: 0 28px; min-width: 500px; border: 1px solid rgba(11,107,107,0.09); }
+    .dropdown-divider { background: #D6EEEE; margin: 2px 0; }
+    .dropdown-col a { display: block; padding: 9px 0; font-size: 13.5px; color: var(--text-light); text-decoration: none; font-weight: 500; white-space: nowrap; background: none; border-radius: 0; transition: color 0.15s; }
+    .dropdown-col a:hover { color: var(--primary); background: none; }
+
+    /* ─── PAGE HERO ─── */
+    .page-hero { background: linear-gradient(135deg, #085858 0%, #0B8080 55%, #13B5B5 100%); padding: 60px 28px 68px; position: relative; overflow: hidden; text-align: center; }
+    .page-hero::before { content: ''; position: absolute; width: 400px; height: 400px; border-radius: 50%; background: rgba(255,255,255,0.04); top: -120px; right: -80px; pointer-events: none; }
+    .page-hero-inner { max-width: 700px; margin: 0 auto; position: relative; z-index: 1; }
+    .page-label { display: inline-block; background: rgba(255,255,255,0.14); color: #fff; font-size: 11px; font-weight: 700; padding: 6px 16px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.22); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 18px; }
+    .page-hero h1 { font-size: 36px; font-weight: 700; color: #fff; line-height: 1.2; margin-bottom: 12px; }
+    .page-hero .updated { font-size: 13px; color: rgba(255,255,255,0.6); }
+
+    /* ─── CONTENT ─── */
+    .content-wrap { max-width: 860px; margin: 0 auto; padding: 60px 28px 80px; }
+
+    .policy-section { margin-bottom: 44px; }
+
+    .policy-section h2 {
+      font-size: 18px; font-weight: 700; color: var(--primary);
+      margin-bottom: 16px; padding-bottom: 10px;
+      border-bottom: 2px solid rgba(11,107,107,0.1);
+      display: flex; align-items: center; gap: 10px;
+    }
+    .policy-section h2 .num {
+      width: 32px; height: 32px; border-radius: 50%;
+      background: var(--primary); color: #fff;
+      font-size: 14px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .policy-section p {
+      font-size: 14px; color: var(--text-light);
+      line-height: 1.85; margin-bottom: 12px;
+    }
+    .policy-section p:last-child { margin-bottom: 0; }
+
+    .policy-section ul {
+      list-style: none; margin: 12px 0;
+    }
+    .policy-section ul li {
+      font-size: 14px; color: var(--text-light);
+      line-height: 1.75; padding: 6px 0 6px 22px;
+      position: relative;
+      border-bottom: 1px solid rgba(11,107,107,0.05);
+    }
+    .policy-section ul li:last-child { border-bottom: none; }
+    .policy-section ul li::before {
+      content: '';
+      position: absolute; left: 0; top: 14px;
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--primary-light);
+    }
+
+    /* Contact card inside policy */
+    .contact-block {
+      background: rgba(11,107,107,0.05);
+      border-left: 4px solid var(--primary);
+      border-radius: 0 12px 12px 0;
+      padding: 20px 24px;
+      margin-top: 16px;
+    }
+    .contact-block p { margin-bottom: 6px; font-size: 14px; color: var(--text); }
+    .contact-block p:last-child { margin-bottom: 0; }
+    .contact-block a { color: var(--primary); font-weight: 600; text-decoration: none; }
+    .contact-block a:hover { text-decoration: underline; }
+    .contact-block strong { color: var(--text); }
+
+    /* ─── FOOTER ─── */
+    footer { background: #082828; color: rgba(255,255,255,0.55); padding: 50px 28px 36px; text-align: center; font-size: 13px; }
+    .footer-brand { color: #fff; font-size: 20px; font-weight: 700; margin-bottom: 6px; }
+    .footer-tagline { margin-bottom: 24px; }
+    footer a { color: var(--primary-light); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+    .footer-disclaimer { max-width: 700px; margin: 20px auto 0; font-size: 11.5px; line-height: 1.65; color: rgba(255,255,255,0.38); font-style: italic; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 18px; }
+    .footer-copy { margin-top: 16px; font-size: 12px; opacity: 0.4; }
+
+    /* ─── MODAL ─── */
+    .modal-overlay { position: fixed; inset: 0; background: rgba(8,25,25,0.62); backdrop-filter: blur(5px); z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 20px; opacity: 0; pointer-events: none; transition: opacity 0.25s; }
+    .modal-overlay.active { opacity: 1; pointer-events: all; }
+    .modal-card { background: var(--white); border-radius: 22px; padding: 44px 40px; width: 100%; max-width: 420px; position: relative; box-shadow: 0 24px 60px rgba(0,0,0,0.24); transform: translateY(22px) scale(0.98); transition: transform 0.28s; }
+    .modal-overlay.active .modal-card { transform: translateY(0) scale(1); }
+    .modal-close { position: absolute; top: 14px; right: 14px; background: none; border: none; font-size: 20px; cursor: pointer; color: var(--text-light); width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; transition: background 0.18s; }
+    .modal-close:hover { background: var(--bg); color: var(--text); }
+    .modal-logo-row { display: flex; align-items: center; gap: 10px; margin-bottom: 26px; }
+    .modal-logo-icon { width: 38px; height: 38px; background: var(--primary); border-radius: 9px; display: flex; align-items: center; justify-content: center; }
+    .modal-logo-name { font-size: 17px; font-weight: 700; color: var(--primary); }
+    .modal-card h2 { font-size: 22px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+    .modal-sub { font-size: 14px; color: var(--text-light); margin-bottom: 26px; line-height: 1.5; }
+    .modal-error { background: #FEF2F2; border: 1px solid #FCA5A5; color: #DC2626; font-size: 13px; font-weight: 500; padding: 10px 14px; border-radius: 9px; margin-bottom: 16px; display: none; }
+    .modal-field { margin-bottom: 14px; }
+    .modal-field label { display: block; font-size: 11px; font-weight: 700; color: var(--text); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.6px; }
+    .modal-field input { width: 100%; padding: 13px 16px; border-radius: 10px; border: 1.5px solid #C8E8E8; background: var(--bg); color: var(--text); font-size: 14px; font-family: 'Montserrat', sans-serif; outline: none; transition: border-color 0.2s; }
+    .modal-field input:focus { border-color: var(--primary); }
+    .modal-submit { width: 100%; padding: 13px; background: var(--primary); color: #fff; font-size: 15px; font-weight: 700; font-family: 'Montserrat', sans-serif; border: none; border-radius: 10px; cursor: pointer; margin-top: 6px; transition: all 0.2s; }
+    .modal-submit:hover { background: var(--primary-light); }
+    .modal-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+    .modal-footer-note { text-align: center; margin-top: 20px; font-size: 13px; color: var(--text-light); }
+    .modal-footer-note a { color: var(--primary); font-weight: 600; text-decoration: none; }
+
+    @media (max-width: 620px) {
+      .nav-links { display: none; }
+      .btn-login { display: none; }
+      .page-hero h1 { font-size: 26px; }
+      .content-wrap { padding: 40px 20px 60px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══ HEADER ══ -->
+<header>
+  <nav>
+    <a href="/" class="logo">
+      <div class="logo-icon">
+        <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
+          <rect x="11" y="3" width="4" height="20" rx="2" fill="white"/>
+          <rect x="3" y="11" width="20" height="4" rx="2" fill="white"/>
+        </svg>
+      </div>
+      <div class="logo-text">
+        <div class="brand">GlobalMed</div>
+        <div class="tagline">Клініка · Туреччина</div>
+      </div>
+    </a>
+
+    <ul class="nav-links">
+      <li><a href="/">Головна</a></li>
+      <li class="has-dropdown">
+        <a href="/about_us">Про нас
+          <svg class="chevron-icon" viewBox="0 0 12 8" fill="none">
+            <path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+        <div class="nav-dropdown">
+          <div class="dropdown-inner">
+            <div class="dropdown-col">
+              <a href="/about_us#story">Як це працює?</a>
+              <a href="/about_us#services">Наші послуги</a>
+              <a href="/contacts">Ваші запитання</a>
+              <a href="/privacy">Правила користування</a>
+            </div>
+            <div class="dropdown-divider"></div>
+            <div class="dropdown-col">
+              <a href="/reviews">Відгуки клієнтів</a>
+              <a href="/about_us">Лікування за кордоном</a>
+              <a href="/about_us#services">Критерії відбору лікарень</a>
+              <a href="/privacy">Політика конфіденційності</a>
+            </div>
+          </div>
+        </div>
+      </li>
+      <li><a href="/#services">Послуги</a></li>
+      <li><a href="/gallery">Галерея</a></li>
+      <li><a href="/reviews">Відгуки</a></li>
+      <li><a href="/contacts">Контакти</a></li>
+    </ul>
+
+    <div class="nav-right">
+      <div class="translate-wrapper">
+        <div id="google_translate_element"></div>
+      </div>
+      <a href="/dashboard" class="btn-profile" id="btn-profile">👤 Мій профіль</a>
+      <a href="/login" class="btn-login" id="btn-login">Увійти</a>
+      <a href="/register" class="btn-register" id="btn-register">Реєстрація</a>
+    </div>
+  </nav>
+</header>
+
+
+<!-- ══ PAGE HERO ══ -->
+<section class="page-hero">
+  <div class="page-hero-inner">
+    <div class="page-label">Правова інформація</div>
+    <h1>Політика конфіденційності</h1>
+    <p class="updated">Останнє оновлення: 03 травня 2026 року</p>
+  </div>
+</section>
+
+
+<!-- ══ CONTENT ══ -->
+<div class="content-wrap">
+
+  <div class="policy-section">
+    <p>У GlobalMed ми прагнемо захищати вашу конфіденційність та персональні дані. Ця Політика конфіденційності пояснює, як ми збираємо, обробляємо, використовуємо, розкриваємо та захищаємо інформацію, якою ви ділитеся з нами через наш веб-сайт та сервіси, відповідно до чинного законодавства про захист даних, включаючи Закон про захист персональних даних № 6698 (PDPL/KVKK) та Загальний регламент про захист даних (GDPR).</p>
+  </div>
+
+  <div class="policy-section">
+    <h2><span class="num">1</span>Контролер даних</h2>
+    <div class="contact-block">
+      <p><strong>Назва компанії:</strong> GlobalMed — Агентство медичного туризму</p>
+      <p><strong>Адреса:</strong> Zafer, Çınar Sk. No:1/21, 34194 Bahçelievler/İstanbul</p>
+      <p><strong>Електронна пошта:</strong> <a href="mailto:info.globalmed.clinic@gmail.com">info.globalmed.clinic@gmail.com</a></p>
+      <p><strong>Телефон:</strong> <a href="tel:+420607118531">+420 607 118 531</a></p>
+    </div>
+  </div>
+
+  <div class="policy-section">
+    <h2><span class="num">2</span>Типи даних, що збираються</h2>
+    <p>Ми можемо збирати такі категорії персональних даних:</p>
+    <ul>
+      <li><strong>Ідентифікаційні дані:</strong> ПІБ, громадянство, номер посвідчення особи/паспорта</li>
+      <li><strong>Контактна інформація:</strong> адреса електронної пошти, номер телефону, адреса проживання</li>
+      <li><strong>Інформація про стан здоров'я:</strong> анамнез, результати обстежень, записи про лікування (обробляється лише за вашою явною згодою)</li>
+      <li><strong>Інформація про подорож:</strong> дані про рейс, бронювання готелів, організація трансферу</li>
+      <li><strong>Технічні дані:</strong> IP-адреса, інформація про пристрій/браузер, файли cookie, журнали активності користувача</li>
+      <li><strong>Вміст повідомлень:</strong> повідомлення, надіслані через контактні форми, електронну пошту або чат-платформи (наприклад, WhatsApp)</li>
+    </ul>
+  </div>
+
+  <div class="policy-section">
+    <h2><span class="num">3</span>Мета обробки даних</h2>
+    <p>Ми обробляємо персональні дані для:</p>
+    <ul>
+      <li>Планування та координації медичних консультацій і лікування</li>
+      <li>Організації проживання, транспорту та інших логістичних завдань медичного туризму</li>
+      <li>Оцінки відповідності вимогам та безпечного надання медичних послуг</li>
+      <li>Виконання наших юридичних зобов'язань як посередника у сфері медичного туризму</li>
+      <li>Покращення роботи веб-сайту та зручності для користувачів</li>
+      <li>Відповідей на ваші запити, відгуки або заявки</li>
+      <li>Надання адміністративної та операційної підтримки</li>
+    </ul>
+  </div>
+
+  <div class="policy-section">
+    <h2><span class="num">4</span>Правові підстави обробки</h2>
+    <p>Ваші персональні дані обробляються на таких правових підставах:</p>
+    <ul>
+      <li>Ваша явна згода (особливо щодо конфіденційних медичних даних)</li>
+      <li>Укладення договору (наприклад, договору про надання послуг у сфері медичного туризму)</li>
+      <li>Дотримання юридичних зобов'язань (наприклад, нормативних актів Міністерства охорони здоров'я)</li>
+      <li>Законні інтереси (наприклад, покращення послуг, забезпечення безпеки сайту)</li>
+      <li>Захист життєво важливих інтересів (за необхідності в екстрених медичних випадках)</li>
+    </ul>
+  </div>
+
+  <div class="policy-section">
+    <h2><span class="num">5</span>Обмін даними та їх передача</h2>
+    <p>Ваші персональні дані можуть бути передані:</p>
+    <ul>
+      <li>Ліцензованим медичним установам та спеціалістам</li>
+      <li>Партнерським постачальникам туристичних послуг і послуг проживання</li>
+      <li>Регулюючим та наглядовим органам</li>
+      <li>Нашим підрядникам — постачальникам ІТ-послуг, юридичних послуг та хмарних сервісів</li>
+      <li>Третім особам лише у випадках, передбачених законом, або для цілей дозволеної обробки</li>
+    </ul>
+    <p>Ми не продаємо і не передаємо ваші дані в оренду за жодних обставин. При передачі даних за межі Туреччини/ЄЕЗ ми забезпечуємо належні заходи захисту (наприклад, стандартні договірні умови).</p>
+  </div>
+
+  <div class="policy-section">
+    <h2><span class="num">6</span>Зберігання даних</h2>
+    <p>Ми зберігаємо персональні дані лише протягом терміну, необхідного для досягнення цілей, викладених у цій політиці, або відповідно до вимог чинного законодавства (наприклад, 10 років для медичних записів згідно з законодавством Туреччини).</p>
+  </div>
+
+  <div class="policy-section">
+    <h2><span class="num">7</span>Ваші права щодо захисту даних</h2>
+    <p>Відповідно до PDPL та GDPR ви маєте право:</p>
+    <ul>
+      <li>Дізнатися, чи обробляються ваші персональні дані</li>
+      <li>Запросити доступ до своїх даних</li>
+      <li>Запросити виправлення неточних або неповних даних</li>
+      <li>Запросити видалення або обмеження обробки за певних умов</li>
+      <li>Заперечувати проти автоматизованого прийняття рішень</li>
+      <li>Відкликати свою згоду в будь-який час</li>
+      <li>Подати скаргу до наглядового органу у разі порушення ваших прав</li>
+    </ul>
+    <p>Щоб скористатися своїми правами, зв'яжіться з нами:</p>
+    <div class="contact-block">
+      <p><a href="mailto:info.globalmed.clinic@gmail.com">info.globalmed.clinic@gmail.com</a></p>
+    </div>
+  </div>
+
+  <div class="policy-section">
+    <h2><span class="num">8</span>Використання файлів cookie</h2>
+    <p>Ми використовуємо файли cookie для покращення вашого досвіду роботи з сайтом, аналізу трафіку та персоналізації контенту. Ви можете керувати файлами cookie або вимикати їх у налаштуваннях браузера.</p>
+  </div>
+
+  <div class="policy-section">
+    <h2><span class="num">9</span>Безпека ваших даних</h2>
+    <p>Ми застосовуємо відповідні технічні та організаційні заходи безпеки для запобігання несанкціонованому доступу, розкриттю, зміні або знищенню ваших персональних даних.</p>
+  </div>
+
+  <div class="policy-section">
+    <h2><span class="num">10</span>Зміни до цієї Політики конфіденційності</h2>
+    <p>Ця Політика конфіденційності може періодично оновлюватися. Рекомендуємо час від часу переглядати цю сторінку на предмет будь-яких змін. Остання версія завжди доступна на нашому веб-сайті.</p>
+  </div>
+
+  <div class="policy-section">
+    <h2><span class="num" style="background:var(--accent);">✉</span>Контактна інформація</h2>
+    <p>Якщо у вас є запитання або сумніви щодо нашої політики конфіденційності, будь ласка, зв'яжіться з нами:</p>
+    <div class="contact-block">
+      <p><strong>Ел. пошта:</strong> <a href="mailto:info.globalmed.clinic@gmail.com">info.globalmed.clinic@gmail.com</a></p>
+      <p><strong>Телефон:</strong> <a href="tel:+420607118531">+420 607 118 531</a></p>
+      <p><strong>Адреса:</strong> Zafer, Çınar Sk. No:1/21, 34194 Bahçelievler/İstanbul</p>
+    </div>
+  </div>
+
+</div>
+
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="footer-brand">GlobalMed</div>
+  <div class="footer-tagline">Медичний туризм · Прага → Туреччина</div>
+  <div>
+    <a href="mailto:info.globalmed.clinic@gmail.com">info.globalmed.clinic@gmail.com</a>
+    &nbsp;·&nbsp;
+    <a href="tel:+420607118531">+420 607 118 531</a>
+  </div>
+  <div class="footer-disclaimer">Будучи посередницькою організацією, ми надаємо вам цю послугу в закладах, що мають ліцензію на надання послуг у сфері медичного туризму. Послуги надаються підприємством Renewal Medical Clinic.</div>
+  <div class="footer-copy">© 2026 GlobalMed. Всі права захищені.</div>
+</footer>
+
+
+<!-- ══ LOGIN MODAL ══ -->
+<div class="modal-overlay" id="login-modal">
+  <div class="modal-card">
+    <button class="modal-close" id="modal-close-btn">✕</button>
+    <div class="modal-logo-row">
+      <div class="modal-logo-icon">
+        <svg width="22" height="22" viewBox="0 0 26 26" fill="none">
+          <rect x="11" y="3" width="4" height="20" rx="2" fill="white"/>
+          <rect x="3" y="11" width="20" height="4" rx="2" fill="white"/>
+        </svg>
+      </div>
+      <span class="modal-logo-name">GlobalMed</span>
+    </div>
+    <h2>Вхід в акаунт</h2>
+    <p class="modal-sub">Введіть email і пароль для входу</p>
+    <div class="modal-error" id="login-error"></div>
+    <form id="login-form">
+      <div class="modal-field">
+        <label>Email</label>
+        <input type="email" name="email" placeholder="example@email.com" autocomplete="email" required>
+      </div>
+      <div class="modal-field">
+        <label>Пароль</label>
+        <input type="password" name="password" placeholder="••••••••" autocomplete="current-password" required>
+      </div>
+      <button type="submit" class="modal-submit">Увійти →</button>
+    </form>
+    <p class="modal-footer-note">
+      Немає акаунта? <a href="/register">Зареєструватися</a>
+    </p>
+  </div>
+</div>
+
+
+<script>
+(function() {
+  var isAuth = document.cookie.split('; ').some(function(c) { return c.startsWith('_auth='); });
+  if (isAuth) {
+    document.getElementById('btn-profile').style.display = 'inline-flex';
+    document.getElementById('btn-login').style.display = 'none';
+    document.getElementById('btn-register').style.display = 'none';
+  }
+})();
+</script>
+
+<script>
+(function () {
+  const overlay = document.getElementById('login-modal');
+  const errorEl = document.getElementById('login-error');
+  function openModal() { overlay.classList.add('active'); document.body.style.overflow = 'hidden'; }
+  function closeModal() { overlay.classList.remove('active'); document.body.style.overflow = ''; errorEl.style.display = 'none'; errorEl.textContent = ''; }
+  document.querySelectorAll('.btn-login').forEach(btn => btn.addEventListener('click', e => { e.preventDefault(); openModal(); }));
+  document.getElementById('modal-close-btn').addEventListener('click', closeModal);
+  overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+  document.getElementById('login-form').addEventListener('submit', async e => {
+    e.preventDefault();
+    const btn = e.target.querySelector('.modal-submit');
+    btn.disabled = true; btn.textContent = 'Завантаження…';
+    errorEl.style.display = 'none';
+    try {
+      const res = await fetch('/login', { method: 'POST', body: new FormData(e.target) });
+      const data = await res.json();
+      if (data.error) { errorEl.textContent = data.error; errorEl.style.display = 'block'; }
+      else if (data.redirect) { window.location.href = data.redirect; }
+    } catch { errorEl.textContent = "Помилка з'єднання. Спробуйте знову."; errorEl.style.display = 'block'; }
+    btn.disabled = false; btn.textContent = 'Увійти →';
+  });
+})();
+</script>
+
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({ pageLanguage: 'uk', includedLanguages: 'uk,cs,en,ru,tr', layout: google.translate.TranslateElement.InlineLayout.SIMPLE, autoDisplay: false }, 'google_translate_element');
+}
+</script>
+<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+</body>
+</html>

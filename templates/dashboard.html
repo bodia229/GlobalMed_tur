@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%230B6B6B'/><rect x='13' y='4' width='6' height='24' rx='3' fill='white'/><rect x='4' y='13' width='24' height='6' rx='3' fill='white'/></svg>">
+  <title>Мій кабінет — GlobalMed</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --primary:       #0B6B6B;
+      --primary-light: #14A8A8;
+      --accent:        #E8A838;
+      --bg:            #F2FAFA;
+      --text:          #1A3340;
+      --text-light:    #5A7A84;
+      --white:         #FFFFFF;
+      --shadow:        rgba(11, 107, 107, 0.10);
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Montserrat', sans-serif; color: var(--text); background: var(--bg); min-height: 100vh; }
+
+    /* ─── HEADER ─── */
+    header {
+      position: sticky; top: 0; z-index: 100;
+      background: var(--white);
+      box-shadow: 0 2px 18px var(--shadow);
+    }
+    nav {
+      max-width: 1200px; margin: 0 auto;
+      padding: 0 28px; height: 68px;
+      display: flex; align-items: center; gap: 16px;
+    }
+    .logo { display: flex; align-items: center; gap: 11px; text-decoration: none; flex-shrink: 0; }
+    .logo-icon {
+      width: 42px; height: 42px; background: var(--primary);
+      border-radius: 10px; display: flex; align-items: center; justify-content: center;
+    }
+    .logo-text .brand { font-size: 17px; font-weight: 700; color: var(--primary); line-height: 1.2; }
+    .logo-text .tagline { font-size: 10px; color: var(--text-light); font-weight: 500; text-transform: uppercase; letter-spacing: 0.6px; }
+
+    .nav-right { margin-left: auto; display: flex; align-items: center; gap: 12px; }
+    .nav-email { font-size: 13px; color: var(--text-light); font-weight: 500; }
+    .btn-home {
+      text-decoration: none; color: var(--primary); font-size: 13px; font-weight: 600;
+      padding: 7px 16px; border: 1.5px solid rgba(11,107,107,0.3); border-radius: 8px;
+      transition: all 0.2s;
+    }
+    .btn-home:hover { background: rgba(11,107,107,0.06); }
+    .btn-logout {
+      text-decoration: none; color: var(--text-light); font-size: 13px; font-weight: 600;
+      padding: 7px 16px; border: 1.5px solid #D0E8E8; border-radius: 8px;
+      transition: all 0.2s;
+    }
+    .btn-logout:hover { color: var(--text); border-color: #A0C8C8; }
+
+    /* ─── PAGE ─── */
+    .page { max-width: 1200px; margin: 0 auto; padding: 40px 28px 70px; }
+
+    .welcome-row {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 36px; flex-wrap: wrap; gap: 16px;
+    }
+    .welcome-row h1 { font-size: 24px; font-weight: 700; color: var(--text); }
+    .welcome-row h1 span { color: var(--primary); }
+    .welcome-row p { font-size: 14px; color: var(--text-light); margin-top: 4px; }
+
+    .btn-new-inquiry {
+      text-decoration: none; background: var(--primary); color: #fff;
+      font-size: 14px; font-weight: 700; padding: 11px 24px;
+      border-radius: 10px; transition: all 0.2s; white-space: nowrap;
+    }
+    .btn-new-inquiry:hover { background: var(--primary-light); }
+
+    /* ─── TABLE ─── */
+    .section-head { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; }
+    .section-head h2 { font-size: 18px; font-weight: 700; color: var(--text); }
+    .count-badge {
+      background: rgba(11, 107, 107, 0.08); color: var(--primary);
+      font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 20px;
+    }
+
+    .table-wrap {
+      background: var(--white); border-radius: 18px;
+      box-shadow: 0 2px 20px var(--shadow); overflow: hidden;
+    }
+
+    table { width: 100%; border-collapse: collapse; }
+    thead th {
+      background: rgba(11, 107, 107, 0.05);
+      padding: 14px 20px; text-align: left;
+      font-size: 11px; font-weight: 700; color: var(--text-light);
+      text-transform: uppercase; letter-spacing: 0.7px;
+      border-bottom: 1px solid rgba(11, 107, 107, 0.08);
+    }
+    tbody tr {
+      border-bottom: 1px solid rgba(11, 107, 107, 0.06);
+      transition: background 0.15s;
+    }
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:hover { background: rgba(11, 107, 107, 0.03); }
+    tbody td { padding: 14px 20px; font-size: 13.5px; color: var(--text); vertical-align: middle; }
+
+    .td-id { color: var(--text-light); font-weight: 600; font-size: 13px; }
+    .td-name { font-weight: 600; }
+    .td-phone { color: var(--primary); font-weight: 600; }
+    .td-service {
+      max-width: 340px; white-space: nowrap;
+      overflow: hidden; text-overflow: ellipsis; color: var(--text-light);
+    }
+
+    .empty-state {
+      text-align: center; padding: 72px 20px;
+    }
+    .empty-icon { font-size: 52px; margin-bottom: 18px; }
+    .empty-state h3 { font-size: 18px; font-weight: 700; color: var(--text); margin-bottom: 10px; }
+    .empty-state p { font-size: 14px; color: var(--text-light); line-height: 1.7; margin-bottom: 28px; }
+
+    @media (max-width: 620px) {
+      .nav-email { display: none; }
+      thead th:nth-child(3), tbody td:nth-child(3) { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <a href="/" class="logo">
+      <div class="logo-icon">
+        <svg width="24" height="24" viewBox="0 0 26 26" fill="none">
+          <rect x="11" y="3" width="4" height="20" rx="2" fill="white"/>
+          <rect x="3" y="11" width="20" height="4" rx="2" fill="white"/>
+        </svg>
+      </div>
+      <div class="logo-text">
+        <div class="brand">GlobalMed</div>
+        <div class="tagline">Клініка · Туреччина</div>
+      </div>
+    </a>
+    <div class="nav-right">
+      <span class="nav-email">{{ user.email }}</span>
+      <a href="/" class="btn-home">На головну</a>
+      <a href="/logout" class="btn-logout">Вийти</a>
+    </div>
+  </nav>
+</header>
+
+
+<div class="page">
+
+  <div class="welcome-row">
+    <div>
+      <h1>Мій кабінет</h1>
+      <p>Тут відображаються всі ваші заявки на лікування</p>
+    </div>
+    <a href="/#contact" class="btn-new-inquiry">+ Нова заявка</a>
+  </div>
+
+  <div class="section-head">
+    <h2>Мої заявки</h2>
+    <span class="count-badge">{{ inquiries|length }}</span>
+  </div>
+
+  <div class="table-wrap">
+    {% if inquiries %}
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Ім'я</th>
+          <th>Телефон</th>
+          <th>Послуга / Опис</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for inq in inquiries %}
+        <tr>
+          <td class="td-id">#{{ inq.id }}</td>
+          <td class="td-name">{{ inq.name }}</td>
+          <td class="td-phone">{{ inq.phone }}</td>
+          <td class="td-service" title="{{ inq.service }}">{{ inq.service }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <div class="empty-state">
+      <div class="empty-icon">📋</div>
+      <h3>Заявок поки немає</h3>
+      <p>Залиште заявку — ми безкоштовно проконсультуємо<br>і підберемо найкращу клініку для вас.</p>
+      <a href="/#contact" class="btn-new-inquiry">Залишити заявку →</a>
+    </div>
+    {% endif %}
+  </div>
+
+</div>
+
+</body>
+</html>

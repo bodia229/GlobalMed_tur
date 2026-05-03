@@ -1,0 +1,1333 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%230B6B6B'/><rect x='13' y='4' width='6' height='24' rx='3' fill='white'/><rect x='4' y='13' width='24' height='6' rx='3' fill='white'/></svg>">
+  <title>GlobalMed — Лікування в Туреччині</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --primary:       #0B6B6B;
+      --primary-light: #14A8A8;
+      --accent:        #E8A838;
+      --accent-dark:   #C98E25;
+      --bg:            #F2FAFA;
+      --text:          #1A3340;
+      --text-light:    #5A7A84;
+      --white:         #FFFFFF;
+      --shadow:        rgba(11, 107, 107, 0.10);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      color: var(--text);
+      background: var(--bg);
+    }
+
+    /* ─────────────── HEADER ─────────────── */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      background: var(--white);
+      box-shadow: 0 2px 18px var(--shadow);
+    }
+
+    nav {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 28px;
+      height: 70px;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    /* Logo */
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+
+    .logo-icon {
+      width: 44px;
+      height: 44px;
+      background: var(--primary);
+      border-radius: 11px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .logo-text .brand {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--primary);
+      letter-spacing: -0.3px;
+      line-height: 1.2;
+    }
+
+    .logo-text .tagline {
+      font-size: 10px;
+      color: var(--text-light);
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+    }
+
+    /* Nav links */
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 4px;
+      margin-left: 8px;
+      flex: 1;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text);
+      font-size: 14px;
+      font-weight: 500;
+      padding: 8px 14px;
+      border-radius: 8px;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--primary);
+      background: rgba(11, 107, 107, 0.07);
+    }
+
+    /* Right side of nav */
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+      margin-left: auto;
+    }
+
+    /* Google Translate widget */
+    .translate-wrapper {
+      border: 1.5px solid #C8E8E8;
+      border-radius: 8px;
+      padding: 3px 10px;
+      background: #F5FDFD;
+      display: flex;
+      align-items: center;
+    }
+
+    .goog-te-gadget {
+      font-family: 'Montserrat', sans-serif !important;
+      font-size: 0 !important;
+      color: var(--primary) !important;
+    }
+
+    .goog-te-gadget .goog-te-combo {
+      border: none !important;
+      outline: none !important;
+      font-family: 'Montserrat', sans-serif !important;
+      font-size: 13px !important;
+      font-weight: 600 !important;
+      color: var(--primary) !important;
+      cursor: pointer;
+      background: transparent;
+      padding: 4px 0;
+    }
+
+    .goog-logo-link,
+    .goog-te-gadget > span { display: none !important; }
+
+    .btn-login {
+      text-decoration: none;
+      color: var(--primary);
+      font-size: 14px;
+      font-weight: 600;
+      padding: 8px 18px;
+      border: 2px solid var(--primary);
+      border-radius: 9px;
+      transition: all 0.2s;
+    }
+
+    .btn-login:hover {
+      background: var(--primary);
+      color: var(--white);
+    }
+
+    .btn-register {
+      text-decoration: none;
+      color: var(--white);
+      font-size: 14px;
+      font-weight: 600;
+      padding: 8px 18px;
+      background: var(--primary);
+      border: 2px solid var(--primary);
+      border-radius: 9px;
+      transition: all 0.2s;
+    }
+
+    .btn-register:hover {
+      background: var(--primary-light);
+      border-color: var(--primary-light);
+    }
+
+    .btn-profile {
+      text-decoration: none;
+      color: var(--white);
+      font-size: 14px;
+      font-weight: 600;
+      padding: 8px 18px;
+      background: var(--primary);
+      border: 2px solid var(--primary);
+      border-radius: 9px;
+      transition: all 0.2s;
+      display: none;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn-profile:hover {
+      background: var(--primary-light);
+      border-color: var(--primary-light);
+    }
+
+    /* ─────────────── HERO ─────────────── */
+    .hero {
+      background: linear-gradient(135deg, #085858 0%, #0B8080 55%, #13B5B5 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle at 70% 50%, rgba(255,255,255,0.04) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    /* decorative circles */
+    .hero-decor {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.04);
+      pointer-events: none;
+    }
+    .hero-decor-1 { width: 400px; height: 400px; top: -120px; right: -80px; }
+    .hero-decor-2 { width: 250px; height: 250px; bottom: -60px; left: 30%; }
+
+    .hero-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 90px 28px 80px;
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.14);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: 20px;
+      margin-bottom: 22px;
+      border: 1px solid rgba(255,255,255,0.22);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+
+    .hero h1 {
+      font-size: 44px;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.15;
+      margin-bottom: 22px;
+      letter-spacing: -0.8px;
+    }
+
+    .hero h1 span { color: var(--accent); }
+
+    .hero-subtitle {
+      font-size: 16px;
+      color: rgba(255,255,255,0.82);
+      line-height: 1.75;
+      margin-bottom: 38px;
+      font-weight: 400;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .btn-hero-primary {
+      text-decoration: none;
+      background: var(--accent);
+      color: #fff;
+      font-size: 15px;
+      font-weight: 700;
+      padding: 14px 32px;
+      border-radius: 10px;
+      transition: all 0.2s;
+      box-shadow: 0 6px 24px rgba(232, 168, 56, 0.45);
+    }
+
+    .btn-hero-primary:hover {
+      background: var(--accent-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(232, 168, 56, 0.5);
+    }
+
+    .btn-hero-secondary {
+      text-decoration: none;
+      color: #fff;
+      font-size: 15px;
+      font-weight: 600;
+      padding: 14px 28px;
+      border-radius: 10px;
+      border: 2px solid rgba(255,255,255,0.45);
+      transition: all 0.2s;
+    }
+
+    .btn-hero-secondary:hover {
+      border-color: #fff;
+      background: rgba(255,255,255,0.1);
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 32px;
+      margin-top: 44px;
+      padding-top: 36px;
+      border-top: 1px solid rgba(255,255,255,0.15);
+    }
+
+    .stat-num {
+      font-size: 30px;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 12px;
+      color: rgba(255,255,255,0.65);
+      margin-top: 4px;
+      font-weight: 500;
+    }
+
+    /* Hero Application Card */
+    .hero-card {
+      background: rgba(255,255,255,0.13);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(255,255,255,0.22);
+      border-radius: 22px;
+      padding: 36px 32px;
+    }
+
+    .hero-card h3 {
+      font-size: 19px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+
+    .hero-card .card-sub {
+      font-size: 13px;
+      color: rgba(255,255,255,0.65);
+      margin-bottom: 26px;
+    }
+
+    .hero-card input,
+    .hero-card textarea {
+      width: 100%;
+      padding: 13px 16px;
+      border-radius: 10px;
+      border: 1.5px solid rgba(255,255,255,0.28);
+      background: rgba(255,255,255,0.12);
+      color: #fff;
+      font-size: 14px;
+      font-family: 'Montserrat', sans-serif;
+      margin-bottom: 12px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .hero-card input::placeholder,
+    .hero-card textarea::placeholder { color: rgba(255,255,255,0.55); }
+
+    .hero-card input:focus,
+    .hero-card textarea:focus { border-color: var(--accent); }
+
+    .hero-card textarea {
+      height: 90px;
+      resize: none;
+    }
+
+    .btn-submit {
+      width: 100%;
+      padding: 13px;
+      background: var(--accent);
+      color: #fff;
+      font-size: 15px;
+      font-weight: 700;
+      font-family: 'Montserrat', sans-serif;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.2s;
+      margin-top: 4px;
+    }
+
+    .btn-submit:hover { background: var(--accent-dark); }
+
+    /* ─────────────── TRUST STRIP ─────────────── */
+    .trust-strip {
+      background: linear-gradient(90deg, #085858, #0B6B6B, #085858);
+      padding: 16px 28px;
+      text-align: center;
+    }
+    .trust-strip-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .trust-strip-text {
+      color: #fff;
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+    }
+    .trust-strip-text span { color: var(--accent); }
+
+    /* ─────────────── SHARED SECTION STYLES ─────────────── */
+    .section { padding: 84px 28px; }
+
+    .section-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      text-align: center;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--primary-light);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 34px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 14px;
+      letter-spacing: -0.5px;
+    }
+
+    .section-subtitle {
+      text-align: center;
+      font-size: 16px;
+      color: var(--text-light);
+      max-width: 560px;
+      margin: 0 auto 54px;
+      line-height: 1.75;
+    }
+
+    /* ─────────────── WHY US ─────────────── */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .card {
+      background: var(--white);
+      border-radius: 18px;
+      padding: 32px 28px;
+      box-shadow: 0 2px 20px var(--shadow);
+      transition: transform 0.22s, box-shadow 0.22s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 36px var(--shadow);
+    }
+
+    .card-icon {
+      width: 54px;
+      height: 54px;
+      background: rgba(11, 107, 107, 0.08);
+      border-radius: 13px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+      margin-bottom: 20px;
+    }
+
+    .card h3 {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      font-size: 14px;
+      color: var(--text-light);
+      line-height: 1.72;
+    }
+
+    /* ─────────────── SERVICES ─────────────── */
+    /* ─── SERVICES TABS ─── */
+    .svc-section { background: linear-gradient(180deg, #DCEFEF 0%, var(--bg) 100%); }
+    .svc-tabs { display: flex; border-bottom: 2px solid rgba(11,107,107,0.12); overflow-x: auto; scrollbar-width: none; margin-bottom: 0; }
+    .svc-tabs::-webkit-scrollbar { display: none; }
+    .svc-tab { flex-shrink: 0; padding: 16px 20px; font-size: 12.5px; font-weight: 700; color: var(--text-light); background: none; border: none; cursor: pointer; font-family: 'Montserrat', sans-serif; text-transform: uppercase; letter-spacing: 0.6px; position: relative; transition: color 0.2s; white-space: nowrap; }
+    .svc-tab::after { content: ''; position: absolute; bottom: -2px; left: 0; right: 0; height: 2px; background: var(--primary); transform: scaleX(0); transition: transform 0.22s; }
+    .svc-tab:hover { color: var(--primary); }
+    .svc-tab.active { color: var(--primary); }
+    .svc-tab.active::after { transform: scaleX(1); }
+    .svc-panel { display: none; }
+    .svc-panel.active { display: grid; grid-template-columns: 420px 1fr; background: var(--white); border-radius: 0 0 20px 20px; box-shadow: 0 4px 30px var(--shadow); overflow: hidden; min-height: 440px; }
+    .svc-panel-img { position: relative; }
+    .svc-panel-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .svc-panel-body { padding: 44px 44px; display: flex; flex-direction: column; }
+    .svc-panel-body h3 { font-size: 26px; font-weight: 700; color: var(--text); margin-bottom: 10px; }
+    .svc-panel-body > p { font-size: 14px; color: var(--text-light); line-height: 1.75; margin-bottom: 24px; }
+    .svc-procs { display: grid; grid-template-columns: 1fr 1fr; gap: 0 24px; margin-bottom: 28px; flex: 1; list-style: none; align-content: start; }
+    .svc-procs li { font-size: 13px; color: var(--text-light); padding: 6px 0; border-bottom: 1px solid rgba(11,107,107,0.06); display: flex; align-items: center; gap: 8px; }
+    .svc-procs li::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--primary); flex-shrink: 0; }
+    .btn-svc-cta { display: inline-flex; align-items: center; gap: 8px; background: var(--primary); color: #fff; padding: 13px 28px; border-radius: 10px; font-size: 14px; font-weight: 700; text-decoration: none; transition: all 0.2s; align-self: flex-start; }
+    .btn-svc-cta:hover { background: var(--primary-light); transform: translateY(-1px); }
+
+    /* ─────────────── HOW IT WORKS ─────────────── */
+    .steps {
+      display: flex;
+      position: relative;
+    }
+
+    .steps::before {
+      content: '';
+      position: absolute;
+      top: 27px;
+      left: 12%;
+      right: 12%;
+      height: 2px;
+      background: linear-gradient(90deg, var(--primary), var(--primary-light));
+    }
+
+    .step {
+      flex: 1;
+      text-align: center;
+      padding: 0 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .step-num {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: #fff;
+      font-size: 20px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 22px;
+      border: 4px solid var(--bg);
+      box-shadow: 0 0 0 3px var(--primary);
+    }
+
+    .step h4 {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .step p {
+      font-size: 13px;
+      color: var(--text-light);
+      line-height: 1.65;
+    }
+
+    /* ─────────────── MOBILE CONTACT ─────────────── */
+    .mobile-contact { display: none; }
+
+    .contact-form-card {
+      background: var(--white);
+      border-radius: 20px;
+      padding: 40px;
+      max-width: 560px;
+      margin: 0 auto;
+      box-shadow: 0 4px 30px var(--shadow);
+    }
+
+    .contact-form-card input,
+    .contact-form-card textarea {
+      width: 100%;
+      padding: 13px 16px;
+      border-radius: 10px;
+      border: 1.5px solid #D0E8E8;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 14px;
+      font-family: 'Montserrat', sans-serif;
+      margin-bottom: 14px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .contact-form-card input:focus,
+    .contact-form-card textarea:focus { border-color: var(--primary); }
+
+    .contact-form-card textarea {
+      height: 110px;
+      resize: none;
+    }
+
+    .contact-form-card .btn-submit {
+      background: var(--primary);
+      font-size: 15px;
+      margin-top: 0;
+    }
+
+    .contact-form-card .btn-submit:hover { background: var(--primary-light); }
+
+    /* ─────────────── FOOTER ─────────────── */
+    footer {
+      background: #082828;
+      color: rgba(255,255,255,0.55);
+      padding: 50px 28px 36px;
+      text-align: center;
+      font-size: 13px;
+    }
+
+    .footer-brand {
+      color: #fff;
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .footer-tagline {
+      font-size: 13px;
+      margin-bottom: 24px;
+    }
+
+    footer a {
+      color: var(--primary-light);
+      text-decoration: none;
+    }
+
+    footer a:hover { text-decoration: underline; }
+
+    .footer-disclaimer {
+      max-width: 700px;
+      margin: 20px auto 0;
+      font-size: 11.5px;
+      line-height: 1.65;
+      color: rgba(255,255,255,0.38);
+      font-style: italic;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding-top: 18px;
+    }
+
+    .footer-copy {
+      margin-top: 16px;
+      font-size: 12px;
+      opacity: 0.4;
+    }
+
+    /* ─────────────── RESPONSIVE ─────────────── */
+    @media (max-width: 960px) {
+      .hero-inner { grid-template-columns: 1fr; }
+      .hero-card { display: none; }
+      .mobile-contact { display: block; }
+      .cards-grid { grid-template-columns: 1fr 1fr; }
+      .svc-panel.active { grid-template-columns: 1fr; }
+      .svc-panel-img { min-height: 260px; }
+      .steps { flex-direction: column; gap: 28px; }
+      .steps::before { display: none; }
+    }
+    @media (max-width: 700px) {
+      .svc-panel-body { padding: 28px 22px; }
+      .svc-procs { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 620px) {
+      .nav-links { display: none; }
+      .btn-login { display: none; }
+      .hero h1 { font-size: 30px; }
+      .cards-grid { grid-template-columns: 1fr; }
+      .section-title { font-size: 26px; }
+      .contact-form-card { padding: 28px 22px; }
+    }
+
+    /* ─────────────── MODAL ─────────────── */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(8, 25, 25, 0.62);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s;
+    }
+    .modal-overlay.active { opacity: 1; pointer-events: all; }
+    .modal-card {
+      background: var(--white);
+      border-radius: 22px;
+      padding: 44px 40px;
+      width: 100%;
+      max-width: 420px;
+      position: relative;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.24);
+      transform: translateY(22px) scale(0.98);
+      transition: transform 0.28s;
+    }
+    .modal-overlay.active .modal-card { transform: translateY(0) scale(1); }
+    .modal-close {
+      position: absolute;
+      top: 14px; right: 14px;
+      background: none; border: none;
+      font-size: 20px; cursor: pointer;
+      color: var(--text-light);
+      width: 36px; height: 36px;
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.18s;
+    }
+    .modal-close:hover { background: var(--bg); color: var(--text); }
+    .modal-logo-row { display: flex; align-items: center; gap: 10px; margin-bottom: 26px; }
+    .modal-logo-icon {
+      width: 38px; height: 38px; background: var(--primary);
+      border-radius: 9px; display: flex; align-items: center; justify-content: center;
+    }
+    .modal-logo-name { font-size: 17px; font-weight: 700; color: var(--primary); }
+    .modal-card h2 { font-size: 22px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+    .modal-sub { font-size: 14px; color: var(--text-light); margin-bottom: 26px; line-height: 1.5; }
+    .modal-error {
+      background: #FEF2F2; border: 1px solid #FCA5A5; color: #DC2626;
+      font-size: 13px; font-weight: 500; padding: 10px 14px;
+      border-radius: 9px; margin-bottom: 16px; display: none;
+    }
+    .modal-field { margin-bottom: 14px; }
+    .modal-field label {
+      display: block; font-size: 11px; font-weight: 700; color: var(--text);
+      margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.6px;
+    }
+    .modal-field input {
+      width: 100%; padding: 13px 16px; border-radius: 10px;
+      border: 1.5px solid #C8E8E8; background: var(--bg); color: var(--text);
+      font-size: 14px; font-family: 'Montserrat', sans-serif;
+      outline: none; transition: border-color 0.2s;
+    }
+    .modal-field input:focus { border-color: var(--primary); }
+    .modal-submit {
+      width: 100%; padding: 13px; background: var(--primary); color: #fff;
+      font-size: 15px; font-weight: 700; font-family: 'Montserrat', sans-serif;
+      border: none; border-radius: 10px; cursor: pointer; margin-top: 6px; transition: all 0.2s;
+    }
+    .modal-submit:hover { background: var(--primary-light); }
+    .modal-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+    .modal-footer-note { text-align: center; margin-top: 20px; font-size: 13px; color: var(--text-light); }
+    .modal-footer-note a { color: var(--primary); font-weight: 600; text-decoration: none; }
+    .modal-footer-note a:hover { text-decoration: underline; }
+
+    /* ─────────────── DROPDOWN ─────────────── */
+    .has-dropdown { position: relative; }
+    .has-dropdown > a { display: flex !important; align-items: center; gap: 5px; }
+    .chevron-icon { width: 12px; height: 8px; flex-shrink: 0; transition: transform 0.22s; color: currentColor; }
+    .has-dropdown:hover > a .chevron-icon { transform: rotate(180deg); }
+
+    .nav-dropdown {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      padding-top: 10px;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(-6px);
+      transition: opacity 0.18s, transform 0.18s;
+      z-index: 150;
+    }
+    .has-dropdown:hover .nav-dropdown {
+      opacity: 1;
+      pointer-events: all;
+      transform: translateY(0);
+    }
+    .dropdown-inner {
+      background: var(--white);
+      border-radius: 16px;
+      box-shadow: 0 12px 48px rgba(11, 107, 107, 0.16), 0 2px 8px rgba(0,0,0,0.06);
+      padding: 22px 28px;
+      display: grid;
+      grid-template-columns: 1fr 1px 1fr;
+      gap: 0 28px;
+      min-width: 500px;
+      border: 1px solid rgba(11, 107, 107, 0.09);
+    }
+    .dropdown-divider { background: #D6EEEE; margin: 2px 0; }
+    .dropdown-col a {
+      display: block;
+      padding: 9px 0;
+      font-size: 13.5px;
+      color: var(--text-light);
+      text-decoration: none;
+      font-weight: 500;
+      white-space: nowrap;
+      background: none;
+      border-radius: 0;
+      transition: color 0.15s;
+    }
+    .dropdown-col a:hover { color: var(--primary); background: none; }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════ HEADER ══════════════ -->
+<header>
+  <nav>
+    <a href="/" class="logo">
+      <div class="logo-icon">
+        <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
+          <rect x="11" y="3" width="4" height="20" rx="2" fill="white"/>
+          <rect x="3" y="11" width="20" height="4" rx="2" fill="white"/>
+        </svg>
+      </div>
+      <div class="logo-text">
+        <div class="brand">GlobalMed</div>
+        <div class="tagline">Клініка · Туреччина</div>
+      </div>
+    </a>
+
+    <ul class="nav-links">
+      <li><a href="/" class="active">Головна</a></li>
+      <li class="has-dropdown">
+        <a href="/about_us">Про нас
+          <svg class="chevron-icon" viewBox="0 0 12 8" fill="none">
+            <path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+        <div class="nav-dropdown">
+          <div class="dropdown-inner">
+            <div class="dropdown-col">
+              <a href="/about_us#story">Як це працює?</a>
+              <a href="/about_us#services">Наші послуги</a>
+              <a href="/contacts">Ваші запитання</a>
+              <a href="/privacy">Правила користування</a>
+            </div>
+            <div class="dropdown-divider"></div>
+            <div class="dropdown-col">
+              <a href="/reviews">Відгуки клієнтів</a>
+              <a href="/about_us">Лікування за кордоном</a>
+              <a href="/about_us#services">Критерії відбору лікарень</a>
+              <a href="/privacy">Політика конфіденційності</a>
+            </div>
+          </div>
+        </div>
+      </li>
+      <li><a href="#services">Послуги</a></li>
+      <li><a href="/gallery">Галерея</a></li>
+      <li><a href="/reviews">Відгуки</a></li>
+      <li><a href="/contacts">Контакти</a></li>
+    </ul>
+
+    <div class="nav-right">
+      <div class="translate-wrapper">
+        <div id="google_translate_element"></div>
+      </div>
+      <a href="/dashboard" class="btn-profile" id="btn-profile">👤 Мій профіль</a>
+      <a href="/login" class="btn-login" id="btn-login">Увійти</a>
+      <a href="/register" class="btn-register" id="btn-register">Реєстрація</a>
+    </div>
+  </nav>
+</header>
+
+
+<!-- ══════════════ HERO ══════════════ -->
+<section class="hero">
+  <div class="hero-decor hero-decor-1"></div>
+  <div class="hero-decor hero-decor-2"></div>
+
+  <div class="hero-inner">
+    <!-- Left: text -->
+    <div class="hero-left">
+      <div class="hero-badge">
+        <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
+          <path d="M6.5 1.5C3.74 1.5 1.5 3.74 1.5 6.5S3.74 11.5 6.5 11.5 11.5 9.26 11.5 6.5 9.26 1.5 6.5 1.5z" stroke="white" stroke-width="1.3"/>
+          <path d="M6.5 4v2.5L8 8" stroke="white" stroke-width="1.3" stroke-linecap="round"/>
+        </svg>
+        Медичний туризм · Прага → Туреччина
+      </div>
+
+      <h1>Ваше здоров'я —<br><span>наш пріоритет</span></h1>
+
+      <p class="hero-subtitle">
+        Ми організовуємо якісне лікування та операції в провідних клініках Туреччини.
+        Персональний супровідник буде поруч з вами від Праги і до повного одужання.
+      </p>
+
+      <div class="hero-cta">
+        <a href="#contact" class="btn-hero-primary">Залишити заявку</a>
+        <a href="/about_us" class="btn-hero-secondary">Дізнатись більше</a>
+      </div>
+
+      <div class="hero-stats">
+        <div class="stat">
+          <div class="stat-num">500+</div>
+          <div class="stat-label">Пацієнтів з Праги</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">98%</div>
+          <div class="stat-label">Задоволені</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: quick form (hidden on mobile) -->
+    <div class="hero-card">
+      <h3>Залишити заявку</h3>
+      <p class="card-sub">Ми зв'яжемося з вами протягом 24 годин</p>
+      <form action="/submit-order" method="post">
+        <input type="text" name="name" placeholder="Ваше ім'я" required>
+        <input type="text" name="phone" placeholder="Номер телефону" required>
+        <textarea name="service_text" placeholder="Опишіть бажану послугу або діагноз..."></textarea>
+        <button type="submit" class="btn-submit">Відправити заявку →</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════ TRUST STRIP ══════════════ -->
+<div class="trust-strip">
+  <div class="trust-strip-inner">
+    <span style="font-size:20px;">😊</span>
+    <p class="trust-strip-text">Більше <span>75 000 людей</span> із <span>80 країн</span> вже обрали нас на шляху до впевненості!</p>
+  </div>
+</div>
+
+
+<!-- ══════════════ WHY US ══════════════ -->
+<section class="section">
+  <div class="section-inner">
+    <div class="section-label">Наші переваги</div>
+    <h2 class="section-title">Чому обирають GlobalMed</h2>
+    <p class="section-subtitle">Супроводжуємо вас на кожному кроці — від консультації до повного відновлення</p>
+
+    <div class="cards-grid">
+      <div class="card">
+        <div class="card-icon">🛡️</div>
+        <h3>Повна безпека</h3>
+        <p>Працюємо лише з ліцензованими клініками Туреччини з міжнародною акредитацією JCI.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🤝</div>
+        <h3>Персональний супровід</h3>
+        <p>Ваш супровідник летить разом з вами з Праги і залишається поруч до кінця лікування.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">💰</div>
+        <h3>Вигідні ціни</h3>
+        <p>Лікування в Туреччині коштує в 2–4 рази дешевше, ніж у Чехії, без втрати якості.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🗣️</div>
+        <h3>Переклад і підтримка</h3>
+        <p>Перекладач завжди поряд. Жодного мовного бар'єру між вами і лікарями.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">✈️</div>
+        <h3>Організація поїздки</h3>
+        <p>Беремо на себе квитки, трансфер, готель і всі організаційні питання.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">📋</div>
+        <h3>Підтримка після лікування</h3>
+        <p>Спостереження після повернення додому: зв'язок з лікарем, рекомендації, контроль.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════ SERVICES ══════════════ -->
+<section class="section svc-section" id="services">
+  <div class="section-inner">
+    <div class="section-label">Послуги</div>
+    <h2 class="section-title">Що ми пропонуємо</h2>
+    <p class="section-subtitle">Широкий спектр медичних процедур у провідних клініках Туреччини</p>
+
+    <div class="svc-tabs">
+      <button class="svc-tab active" data-tab="0">🦷 Лікування зубів</button>
+      <button class="svc-tab" data-tab="1">✨ Естетика</button>
+      <button class="svc-tab" data-tab="2">💇 Пересадка волосся</button>
+      <button class="svc-tab" data-tab="3">👁️ Хірургія очей</button>
+      <button class="svc-tab" data-tab="4">⚖️ Баріатрична хірургія</button>
+      <button class="svc-tab" data-tab="5">🧬 ЕКО</button>
+    </div>
+
+    <div class="svc-panels">
+
+      <!-- ── ЛІКУВАННЯ ЗУБІВ ── -->
+      <div class="svc-panel active" data-panel="0">
+        <div class="svc-panel-img">
+          <img src="https://www.ru.renewalmedicalclinic.com/wp-content/uploads/2025/07/dental-after.jpg" alt="Лікування зубів">
+        </div>
+        <div class="svc-panel-body">
+          <h3>Лікування зубів</h3>
+          <p>Комплексна стоматологія у провідних клініках Стамбула — від профілактики до повної реставрації посмішки. All-on-4 імплантація за тиждень вдвічі дешевше ніж у Чехії.</p>
+          <ul class="svc-procs">
+            <li>Імплантація All-on-4 / All-on-6</li>
+            <li>Veneers та Lumineers</li>
+            <li>Zirconia коронки та мости</li>
+            <li>E-Max коронки</li>
+            <li>Відбілювання зубів</li>
+            <li>Лікування кореневих каналів</li>
+            <li>Синус-ліфт та кісткова пластика</li>
+            <li>Корекція ясен (лазер)</li>
+            <li>Видалення зубів мудрості</li>
+            <li>Знімне та незнімне протезування</li>
+          </ul>
+          <a href="#contact" class="btn-svc-cta">Безкоштовна консультація →</a>
+        </div>
+      </div>
+
+      <!-- ── ЕСТЕТИКА ── -->
+      <div class="svc-panel" data-panel="1">
+        <div class="svc-panel-img">
+          <img src="https://www.ru.renewalmedicalclinic.com/wp-content/uploads/2025/07/after1.jpg" alt="Естетична хірургія">
+        </div>
+        <div class="svc-panel-body">
+          <h3>Естетика</h3>
+          <p>Естетична та реконструктивна хірургія тіла, обличчя і грудей від сертифікованих хірургів найвищого рівня. Повна конфіденційність та персональний супровід.</p>
+          <ul class="svc-procs">
+            <li>Ринопластика</li>
+            <li>Абдомінопластика</li>
+            <li>Ліпосакція / Vaser</li>
+            <li>Brazilian butt lift</li>
+            <li>Збільшення / підтяжка грудей</li>
+            <li>Зменшення грудей</li>
+            <li>Підтяжка обличчя (фейсліфт)</li>
+            <li>Блефаропластика (повіки)</li>
+            <li>Ліфт брів та чола</li>
+            <li>Отопластика</li>
+          </ul>
+          <a href="#contact" class="btn-svc-cta">Безкоштовна консультація →</a>
+        </div>
+      </div>
+
+      <!-- ── ПЕРЕСАДКА ВОЛОССЯ ── -->
+      <div class="svc-panel" data-panel="2">
+        <div class="svc-panel-img">
+          <img src="/static/images/hair-transplant.jpg" alt="Пересадка волосся">
+        </div>
+        <div class="svc-panel-body">
+          <h3>Пересадка волосся</h3>
+          <p>Сучасні техніки відновлення волосся FUE та DHI у топ-клініках Стамбула. Постійний результат без рубців — природній вигляд вже через 12 місяців.</p>
+          <ul class="svc-procs">
+            <li>FUE пересадка волосся</li>
+            <li>DHI (без гоління)</li>
+            <li>Sapphire FUE техніка</li>
+            <li>Жіноча пересадка волосся</li>
+            <li>Пересадка брів</li>
+            <li>Пересадка бороди</li>
+            <li>PRP-терапія</li>
+            <li>Мезотерапія волосся</li>
+            <li>Стовбурові клітини</li>
+            <li>Онлайн-аналіз волосся</li>
+          </ul>
+          <a href="#contact" class="btn-svc-cta">Безкоштовна консультація →</a>
+        </div>
+      </div>
+
+      <!-- ── ХІРУРГІЯ ОЧЕЙ ── -->
+      <div class="svc-panel" data-panel="3">
+        <div class="svc-panel-img">
+          <img src="https://www.ru.renewalmedicalclinic.com/wp-content/uploads/2026/02/8-1024x683.jpg" alt="Хірургія очей">
+        </div>
+        <div class="svc-panel-body">
+          <h3>Хірургія очей</h3>
+          <p>Лазерна корекція зору та хірургія кришталика в акредитованих офтальмологічних центрах Стамбула. Позбудьтесь окулярів назавжди — безпечно і з гарантією результату.</p>
+          <ul class="svc-procs">
+            <li>Лазерна корекція зору (LASIK)</li>
+            <li>Smart Lens (преміум лінза)</li>
+            <li>Операція на катаракті</li>
+          </ul>
+          <a href="#contact" class="btn-svc-cta">Безкоштовна консультація →</a>
+        </div>
+      </div>
+
+      <!-- ── БАРІАТРИЧНА ХІРУРГІЯ ── -->
+      <div class="svc-panel" data-panel="4">
+        <div class="svc-panel-img">
+          <img src="https://www.ru.renewalmedicalclinic.com/wp-content/uploads/2026/02/10-1024x683.jpg" alt="Баріатрична хірургія">
+        </div>
+        <div class="svc-panel-body">
+          <h3>Баріатрична хірургія</h3>
+          <p>Хірургічне та нехірургічне лікування надмірної ваги у Стамбулі. Реальні результати — мінус 30–60 кг — зміна якості життя назавжди.</p>
+          <ul class="svc-procs">
+            <li>Рукавна резекція шлунку</li>
+            <li>Шлунковий шунт (Roux-en-Y)</li>
+            <li>Міні шунт шлунку</li>
+            <li>Шлунковий балон (ендоскопія)</li>
+            <li>Ботокс шлунку (без операції)</li>
+          </ul>
+          <a href="#contact" class="btn-svc-cta">Безкоштовна консультація →</a>
+        </div>
+      </div>
+
+      <!-- ── ЕКО ── -->
+      <div class="svc-panel" data-panel="5">
+        <div class="svc-panel-img">
+          <img src="https://www.ru.renewalmedicalclinic.com/wp-content/uploads/2025/06/freeconts.jpg" alt="ЕКО">
+        </div>
+        <div class="svc-panel-body">
+          <h3>ЕКО</h3>
+          <p>Екстракорпоральне запліднення в провідних репродуктивних центрах Туреччини. Повний цикл лікування безпліддя — від діагностики до народження дитини.</p>
+          <ul class="svc-procs">
+            <li>ЕКО зі своїми яйцеклітинами</li>
+            <li>ЕКО з донорськими яйцеклітинами</li>
+            <li>ЕКО з донорською спермою</li>
+            <li>ІКЗІ</li>
+            <li>Заморожування ембріонів</li>
+            <li>ПГТ-А (генетичний скринінг)</li>
+          </ul>
+          <a href="#contact" class="btn-svc-cta">Безкоштовна консультація →</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════ HOW IT WORKS ══════════════ -->
+<section class="section">
+  <div class="section-inner">
+    <div class="section-label">Як це працює</div>
+    <h2 class="section-title">Чотири прості кроки</h2>
+    <p class="section-subtitle">Від першого контакту до повного одужання — ми поруч на кожному етапі</p>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h4>Заявка</h4>
+        <p>Залишаєте заявку — ми безкоштовно консультуємо і підбираємо клініку</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h4>Підготовка</h4>
+        <p>Організовуємо документи, квитки, готель і трансфер в Туреччині</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h4>Лікування</h4>
+        <p>Летимо разом, супровідник поруч протягом усього процесу лікування</p>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <h4>Повернення</h4>
+        <p>Повертаємося додому і продовжуємо підтримку та спостереження</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════ MOBILE CONTACT FORM ══════════════ -->
+<section class="section mobile-contact" id="contact" style="background: linear-gradient(135deg, #085858, #0B8080); padding-top: 70px; padding-bottom: 70px;">
+  <div class="section-inner">
+    <div class="section-label" style="color: rgba(255,255,255,0.7);">Зв'яжіться з нами</div>
+    <h2 class="section-title" style="color: #fff;">Залишити заявку</h2>
+    <p class="section-subtitle" style="color: rgba(255,255,255,0.7);">Ми зв'яжемося з вами протягом 24 годин і відповімо на всі запитання</p>
+
+    <div class="contact-form-card">
+      <form action="/submit-order" method="post">
+        <input type="text" name="name" placeholder="Ваше ім'я" required>
+        <input type="text" name="phone" placeholder="Номер телефону" required>
+        <textarea name="service_text" placeholder="Опишіть бажану послугу або діагноз..."></textarea>
+        <button type="submit" class="btn-submit">Відправити заявку →</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════ LOGIN MODAL ══════════════ -->
+<div class="modal-overlay" id="login-modal">
+  <div class="modal-card">
+    <button class="modal-close" id="modal-close-btn">✕</button>
+    <div class="modal-logo-row">
+      <div class="modal-logo-icon">
+        <svg width="22" height="22" viewBox="0 0 26 26" fill="none">
+          <rect x="11" y="3" width="4" height="20" rx="2" fill="white"/>
+          <rect x="3" y="11" width="20" height="4" rx="2" fill="white"/>
+        </svg>
+      </div>
+      <span class="modal-logo-name">GlobalMed</span>
+    </div>
+    <h2>Вхід в акаунт</h2>
+    <p class="modal-sub">Введіть email і пароль для входу</p>
+    <div class="modal-error" id="login-error"></div>
+    <form id="login-form">
+      <div class="modal-field">
+        <label>Email</label>
+        <input type="email" name="email" placeholder="example@email.com" autocomplete="email" required>
+      </div>
+      <div class="modal-field">
+        <label>Пароль</label>
+        <input type="password" name="password" placeholder="••••••••" autocomplete="current-password" required>
+      </div>
+      <button type="submit" class="modal-submit">Увійти →</button>
+    </form>
+    <p class="modal-footer-note">
+      Немає акаунта? <a href="/register">Зареєструватися</a>
+    </p>
+  </div>
+</div>
+
+
+<!-- ══════════════ FOOTER ══════════════ -->
+<footer>
+  <div class="footer-brand">GlobalMed</div>
+  <div class="footer-tagline">Медичний туризм · Прага → Туреччина</div>
+  <div>
+    <a href="mailto:info@globalmed.clinic">info@globalmed.clinic</a>
+    &nbsp;·&nbsp;
+    <a href="tel:+420607118531">+420 607 118 531</a>
+  </div>
+  <div class="footer-disclaimer">Будучи посередницькою організацією, ми надаємо вам цю послугу в закладах, що мають ліцензію на надання послуг у сфері медичного туризму. Послуги надаються підприємством Renewal Medical Clinic.</div>
+  <div class="footer-copy">© 2026 GlobalMed. Всі права захищені.</div>
+</footer>
+
+
+<script>
+(function() {
+  var isAuth = document.cookie.split('; ').some(function(c) { return c.startsWith('_auth='); });
+  if (isAuth) {
+    document.getElementById('btn-profile').style.display = 'inline-flex';
+    document.getElementById('btn-login').style.display = 'none';
+    document.getElementById('btn-register').style.display = 'none';
+  }
+})();
+</script>
+
+<script>
+(function () {
+  const overlay = document.getElementById('login-modal');
+  const errorEl = document.getElementById('login-error');
+
+  function openModal() {
+    overlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeModal() {
+    overlay.classList.remove('active');
+    document.body.style.overflow = '';
+    errorEl.style.display = 'none';
+    errorEl.textContent = '';
+  }
+
+  document.querySelectorAll('.btn-login').forEach(btn =>
+    btn.addEventListener('click', e => { e.preventDefault(); openModal(); })
+  );
+  document.getElementById('modal-close-btn').addEventListener('click', closeModal);
+  overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+  document.getElementById('login-form').addEventListener('submit', async e => {
+    e.preventDefault();
+    const btn = e.target.querySelector('.modal-submit');
+    btn.disabled = true;
+    btn.textContent = 'Завантаження…';
+    errorEl.style.display = 'none';
+    try {
+      const res  = await fetch('/login', { method: 'POST', body: new FormData(e.target) });
+      const data = await res.json();
+      if (data.error) {
+        errorEl.textContent = data.error;
+        errorEl.style.display = 'block';
+      } else if (data.redirect) {
+        window.location.href = data.redirect;
+      }
+    } catch {
+      errorEl.textContent = "Помилка з'єднання. Спробуйте знову.";
+      errorEl.style.display = 'block';
+    }
+    btn.disabled = false;
+    btn.textContent = 'Увійти →';
+  });
+})();
+</script>
+
+<!-- ══════════════ SERVICES TABS ══════════════ -->
+<script>
+(function() {
+  var tabs = document.querySelectorAll('.svc-tab');
+  var panels = document.querySelectorAll('.svc-panel');
+  tabs.forEach(function(tab) {
+    tab.addEventListener('click', function() {
+      var n = tab.dataset.tab;
+      tabs.forEach(function(t) { t.classList.remove('active'); });
+      panels.forEach(function(p) { p.classList.remove('active'); });
+      tab.classList.add('active');
+      document.querySelector('.svc-panel[data-panel="' + n + '"]').classList.add('active');
+    });
+  });
+})();
+</script>
+
+<!-- ══════════════ GOOGLE TRANSLATE ══════════════ -->
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({
+    pageLanguage: 'uk',
+    includedLanguages: 'uk,cs,en,ru,tr',
+    layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+    autoDisplay: false
+  }, 'google_translate_element');
+}
+</script>
+<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+</body>
+</html>

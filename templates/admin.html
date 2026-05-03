@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%230B6B6B'/><rect x='13' y='4' width='6' height='24' rx='3' fill='white'/><rect x='4' y='13' width='24' height='6' rx='3' fill='white'/></svg>">
+  <title>Адмін-панель — GlobalMed</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --primary:       #0B6B6B;
+      --primary-light: #14A8A8;
+      --accent:        #E8A838;
+      --bg:            #F2FAFA;
+      --text:          #1A3340;
+      --text-light:    #5A7A84;
+      --white:         #FFFFFF;
+      --shadow:        rgba(11, 107, 107, 0.10);
+      --danger:        #DC2626;
+      --danger-bg:     #FEF2F2;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Montserrat', sans-serif; color: var(--text); background: var(--bg); min-height: 100vh; }
+
+    /* ─── HEADER ─── */
+    header {
+      position: sticky; top: 0; z-index: 100;
+      background: var(--white);
+      box-shadow: 0 2px 18px var(--shadow);
+    }
+    nav {
+      max-width: 1300px; margin: 0 auto;
+      padding: 0 28px; height: 68px;
+      display: flex; align-items: center; gap: 16px;
+    }
+    .logo { display: flex; align-items: center; gap: 11px; text-decoration: none; flex-shrink: 0; }
+    .logo-icon {
+      width: 42px; height: 42px; background: var(--primary);
+      border-radius: 10px; display: flex; align-items: center; justify-content: center;
+    }
+    .logo-text .brand { font-size: 17px; font-weight: 700; color: var(--primary); line-height: 1.2; }
+    .logo-text .tagline { font-size: 10px; color: var(--text-light); font-weight: 500; text-transform: uppercase; letter-spacing: 0.6px; }
+
+    .admin-badge {
+      background: linear-gradient(135deg, var(--primary), var(--primary-light));
+      color: #fff; font-size: 11px; font-weight: 700;
+      padding: 4px 12px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.8px;
+    }
+
+    .nav-right { margin-left: auto; display: flex; align-items: center; gap: 14px; }
+    .nav-email { font-size: 13px; color: var(--text-light); font-weight: 500; }
+
+    .btn-logout {
+      text-decoration: none; color: var(--danger); font-size: 13px; font-weight: 600;
+      padding: 7px 16px; border: 1.5px solid #FCA5A5; border-radius: 8px;
+      transition: all 0.2s;
+    }
+    .btn-logout:hover { background: var(--danger-bg); }
+
+    /* ─── PAGE WRAPPER ─── */
+    .page { max-width: 1300px; margin: 0 auto; padding: 36px 28px 60px; }
+
+    .page-head { margin-bottom: 32px; }
+    .page-head h1 { font-size: 26px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+    .page-head p { font-size: 14px; color: var(--text-light); }
+
+    /* ─── STATS GRID ─── */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+      margin-bottom: 40px;
+    }
+
+    .stat-card {
+      background: var(--white);
+      border-radius: 18px;
+      padding: 26px 24px;
+      box-shadow: 0 2px 20px var(--shadow);
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .stat-card-icon {
+      width: 52px; height: 52px; border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 24px; flex-shrink: 0;
+    }
+    .stat-card:nth-child(1) .stat-card-icon { background: rgba(11, 107, 107, 0.09); }
+    .stat-card:nth-child(2) .stat-card-icon { background: rgba(232, 168, 56, 0.12); }
+    .stat-card:nth-child(3) .stat-card-icon { background: rgba(20, 168, 168, 0.10); }
+    .stat-card:nth-child(4) .stat-card-icon { background: rgba(90, 122, 132, 0.10); }
+
+    .stat-card-body {}
+    .stat-num { font-size: 30px; font-weight: 700; color: var(--text); line-height: 1; }
+    .stat-label { font-size: 12px; color: var(--text-light); font-weight: 500; margin-top: 4px; }
+
+    /* ─── TABLE SECTION ─── */
+    .section-head {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 18px;
+    }
+    .section-head h2 { font-size: 19px; font-weight: 700; color: var(--text); }
+    .section-head .count-badge {
+      background: rgba(11, 107, 107, 0.08);
+      color: var(--primary); font-size: 12px; font-weight: 700;
+      padding: 4px 12px; border-radius: 20px;
+    }
+
+    .table-wrap {
+      background: var(--white);
+      border-radius: 18px;
+      box-shadow: 0 2px 20px var(--shadow);
+      overflow: hidden;
+    }
+
+    table { width: 100%; border-collapse: collapse; }
+
+    thead th {
+      background: rgba(11, 107, 107, 0.05);
+      padding: 14px 20px;
+      text-align: left;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-light);
+      text-transform: uppercase;
+      letter-spacing: 0.7px;
+      border-bottom: 1px solid rgba(11, 107, 107, 0.08);
+    }
+
+    tbody tr {
+      border-bottom: 1px solid rgba(11, 107, 107, 0.06);
+      transition: background 0.15s;
+    }
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:hover { background: rgba(11, 107, 107, 0.03); }
+
+    tbody td {
+      padding: 14px 20px;
+      font-size: 13.5px;
+      color: var(--text);
+      vertical-align: middle;
+    }
+
+    .td-id { color: var(--text-light); font-weight: 600; font-size: 13px; }
+    .td-name { font-weight: 600; }
+    .td-phone { color: var(--primary); font-weight: 600; }
+    .td-service {
+      max-width: 280px;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+      color: var(--text-light);
+    }
+
+    .badge-reg {
+      display: inline-flex; align-items: center; gap: 5px;
+      background: rgba(11, 107, 107, 0.09); color: var(--primary);
+      font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 20px;
+    }
+    .badge-guest {
+      display: inline-flex; align-items: center; gap: 5px;
+      background: rgba(90, 122, 132, 0.09); color: var(--text-light);
+      font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 20px;
+    }
+
+    .empty-state {
+      text-align: center; padding: 64px 20px;
+      color: var(--text-light); font-size: 15px;
+    }
+    .empty-state .empty-icon { font-size: 48px; margin-bottom: 16px; }
+    .empty-state p { line-height: 1.65; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 900px) {
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 620px) {
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+      .nav-email { display: none; }
+      thead th:nth-child(5), tbody td:nth-child(5) { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══ HEADER ══ -->
+<header>
+  <nav>
+    <a href="/" class="logo">
+      <div class="logo-icon">
+        <svg width="24" height="24" viewBox="0 0 26 26" fill="none">
+          <rect x="11" y="3" width="4" height="20" rx="2" fill="white"/>
+          <rect x="3" y="11" width="20" height="4" rx="2" fill="white"/>
+        </svg>
+      </div>
+      <div class="logo-text">
+        <div class="brand">GlobalMed</div>
+        <div class="tagline">Клініка · Туреччина</div>
+      </div>
+    </a>
+
+    <span class="admin-badge">Адмін-панель</span>
+
+    <div class="nav-right">
+      <span class="nav-email">{{ user.email }}</span>
+      <a href="/logout" class="btn-logout">Вийти →</a>
+    </div>
+  </nav>
+</header>
+
+
+<!-- ══ PAGE ══ -->
+<div class="page">
+
+  <div class="page-head">
+    <h1>Панель керування</h1>
+    <p>Перегляд заявок пацієнтів та статистики клініки</p>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-card-icon">👥</div>
+      <div class="stat-card-body">
+        <div class="stat-num">{{ users_count }}</div>
+        <div class="stat-label">Зареєстрованих</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-card-icon">📋</div>
+      <div class="stat-card-body">
+        <div class="stat-num">{{ inquiries_count }}</div>
+        <div class="stat-label">Всього заявок</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-card-icon">✅</div>
+      <div class="stat-card-body">
+        <div class="stat-num">{{ registered_count }}</div>
+        <div class="stat-label">Від акаунтів</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-card-icon">👤</div>
+      <div class="stat-card-body">
+        <div class="stat-num">{{ guest_count }}</div>
+        <div class="stat-label">Від гостей</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Inquiries table -->
+  <div class="section-head">
+    <h2>Заявки пацієнтів</h2>
+    <span class="count-badge">{{ inquiries_count }} заявок</span>
+  </div>
+
+  <div class="table-wrap">
+    {% if rows %}
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Ім'я</th>
+          <th>Телефон</th>
+          <th>Послуга / Опис</th>
+          <th>Тип</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in rows %}
+        <tr>
+          <td class="td-id">#{{ row.id }}</td>
+          <td class="td-name">{{ row.name }}</td>
+          <td class="td-phone">{{ row.phone }}</td>
+          <td class="td-service" title="{{ row.service }}">{{ row.service }}</td>
+          <td>
+            {% if row.user_email %}
+              <span class="badge-reg">✓ {{ row.user_email }}</span>
+            {% else %}
+              <span class="badge-guest">Гість</span>
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <div class="empty-state">
+      <div class="empty-icon">📭</div>
+      <p>Заявок поки немає.<br>Вони з'являться тут, коли пацієнти залишать запит.</p>
+    </div>
+    {% endif %}
+  </div>
+
+</div>
+
+</body>
+</html>

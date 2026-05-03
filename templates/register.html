@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%230B6B6B'/><rect x='13' y='4' width='6' height='24' rx='3' fill='white'/><rect x='4' y='13' width='24' height='6' rx='3' fill='white'/></svg>">
+  <title>Реєстрація — GlobalMed</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --primary:       #0B6B6B;
+      --primary-light: #14A8A8;
+      --bg:            #F2FAFA;
+      --text:          #1A3340;
+      --text-light:    #5A7A84;
+      --white:         #FFFFFF;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      color: var(--text);
+      background: linear-gradient(135deg, #075050 0%, #0B8080 55%, #12B0B0 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ─── Header ─── */
+    header {
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.12);
+    }
+    nav {
+      max-width: 1200px; margin: 0 auto;
+      padding: 0 28px; height: 66px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .logo { display: flex; align-items: center; gap: 11px; text-decoration: none; }
+    .logo-icon {
+      width: 40px; height: 40px;
+      background: rgba(255,255,255,0.18); border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .logo-text .brand { font-size: 17px; font-weight: 700; color: #fff; line-height: 1.2; }
+    .logo-text .tagline { font-size: 10px; color: rgba(255,255,255,0.62); text-transform: uppercase; letter-spacing: 0.5px; }
+    .nav-back {
+      text-decoration: none; color: rgba(255,255,255,0.78);
+      font-size: 14px; font-weight: 500;
+      display: flex; align-items: center; gap: 6px; transition: color 0.2s;
+    }
+    .nav-back:hover { color: #fff; }
+
+    /* ─── Main ─── */
+    main {
+      flex: 1; display: flex;
+      align-items: center; justify-content: center;
+      padding: 52px 20px;
+    }
+
+    /* ─── Register Card ─── */
+    .reg-card {
+      background: var(--white); border-radius: 24px;
+      padding: 50px 46px; width: 100%; max-width: 470px;
+      box-shadow: 0 32px 80px rgba(0,0,0,0.24);
+    }
+    .reg-logo { display: flex; align-items: center; gap: 10px; margin-bottom: 28px; }
+    .reg-logo-icon {
+      width: 40px; height: 40px; background: var(--primary);
+      border-radius: 10px; display: flex; align-items: center; justify-content: center;
+    }
+    .reg-logo-name { font-size: 17px; font-weight: 700; color: var(--primary); }
+
+    .reg-card h1 { font-size: 24px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+    .reg-sub { font-size: 14px; color: var(--text-light); margin-bottom: 28px; line-height: 1.55; }
+
+    .reg-error {
+      background: #FEF2F2; border: 1px solid #FCA5A5; color: #DC2626;
+      font-size: 13px; font-weight: 500; padding: 10px 14px;
+      border-radius: 9px; margin-bottom: 16px; display: none;
+    }
+    .reg-field { margin-bottom: 14px; }
+    .reg-field label {
+      display: block; font-size: 11px; font-weight: 700; color: var(--text);
+      margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.6px;
+    }
+    .reg-field input {
+      width: 100%; padding: 13px 16px; border-radius: 10px;
+      border: 1.5px solid #C8E8E8; background: var(--bg); color: var(--text);
+      font-size: 14px; font-family: 'Montserrat', sans-serif;
+      outline: none; transition: border-color 0.2s, background 0.2s;
+    }
+    .reg-field input:focus { border-color: var(--primary); }
+    .reg-field input.invalid { border-color: #FCA5A5; background: #FFF8F8; }
+    .reg-hint { font-size: 11px; color: var(--text-light); margin-top: 5px; }
+
+    .reg-submit {
+      width: 100%; padding: 14px; background: var(--primary); color: #fff;
+      font-size: 15px; font-weight: 700; font-family: 'Montserrat', sans-serif;
+      border: none; border-radius: 11px; cursor: pointer; margin-top: 8px; transition: all 0.2s;
+    }
+    .reg-submit:hover { background: var(--primary-light); }
+    .reg-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+
+    .reg-footer-note {
+      text-align: center; margin-top: 20px;
+      font-size: 13px; color: var(--text-light);
+    }
+    .reg-footer-note a { color: var(--primary); font-weight: 600; text-decoration: none; }
+    .reg-footer-note a:hover { text-decoration: underline; }
+
+    /* ─── Success state ─── */
+    .success-state { text-align: center; padding: 8px 0; }
+    .success-icon {
+      width: 76px; height: 76px; border-radius: 50%;
+      background: rgba(11, 107, 107, 0.09); color: var(--primary);
+      font-size: 34px; display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 24px;
+    }
+    .success-state h2 { font-size: 22px; font-weight: 700; color: var(--text); margin-bottom: 10px; }
+    .success-state p { font-size: 14px; color: var(--text-light); line-height: 1.65; margin-bottom: 30px; }
+    .success-actions { display: flex; flex-direction: column; gap: 12px; }
+    .btn-go-login {
+      width: 100%; padding: 13px; background: var(--primary); color: #fff;
+      font-size: 15px; font-weight: 700; font-family: 'Montserrat', sans-serif;
+      border: none; border-radius: 11px; cursor: pointer; transition: all 0.2s;
+    }
+    .btn-go-login:hover { background: var(--primary-light); }
+    .btn-go-home { text-decoration: none; text-align: center; font-size: 13px; color: var(--text-light); padding: 6px; }
+    .btn-go-home:hover { color: var(--primary); }
+
+    /* ─── Login Modal ─── */
+    .modal-overlay {
+      position: fixed; inset: 0;
+      background: rgba(8, 25, 25, 0.62);
+      backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px);
+      z-index: 1000; display: flex; align-items: center; justify-content: center;
+      padding: 20px; opacity: 0; pointer-events: none; transition: opacity 0.25s;
+    }
+    .modal-overlay.active { opacity: 1; pointer-events: all; }
+    .modal-card {
+      background: var(--white); border-radius: 22px; padding: 44px 40px;
+      width: 100%; max-width: 420px; position: relative;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.24);
+      transform: translateY(22px) scale(0.98); transition: transform 0.28s;
+    }
+    .modal-overlay.active .modal-card { transform: translateY(0) scale(1); }
+    .modal-close {
+      position: absolute; top: 14px; right: 14px;
+      background: none; border: none; font-size: 20px; cursor: pointer;
+      color: var(--text-light); width: 36px; height: 36px; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center; transition: background 0.18s;
+    }
+    .modal-close:hover { background: var(--bg); color: var(--text); }
+    .modal-logo-row { display: flex; align-items: center; gap: 10px; margin-bottom: 26px; }
+    .modal-logo-icon {
+      width: 38px; height: 38px; background: var(--primary);
+      border-radius: 9px; display: flex; align-items: center; justify-content: center;
+    }
+    .modal-logo-name { font-size: 17px; font-weight: 700; color: var(--primary); }
+    .modal-card h2 { font-size: 22px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+    .modal-sub { font-size: 14px; color: var(--text-light); margin-bottom: 26px; line-height: 1.5; }
+    .modal-error {
+      background: #FEF2F2; border: 1px solid #FCA5A5; color: #DC2626;
+      font-size: 13px; font-weight: 500; padding: 10px 14px;
+      border-radius: 9px; margin-bottom: 16px; display: none;
+    }
+    .modal-field { margin-bottom: 14px; }
+    .modal-field label {
+      display: block; font-size: 11px; font-weight: 700; color: var(--text);
+      margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.6px;
+    }
+    .modal-field input {
+      width: 100%; padding: 13px 16px; border-radius: 10px;
+      border: 1.5px solid #C8E8E8; background: var(--bg); color: var(--text);
+      font-size: 14px; font-family: 'Montserrat', sans-serif; outline: none; transition: border-color 0.2s;
+    }
+    .modal-field input:focus { border-color: var(--primary); }
+    .modal-submit {
+      width: 100%; padding: 13px; background: var(--primary); color: #fff;
+      font-size: 15px; font-weight: 700; font-family: 'Montserrat', sans-serif;
+      border: none; border-radius: 10px; cursor: pointer; margin-top: 6px; transition: all 0.2s;
+    }
+    .modal-submit:hover { background: var(--primary-light); }
+    .modal-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+    .modal-footer-note { text-align: center; margin-top: 20px; font-size: 13px; color: var(--text-light); }
+    .modal-footer-note a { color: var(--primary); font-weight: 600; text-decoration: none; }
+    .modal-footer-note a:hover { text-decoration: underline; }
+
+    /* ─── Footer ─── */
+    footer {
+      background: rgba(0,0,0,0.22); color: rgba(255,255,255,0.45);
+      padding: 22px 28px; text-align: center; font-size: 12px;
+    }
+    footer span { color: rgba(255,255,255,0.7); font-weight: 600; }
+    .footer-disclaimer {
+      font-size: 11px; line-height: 1.6; font-style: italic;
+      color: rgba(255,255,255,0.32); margin-top: 10px;
+      border-top: 1px solid rgba(255,255,255,0.08); padding-top: 10px;
+    }
+
+    @media (max-width: 520px) {
+      .reg-card { padding: 36px 24px; }
+      .modal-card { padding: 36px 26px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <a href="/" class="logo">
+      <div class="logo-icon">
+        <svg width="22" height="22" viewBox="0 0 26 26" fill="none">
+          <rect x="11" y="3" width="4" height="20" rx="2" fill="white"/>
+          <rect x="3" y="11" width="20" height="4" rx="2" fill="white"/>
+        </svg>
+      </div>
+      <div class="logo-text">
+        <div class="brand">GlobalMed</div>
+        <div class="tagline">Клініка · Туреччина</div>
+      </div>
+    </a>
+    <a href="/" class="nav-back">← На головну</a>
+  </nav>
+</header>
+
+
+<main>
+  <div class="reg-card">
+
+    <!-- ── Form state ── -->
+    <div id="reg-form-state">
+      <div class="reg-logo">
+        <div class="reg-logo-icon">
+          <svg width="22" height="22" viewBox="0 0 26 26" fill="none">
+            <rect x="11" y="3" width="4" height="20" rx="2" fill="white"/>
+            <rect x="3" y="11" width="20" height="4" rx="2" fill="white"/>
+          </svg>
+        </div>
+        <span class="reg-logo-name">GlobalMed</span>
+      </div>
+
+      <h1>Реєстрація</h1>
+      <p class="reg-sub">Створіть акаунт, щоб відстежувати свої заявки та лікування</p>
+
+      <div class="reg-error" id="reg-error"></div>
+
+      <form id="reg-form" novalidate>
+        <div class="reg-field">
+          <label for="reg-email">Email</label>
+          <input type="email" id="reg-email" name="email"
+                 placeholder="example@email.com" autocomplete="email" required>
+        </div>
+        <div class="reg-field">
+          <label for="reg-password">Пароль</label>
+          <input type="password" id="reg-password" name="password"
+                 placeholder="Мінімум 6 символів" autocomplete="new-password" required>
+          <div class="reg-hint">Мінімум 6 символів</div>
+        </div>
+        <div class="reg-field">
+          <label for="reg-confirm">Підтвердити пароль</label>
+          <input type="password" id="reg-confirm"
+                 placeholder="Повторіть пароль" autocomplete="new-password" required>
+        </div>
+        <button type="submit" class="reg-submit" id="reg-btn">Зареєструватися →</button>
+      </form>
+
+      <p class="reg-footer-note">
+        Вже є акаунт? <a href="#" id="open-login-link">Увійти</a>
+      </p>
+    </div>
+
+    <!-- ── Success state ── -->
+    <div id="reg-success-state" style="display:none;">
+      <div class="success-state">
+        <div class="success-icon">✓</div>
+        <h2>Акаунт створено!</h2>
+        <p>
+          Вітаємо! Ваш акаунт успішно зареєстровано.<br>
+          Тепер ви можете увійти і відстежувати свої заявки.
+        </p>
+        <div class="success-actions">
+          <button class="btn-go-login" id="open-login-success">Увійти зараз →</button>
+          <a href="/" class="btn-go-home">Повернутися на головну</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+
+<!-- ── Login Modal ── -->
+<div class="modal-overlay" id="login-modal">
+  <div class="modal-card">
+    <button class="modal-close" id="modal-close-btn">✕</button>
+    <div class="modal-logo-row">
+      <div class="modal-logo-icon">
+        <svg width="22" height="22" viewBox="0 0 26 26" fill="none">
+          <rect x="11" y="3" width="4" height="20" rx="2" fill="white"/>
+          <rect x="3" y="11" width="20" height="4" rx="2" fill="white"/>
+        </svg>
+      </div>
+      <span class="modal-logo-name">GlobalMed</span>
+    </div>
+    <h2>Вхід в акаунт</h2>
+    <p class="modal-sub">Введіть email і пароль для входу</p>
+    <div class="modal-error" id="login-error"></div>
+    <form id="login-form">
+      <div class="modal-field">
+        <label>Email</label>
+        <input type="email" name="email" id="modal-email"
+               placeholder="example@email.com" autocomplete="email" required>
+      </div>
+      <div class="modal-field">
+        <label>Пароль</label>
+        <input type="password" name="password"
+               placeholder="••••••••" autocomplete="current-password" required>
+      </div>
+      <button type="submit" class="modal-submit">Увійти →</button>
+    </form>
+    <p class="modal-footer-note">
+      Немає акаунта? <a href="/register">Зареєструватися</a>
+    </p>
+  </div>
+</div>
+
+
+<footer>
+  <span>GlobalMed</span> · Медичний туризм · Прага → Туреччина &nbsp;·&nbsp; © 2026
+  <div class="footer-disclaimer">Будучи посередницькою організацією, ми надаємо вам цю послугу в закладах, що мають ліцензію на надання послуг у сфері медичного туризму. Послуги надаються підприємством Renewal Medical Clinic.</div>
+</footer>
+
+
+<script>
+// ── Registration ──
+(function () {
+  const regError = document.getElementById('reg-error');
+
+  function showError(msg) {
+    regError.textContent = msg;
+    regError.style.display = 'block';
+  }
+
+  document.getElementById('reg-form').addEventListener('submit', async e => {
+    e.preventDefault();
+    regError.style.display = 'none';
+    document.getElementById('reg-confirm').classList.remove('invalid');
+
+    const email    = document.getElementById('reg-email').value.trim();
+    const password = document.getElementById('reg-password').value;
+    const confirm  = document.getElementById('reg-confirm').value;
+
+    if (!email)              { showError('Введіть email.'); return; }
+    if (password.length < 6) { showError('Пароль має містити щонайменше 6 символів.'); return; }
+    if (password !== confirm) {
+      showError('Паролі не збігаються. Перевірте і спробуйте ще раз.');
+      document.getElementById('reg-confirm').classList.add('invalid');
+      return;
+    }
+
+    const btn = document.getElementById('reg-btn');
+    btn.disabled = true;
+    btn.textContent = 'Завантаження…';
+
+    try {
+      const fd = new FormData();
+      fd.append('email', email);
+      fd.append('password', password);
+
+      const res  = await fetch('/register', { method: 'POST', body: fd });
+      const data = await res.json();
+
+      if (data.error) {
+        showError(data.error);
+      } else {
+        document.getElementById('reg-form-state').style.display    = 'none';
+        document.getElementById('reg-success-state').style.display = 'block';
+      }
+    } catch {
+      showError("Помилка з'єднання. Спробуйте знову.");
+    }
+
+    btn.disabled = false;
+    btn.textContent = 'Зареєструватися →';
+  });
+})();
+
+// ── Login modal ──
+(function () {
+  const overlay  = document.getElementById('login-modal');
+  const errorEl  = document.getElementById('login-error');
+  const emailFld = document.getElementById('modal-email');
+
+  function openModal() {
+    overlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    // pre-fill email from registration form
+    const regEmail = document.getElementById('reg-email');
+    if (regEmail && regEmail.value) emailFld.value = regEmail.value;
+    emailFld.focus();
+  }
+  function closeModal() {
+    overlay.classList.remove('active');
+    document.body.style.overflow = '';
+    errorEl.style.display = 'none';
+    errorEl.textContent = '';
+  }
+
+  document.getElementById('open-login-link').addEventListener('click', e => { e.preventDefault(); openModal(); });
+  document.getElementById('open-login-success').addEventListener('click', openModal);
+  document.getElementById('modal-close-btn').addEventListener('click', closeModal);
+  overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+  document.getElementById('login-form').addEventListener('submit', async e => {
+    e.preventDefault();
+    const btn = e.target.querySelector('.modal-submit');
+    btn.disabled = true;
+    btn.textContent = 'Завантаження…';
+    errorEl.style.display = 'none';
+    try {
+      const res  = await fetch('/login', { method: 'POST', body: new FormData(e.target) });
+      const data = await res.json();
+      if (data.error) {
+        errorEl.textContent = data.error;
+        errorEl.style.display = 'block';
+      } else if (data.redirect) {
+        window.location.href = data.redirect;
+      }
+    } catch {
+      errorEl.textContent = "Помилка з'єднання. Спробуйте знову.";
+      errorEl.style.display = 'block';
+    }
+    btn.disabled = false;
+    btn.textContent = 'Увійти →';
+  });
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%230B6B6B'/><rect x='13' y='4' width='6' height='24' rx='3' fill='white'/><rect x='4' y='13' width='24' height='6' rx='3' fill='white'/></svg>">
+  <title>Відгуки — GlobalMed</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --primary:       #0B6B6B;
+      --primary-light: #14A8A8;
+      --accent:        #E8A838;
+      --bg:            #F2FAFA;
+      --text:          #1A3340;
+      --text-light:    #5A7A84;
+      --white:         #FFFFFF;
+      --shadow:        rgba(11, 107, 107, 0.10);
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Montserrat', sans-serif; color: var(--text); background: var(--bg); }
+
+    /* ─── HEADER ─── */
+    header { position: sticky; top: 0; z-index: 200; background: var(--white); box-shadow: 0 2px 18px var(--shadow); }
+    nav { max-width: 1200px; margin: 0 auto; padding: 0 28px; height: 70px; display: flex; align-items: center; gap: 24px; }
+
+    .logo { display: flex; align-items: center; gap: 11px; text-decoration: none; flex-shrink: 0; }
+    .logo-icon { width: 44px; height: 44px; background: var(--primary); border-radius: 11px; display: flex; align-items: center; justify-content: center; }
+    .logo-text .brand { font-size: 18px; font-weight: 700; color: var(--primary); letter-spacing: -0.3px; line-height: 1.2; }
+    .logo-text .tagline { font-size: 10px; color: var(--text-light); font-weight: 500; text-transform: uppercase; letter-spacing: 0.6px; }
+
+    .nav-links { display: flex; list-style: none; gap: 4px; margin-left: 8px; flex: 1; }
+    .nav-links a { text-decoration: none; color: var(--text); font-size: 14px; font-weight: 500; padding: 8px 14px; border-radius: 8px; transition: background 0.2s, color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--primary); background: rgba(11, 107, 107, 0.07); }
+
+    .nav-right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; margin-left: auto; }
+    .translate-wrapper { border: 1.5px solid #C8E8E8; border-radius: 8px; padding: 3px 10px; background: #F5FDFD; display: flex; align-items: center; }
+    .goog-te-gadget { font-family: 'Montserrat', sans-serif !important; font-size: 0 !important; }
+    .goog-te-gadget .goog-te-combo { border: none !important; outline: none !important; font-family: 'Montserrat', sans-serif !important; font-size: 13px !important; font-weight: 600 !important; color: var(--primary) !important; cursor: pointer; background: transparent; padding: 4px 0; }
+    .goog-logo-link, .goog-te-gadget > span { display: none !important; }
+
+    .btn-login { text-decoration: none; color: var(--primary); font-size: 14px; font-weight: 600; padding: 8px 18px; border: 2px solid var(--primary); border-radius: 9px; transition: all 0.2s; }
+    .btn-login:hover { background: var(--primary); color: var(--white); }
+    .btn-register { text-decoration: none; color: var(--white); font-size: 14px; font-weight: 600; padding: 8px 18px; background: var(--primary); border: 2px solid var(--primary); border-radius: 9px; transition: all 0.2s; }
+    .btn-register:hover { background: var(--primary-light); border-color: var(--primary-light); }
+    .btn-profile { text-decoration: none; color: var(--white); font-size: 14px; font-weight: 600; padding: 8px 18px; background: var(--primary); border: 2px solid var(--primary); border-radius: 9px; transition: all 0.2s; display: none; align-items: center; gap: 6px; }
+    .btn-profile:hover { background: var(--primary-light); border-color: var(--primary-light); }
+
+    /* ─── DROPDOWN ─── */
+    .has-dropdown { position: relative; }
+    .has-dropdown > a { display: flex !important; align-items: center; gap: 5px; }
+    .chevron-icon { width: 12px; height: 8px; flex-shrink: 0; transition: transform 0.22s; color: currentColor; }
+    .has-dropdown:hover > a .chevron-icon { transform: rotate(180deg); }
+    .nav-dropdown { position: absolute; top: 100%; left: 0; padding-top: 10px; opacity: 0; pointer-events: none; transform: translateY(-6px); transition: opacity 0.18s, transform 0.18s; z-index: 150; }
+    .has-dropdown:hover .nav-dropdown { opacity: 1; pointer-events: all; transform: translateY(0); }
+    .dropdown-inner { background: var(--white); border-radius: 16px; box-shadow: 0 12px 48px rgba(11, 107, 107, 0.16), 0 2px 8px rgba(0,0,0,0.06); padding: 22px 28px; display: grid; grid-template-columns: 1fr 1px 1fr; gap: 0 28px; min-width: 500px; border: 1px solid rgba(11, 107, 107, 0.09); }
+    .dropdown-divider { background: #D6EEEE; margin: 2px 0; }
+    .dropdown-col a { display: block; padding: 9px 0; font-size: 13.5px; color: var(--text-light); text-decoration: none; font-weight: 500; white-space: nowrap; background: none; border-radius: 0; transition: color 0.15s; }
+    .dropdown-col a:hover { color: var(--primary); background: none; }
+
+    /* ─── PAGE HERO ─── */
+    .page-hero { background: linear-gradient(135deg, #085858 0%, #0B8080 55%, #13B5B5 100%); padding: 72px 28px 80px; position: relative; overflow: hidden; text-align: center; }
+    .page-hero::before { content: ''; position: absolute; width: 500px; height: 500px; border-radius: 50%; background: rgba(255,255,255,0.04); top: -150px; right: -100px; pointer-events: none; }
+    .page-hero::after { content: ''; position: absolute; width: 300px; height: 300px; border-radius: 50%; background: rgba(255,255,255,0.04); bottom: -80px; left: 5%; pointer-events: none; }
+    .page-hero-inner { max-width: 700px; margin: 0 auto; position: relative; z-index: 1; }
+    .page-label { display: inline-block; background: rgba(255,255,255,0.14); color: #fff; font-size: 11px; font-weight: 700; padding: 6px 16px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.22); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px; }
+    .page-hero h1 { font-size: 42px; font-weight: 700; color: #fff; line-height: 1.18; margin-bottom: 18px; letter-spacing: -0.7px; }
+    .page-hero h1 span { color: var(--accent); }
+    .page-hero p { font-size: 17px; color: rgba(255,255,255,0.82); line-height: 1.75; }
+
+    /* ─── SUMMARY BAR ─── */
+    .summary-bar {
+      background: var(--white);
+      border-bottom: 1px solid rgba(11,107,107,0.08);
+      padding: 28px;
+    }
+    .summary-bar-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: center; gap: 48px; flex-wrap: wrap;
+    }
+    .summary-item { text-align: center; }
+    .summary-num { font-size: 34px; font-weight: 700; color: var(--primary); line-height: 1; }
+    .summary-label { font-size: 12px; color: var(--text-light); font-weight: 500; margin-top: 4px; }
+    .summary-stars { font-size: 22px; letter-spacing: 2px; }
+
+    /* ─── REVIEWS GRID ─── */
+    .section { padding: 64px 28px 80px; }
+    .section-inner { max-width: 1200px; margin: 0 auto; }
+
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .review-card {
+      background: var(--white);
+      border-radius: 20px;
+      padding: 32px 28px;
+      box-shadow: 0 2px 20px var(--shadow);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      transition: transform 0.22s, box-shadow 0.22s;
+      position: relative;
+    }
+    .review-card:hover { transform: translateY(-4px); box-shadow: 0 12px 36px rgba(11,107,107,0.14); }
+
+    .review-quote {
+      font-size: 52px;
+      color: rgba(11,107,107,0.12);
+      font-weight: 700;
+      line-height: 1;
+      position: absolute;
+      top: 20px; right: 24px;
+    }
+
+    .review-stars { font-size: 18px; letter-spacing: 2px; }
+
+    .review-text {
+      font-size: 14px;
+      color: var(--text-light);
+      line-height: 1.75;
+      flex: 1;
+    }
+
+    .review-author {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(11,107,107,0.07);
+    }
+
+    .author-avatar {
+      width: 44px; height: 44px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--primary-light));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; font-weight: 700; color: #fff;
+      flex-shrink: 0;
+    }
+
+    .author-name { font-size: 14px; font-weight: 700; color: var(--text); }
+    .author-meta { font-size: 12px; color: var(--text-light); margin-top: 2px; }
+
+    /* ─── CTA ─── */
+    .cta-section {
+      background: linear-gradient(135deg, #085858, #0B8080 60%, #13B5B5);
+      padding: 72px 28px;
+      text-align: center;
+    }
+    .cta-inner { max-width: 600px; margin: 0 auto; }
+    .cta-section h2 { font-size: 32px; font-weight: 700; color: #fff; margin-bottom: 14px; }
+    .cta-section p { font-size: 16px; color: rgba(255,255,255,0.8); line-height: 1.7; margin-bottom: 32px; }
+    .btn-cta { text-decoration: none; background: var(--accent); color: #fff; font-size: 15px; font-weight: 700; padding: 15px 36px; border-radius: 11px; transition: all 0.2s; box-shadow: 0 6px 24px rgba(232,168,56,0.4); display: inline-block; }
+    .btn-cta:hover { background: #C98E25; transform: translateY(-2px); }
+
+    /* ─── FOOTER ─── */
+    footer { background: #082828; color: rgba(255,255,255,0.55); padding: 50px 28px 36px; text-align: center; font-size: 13px; }
+    .footer-brand { color: #fff; font-size: 20px; font-weight: 700; margin-bottom: 6px; }
+    .footer-tagline { margin-bottom: 24px; }
+    footer a { color: var(--primary-light); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+    .footer-disclaimer { max-width: 700px; margin: 20px auto 0; font-size: 11.5px; line-height: 1.65; color: rgba(255,255,255,0.38); font-style: italic; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 18px; }
+    .footer-copy { margin-top: 16px; font-size: 12px; opacity: 0.4; }
+
+    /* ─── MODAL ─── */
+    .modal-overlay { position: fixed; inset: 0; background: rgba(8, 25, 25, 0.62); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 20px; opacity: 0; pointer-events: none; transition: opacity 0.25s; }
+    .modal-overlay.active { opacity: 1; pointer-events: all; }
+    .modal-card { background: var(--white); border-radius: 22px; padding: 44px 40px; width: 100%; max-width: 420px; position: relative; box-shadow: 0 24px 60px rgba(0,0,0,0.24); transform: translateY(22px) scale(0.98); transition: transform 0.28s; }
+    .modal-overlay.active .modal-card { transform: translateY(0) scale(1); }
+    .modal-close { position: absolute; top: 14px; right: 14px; background: none; border: none; font-size: 20px; cursor: pointer; color: var(--text-light); width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; transition: background 0.18s; }
+    .modal-close:hover { background: var(--bg); color: var(--text); }
+    .modal-logo-row { display: flex; align-items: center; gap: 10px; margin-bottom: 26px; }
+    .modal-logo-icon { width: 38px; height: 38px; background: var(--primary); border-radius: 9px; display: flex; align-items: center; justify-content: center; }
+    .modal-logo-name { font-size: 17px; font-weight: 700; color: var(--primary); }
+    .modal-card h2 { font-size: 22px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+    .modal-sub { font-size: 14px; color: var(--text-light); margin-bottom: 26px; line-height: 1.5; }
+    .modal-error { background: #FEF2F2; border: 1px solid #FCA5A5; color: #DC2626; font-size: 13px; font-weight: 500; padding: 10px 14px; border-radius: 9px; margin-bottom: 16px; display: none; }
+    .modal-field { margin-bottom: 14px; }
+    .modal-field label { display: block; font-size: 11px; font-weight: 700; color: var(--text); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.6px; }
+    .modal-field input { width: 100%; padding: 13px 16px; border-radius: 10px; border: 1.5px solid #C8E8E8; background: var(--bg); color: var(--text); font-size: 14px; font-family: 'Montserrat', sans-serif; outline: none; transition: border-color 0.2s; }
+    .modal-field input:focus { border-color: var(--primary); }
+    .modal-submit { width: 100%; padding: 13px; background: var(--primary); color: #fff; font-size: 15px; font-weight: 700; font-family: 'Montserrat', sans-serif; border: none; border-radius: 10px; cursor: pointer; margin-top: 6px; transition: all 0.2s; }
+    .modal-submit:hover { background: var(--primary-light); }
+    .modal-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+    .modal-footer-note { text-align: center; margin-top: 20px; font-size: 13px; color: var(--text-light); }
+    .modal-footer-note a { color: var(--primary); font-weight: 600; text-decoration: none; }
+    .modal-footer-note a:hover { text-decoration: underline; }
+
+    /* ─── WRITE REVIEW ─── */
+    .write-review-section { padding: 52px 28px 0; }
+    .write-review-section h2 { font-size: 24px; font-weight: 700; color: var(--text); margin-bottom: 24px; }
+    .review-form { background: var(--white); border-radius: 20px; padding: 36px; box-shadow: 0 2px 20px var(--shadow); max-width: 760px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 0; }
+    .form-field { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
+    .form-field label { font-size: 11px; font-weight: 700; color: var(--text); text-transform: uppercase; letter-spacing: 0.6px; }
+    .form-field input, .form-field textarea { padding: 13px 16px; border-radius: 10px; border: 1.5px solid #C8E8E8; background: var(--bg); color: var(--text); font-size: 14px; font-family: 'Montserrat', sans-serif; outline: none; transition: border-color 0.2s; resize: vertical; }
+    .form-field input:focus, .form-field textarea:focus { border-color: var(--primary); }
+    .star-select { display: flex; gap: 4px; font-size: 30px; cursor: pointer; padding: 4px 0; line-height: 1; }
+    .star-select .star { color: #D1D5DB; transition: color 0.12s; user-select: none; }
+    .star-select .star.active { color: var(--accent); }
+    .btn-submit-review { background: var(--primary); color: #fff; border: none; padding: 13px 32px; border-radius: 10px; font-size: 15px; font-weight: 700; font-family: 'Montserrat', sans-serif; cursor: pointer; transition: all 0.2s; }
+    .btn-submit-review:hover { background: var(--primary-light); transform: translateY(-1px); }
+    .review-badge { display: inline-block; background: rgba(11,107,107,0.09); color: var(--primary); font-size: 10px; font-weight: 700; padding: 3px 10px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 960px) { .reviews-grid { grid-template-columns: 1fr 1fr; } .form-row { grid-template-columns: 1fr; } }
+    @media (max-width: 620px) {
+      .nav-links { display: none; }
+      .btn-login { display: none; }
+      .page-hero h1 { font-size: 28px; }
+      .reviews-grid { grid-template-columns: 1fr; }
+      .summary-bar-inner { gap: 28px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══ HEADER ══ -->
+<header>
+  <nav>
+    <a href="/" class="logo">
+      <div class="logo-icon">
+        <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
+          <rect x="11" y="3" width="4" height="20" rx="2" fill="white"/>
+          <rect x="3" y="11" width="20" height="4" rx="2" fill="white"/>
+        </svg>
+      </div>
+      <div class="logo-text">
+        <div class="brand">GlobalMed</div>
+        <div class="tagline">Клініка · Туреччина</div>
+      </div>
+    </a>
+
+    <ul class="nav-links">
+      <li><a href="/">Головна</a></li>
+      <li class="has-dropdown">
+        <a href="/about_us">Про нас
+          <svg class="chevron-icon" viewBox="0 0 12 8" fill="none">
+            <path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+        <div class="nav-dropdown">
+          <div class="dropdown-inner">
+            <div class="dropdown-col">
+              <a href="/about_us#story">Як це працює?</a>
+              <a href="/about_us#services">Наші послуги</a>
+              <a href="/contacts">Ваші запитання</a>
+              <a href="/privacy">Правила користування</a>
+            </div>
+            <div class="dropdown-divider"></div>
+            <div class="dropdown-col">
+              <a href="/reviews">Відгуки клієнтів</a>
+              <a href="/about_us">Лікування за кордоном</a>
+              <a href="/about_us#services">Критерії відбору лікарень</a>
+              <a href="/privacy">Політика конфіденційності</a>
+            </div>
+          </div>
+        </div>
+      </li>
+      <li><a href="/#services">Послуги</a></li>
+      <li><a href="/gallery">Галерея</a></li>
+      <li><a href="/reviews" class="active">Відгуки</a></li>
+      <li><a href="/contacts">Контакти</a></li>
+    </ul>
+
+    <div class="nav-right">
+      <div class="translate-wrapper">
+        <div id="google_translate_element"></div>
+      </div>
+      <a href="/dashboard" class="btn-profile" id="btn-profile">👤 Мій профіль</a>
+      <a href="/login" class="btn-login" id="btn-login">Увійти</a>
+      <a href="/register" class="btn-register" id="btn-register">Реєстрація</a>
+    </div>
+  </nav>
+</header>
+
+
+<!-- ══ PAGE HERO ══ -->
+<section class="page-hero">
+  <div class="page-hero-inner">
+    <div class="page-label">Думки наших пацієнтів</div>
+    <h1>Відгуки про <span>GlobalMed</span></h1>
+    <p>Реальні історії людей, яким ми допомогли отримати якісне лікування в Туреччині</p>
+  </div>
+</section>
+
+
+<!-- ══ SUMMARY BAR ══ -->
+<div class="summary-bar">
+  <div class="summary-bar-inner">
+    <div class="summary-item">
+      <div class="summary-stars">★★★★★</div>
+      <div class="summary-label">Середня оцінка</div>
+    </div>
+    <div class="summary-item">
+      <div class="summary-num">4.9</div>
+      <div class="summary-label">з 5.0</div>
+    </div>
+    <div class="summary-item">
+      <div class="summary-num">500+</div>
+      <div class="summary-label">Задоволених пацієнтів</div>
+    </div>
+    <div class="summary-item">
+      <div class="summary-num">98%</div>
+      <div class="summary-label">Рекомендують нас</div>
+    </div>
+  </div>
+</div>
+
+
+{% if user %}
+<!-- ══ WRITE REVIEW FORM ══ -->
+<section class="write-review-section">
+  <div class="section-inner">
+    <h2>✍️ Залишити відгук</h2>
+    <form method="POST" action="/reviews/submit" class="review-form">
+      <div class="form-row">
+        <div class="form-field">
+          <label>Ваше ім'я</label>
+          <input type="text" name="author_name" required placeholder="Ім'я та перша літера прізвища">
+        </div>
+        <div class="form-field">
+          <label>Оцінка</label>
+          <div class="star-select" id="star-select">
+            <input type="hidden" name="rating" id="rating-input" value="5">
+            <span class="star active" data-v="1">★</span>
+            <span class="star active" data-v="2">★</span>
+            <span class="star active" data-v="3">★</span>
+            <span class="star active" data-v="4">★</span>
+            <span class="star active" data-v="5">★</span>
+          </div>
+        </div>
+      </div>
+      <div class="form-field">
+        <label>Ваш відгук</label>
+        <textarea name="text" rows="4" required placeholder="Розкажіть про ваш досвід з GlobalMed..."></textarea>
+      </div>
+      <button type="submit" class="btn-submit-review">Опублікувати відгук →</button>
+    </form>
+  </div>
+</section>
+{% endif %}
+
+
+<!-- ══ REVIEWS ══ -->
+<section class="section">
+  <div class="section-inner">
+    <div class="reviews-grid">
+
+      {% for r in db_reviews %}
+      <div class="review-card">
+        <div class="review-quote">"</div>
+        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+          <div class="review-stars">{% for i in range(r.rating) %}★{% endfor %}{% for i in range(5 - r.rating) %}☆{% endfor %}</div>
+          <span class="review-badge">Верифіковано</span>
+        </div>
+        <p class="review-text">{{ r.text }}</p>
+        <div class="review-author">
+          <div class="author-avatar">{{ r.author_name[0] | upper }}</div>
+          <div>
+            <div class="author-name">{{ r.author_name }}</div>
+            <div class="author-meta">{{ r.created_at }}</div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+
+      <div class="review-card">
+        <div class="review-quote">"</div>
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">Дуже вдячна команді GlobalMed! Організували все від А до Я — квитки, готель, переклад. Операція пройшла чудово, лікарі в Туреччині — справжні професіонали. Супровідник був поруч весь час, жодного разу не відчула себе самотньо.</p>
+        <div class="review-author">
+          <div class="author-avatar">О</div>
+          <div>
+            <div class="author-name">Оксана М.</div>
+            <div class="author-meta">Прага · Ортопедія</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-quote">"</div>
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">Зробив імплантацію зубів — в Чехії це коштувало б втричі дорожче. Тут же повний супровід, переклад, трансфер і відмінний результат. Жодних сюрпризів з ціною — все прозоро і чесно, як і обіцяли на початку.</p>
+        <div class="review-author">
+          <div class="author-avatar">В</div>
+          <div>
+            <div class="author-name">Василь К.</div>
+            <div class="author-meta">Прага · Стоматологія</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-quote">"</div>
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">Спочатку боялася летіти лікуватися за кордон. Але GlobalMed розвіяли всі страхи — пояснили кожен крок, познайомили з лікарем онлайн ще до поїздки. Лазерна корекція зору — і тепер бачу без окулярів. Це неймовірно!</p>
+        <div class="review-author">
+          <div class="author-avatar">Н</div>
+          <div>
+            <div class="author-name">Наталія Р.</div>
+            <div class="author-meta">Прага · Офтальмологія</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-quote">"</div>
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">Дуже професійна організація. Моєму батьку потрібна була операція на серці — в Чехії черга на кілька місяців. GlobalMed знайшли клініку в Стамбулі за тиждень. Операція успішна, батько вже вдома і почувається добре. Дякую від усієї сім'ї!</p>
+        <div class="review-author">
+          <div class="author-avatar">А</div>
+          <div>
+            <div class="author-name">Андрій Д.</div>
+            <div class="author-meta">Прага · Кардіохірургія</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-quote">"</div>
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">Зверталась по пластичній хірургії — тема делікатна, і я побоювалась осуду. Команда GlobalMed поставилась з повагою і розумінням. Консультація, вибір клініки, переліт — все організували ідеально. Результатом дуже задоволена!</p>
+        <div class="review-author">
+          <div class="author-avatar">І</div>
+          <div>
+            <div class="author-name">Ірина Л.</div>
+            <div class="author-meta">Прага · Пластична хірургія</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-quote">"</div>
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">Лікування хребта — справа непроста. GlobalMed підібрали найкращого хірурга, все пояснили, супровідник перекладав навіть найскладніші медичні терміни. Вже через місяць після операції повернувся до звичайного життя. Рекомендую всім!</p>
+        <div class="review-author">
+          <div class="author-avatar">М</div>
+          <div>
+            <div class="author-name">Михайло С.</div>
+            <div class="author-meta">Прага · Ортопедія</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ CTA ══ -->
+<section class="cta-section">
+  <div class="cta-inner">
+    <h2>Станьте наступним!</h2>
+    <p>Залиште заявку — ми безкоштовно проконсультуємо вас і підберемо найкращу клініку.</p>
+    <a href="/#contact" class="btn-cta">Залишити заявку →</a>
+  </div>
+</section>
+
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="footer-brand">GlobalMed</div>
+  <div class="footer-tagline">Медичний туризм · Прага → Туреччина</div>
+  <div>
+    <a href="mailto:info.globalmed.clinic@gmail.com">info.globalmed.clinic@gmail.com</a>
+    &nbsp;·&nbsp;
+    <a href="tel:+420607118531">+420 607 118 531</a>
+  </div>
+  <div class="footer-disclaimer">Будучи посередницькою організацією, ми надаємо вам цю послугу в закладах, що мають ліцензію на надання послуг у сфері медичного туризму. Послуги надаються підприємством Renewal Medical Clinic.</div>
+  <div class="footer-copy">© 2026 GlobalMed. Всі права захищені.</div>
+</footer>
+
+
+<!-- ══ LOGIN MODAL ══ -->
+<div class="modal-overlay" id="login-modal">
+  <div class="modal-card">
+    <button class="modal-close" id="modal-close-btn">✕</button>
+    <div class="modal-logo-row">
+      <div class="modal-logo-icon">
+        <svg width="22" height="22" viewBox="0 0 26 26" fill="none">
+          <rect x="11" y="3" width="4" height="20" rx="2" fill="white"/>
+          <rect x="3" y="11" width="20" height="4" rx="2" fill="white"/>
+        </svg>
+      </div>
+      <span class="modal-logo-name">GlobalMed</span>
+    </div>
+    <h2>Вхід в акаунт</h2>
+    <p class="modal-sub">Введіть email і пароль для входу</p>
+    <div class="modal-error" id="login-error"></div>
+    <form id="login-form">
+      <div class="modal-field">
+        <label>Email</label>
+        <input type="email" name="email" placeholder="example@email.com" autocomplete="email" required>
+      </div>
+      <div class="modal-field">
+        <label>Пароль</label>
+        <input type="password" name="password" placeholder="••••••••" autocomplete="current-password" required>
+      </div>
+      <button type="submit" class="modal-submit">Увійти →</button>
+    </form>
+    <p class="modal-footer-note">
+      Немає акаунта? <a href="/register">Зареєструватися</a>
+    </p>
+  </div>
+</div>
+
+
+<script>
+(function() {
+  var isAuth = document.cookie.split('; ').some(function(c) { return c.startsWith('_auth='); });
+  if (isAuth) {
+    document.getElementById('btn-profile').style.display = 'inline-flex';
+    document.getElementById('btn-login').style.display = 'none';
+    document.getElementById('btn-register').style.display = 'none';
+  }
+})();
+</script>
+
+<script>
+(function () {
+  const overlay = document.getElementById('login-modal');
+  const errorEl = document.getElementById('login-error');
+  function openModal() { overlay.classList.add('active'); document.body.style.overflow = 'hidden'; }
+  function closeModal() { overlay.classList.remove('active'); document.body.style.overflow = ''; errorEl.style.display = 'none'; errorEl.textContent = ''; }
+  document.querySelectorAll('.btn-login').forEach(btn => btn.addEventListener('click', e => { e.preventDefault(); openModal(); }));
+  document.getElementById('modal-close-btn').addEventListener('click', closeModal);
+  overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+  document.getElementById('login-form').addEventListener('submit', async e => {
+    e.preventDefault();
+    const btn = e.target.querySelector('.modal-submit');
+    btn.disabled = true; btn.textContent = 'Завантаження…';
+    errorEl.style.display = 'none';
+    try {
+      const res = await fetch('/login', { method: 'POST', body: new FormData(e.target) });
+      const data = await res.json();
+      if (data.error) { errorEl.textContent = data.error; errorEl.style.display = 'block'; }
+      else if (data.redirect) { window.location.href = data.redirect; }
+    } catch { errorEl.textContent = "Помилка з'єднання. Спробуйте знову."; errorEl.style.display = 'block'; }
+    btn.disabled = false; btn.textContent = 'Увійти →';
+  });
+})();
+</script>
+
+<script>
+(function() {
+  var sel = document.getElementById('star-select');
+  if (!sel) return;
+  var stars = sel.querySelectorAll('.star');
+  var input = document.getElementById('rating-input');
+  function setRating(v) {
+    input.value = v;
+    stars.forEach(function(s) { s.classList.toggle('active', parseInt(s.dataset.v) <= v); });
+  }
+  stars.forEach(function(s) {
+    s.addEventListener('click', function() { setRating(parseInt(s.dataset.v)); });
+    s.addEventListener('mouseover', function() {
+      var v = parseInt(s.dataset.v);
+      stars.forEach(function(st) { st.classList.toggle('active', parseInt(st.dataset.v) <= v); });
+    });
+  });
+  sel.addEventListener('mouseleave', function() { setRating(parseInt(input.value)); });
+})();
+</script>
+
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({ pageLanguage: 'uk', includedLanguages: 'uk,cs,en,ru,tr', layout: google.translate.TranslateElement.InlineLayout.SIMPLE, autoDisplay: false }, 'google_translate_element');
+}
+</script>
+<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+</body>
+</html>
