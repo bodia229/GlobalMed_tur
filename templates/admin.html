@@ -289,11 +289,52 @@
     /* ─── RESPONSIVE ─── */
     @media (max-width: 900px) {
       .stats-grid { grid-template-columns: 1fr 1fr; }
+      .form-grid { grid-template-columns: 1fr; }
     }
     @media (max-width: 620px) {
-      .stats-grid { grid-template-columns: 1fr 1fr; }
+      /* Header */
       .nav-email { display: none; }
-      thead th:nth-child(5), tbody td:nth-child(5) { display: none; }
+      .admin-badge { font-size: 10px; padding: 3px 8px; }
+
+      /* Page */
+      .page { padding: 18px 14px 48px; }
+      .page-head { margin-bottom: 20px; }
+      .page-head h1 { font-size: 20px; }
+
+      /* Stats */
+      .stats-grid { grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 24px; }
+      .stat-card { padding: 16px 12px; gap: 10px; border-radius: 14px; }
+      .stat-card-icon { width: 38px; height: 38px; font-size: 18px; border-radius: 10px; }
+      .stat-num { font-size: 22px; }
+      .stat-label { font-size: 11px; }
+
+      /* Section head */
+      .section-head { flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+      .section-head h2 { font-size: 16px; }
+
+      /* Table — horizontal scroll */
+      .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: 14px; }
+      table { min-width: 520px; }
+      thead th, tbody td { padding: 11px 14px; font-size: 12.5px; }
+
+      /* Delete toolbar */
+      .delete-toolbar { flex-wrap: wrap; gap: 8px; padding: 10px 14px; }
+      .toolbar-info { width: 100%; }
+      .btn-delete, .btn-deselect { flex: 1; text-align: center; }
+
+      /* Subscribers */
+      .subs-grid { grid-template-columns: 1fr; }
+      .sub-card { padding: 12px 14px; }
+
+      /* Blog form */
+      .blog-form-card { padding: 20px 16px; }
+      .form-grid { grid-template-columns: 1fr; gap: 12px; }
+
+      /* Blog post rows */
+      .blog-post-row { flex-wrap: wrap; gap: 8px; padding: 14px 16px; }
+      .blog-post-img, .blog-post-img-placeholder { width: 52px; height: 38px; }
+      .blog-post-title { font-size: 13px; }
+      .btn-edit-post, .btn-delete-post { padding: 6px 10px; font-size: 11px; }
     }
   </style>
 </head>
