@@ -699,6 +699,38 @@
       opacity: 0.4;
     }
 
+    /* ─── HAMBURGER ─── */
+    .burger { display: none; }
+
+    /* ─── MOBILE NAV ─── */
+    .mobile-nav {
+      display: flex; flex-direction: column;
+      position: fixed; top: 70px; left: 0; right: 0; bottom: 0;
+      background: var(--white); z-index: 199;
+      padding: 12px 0 40px; overflow-y: auto;
+      transform: translateX(100%);
+      transition: transform 0.28s cubic-bezier(0.4,0,0.2,1);
+      box-shadow: -4px 0 24px rgba(0,0,0,0.10);
+    }
+    .mobile-nav.open { transform: translateX(0); }
+    .mobile-nav a {
+      display: block; padding: 16px 28px;
+      font-size: 15px; font-weight: 600; color: var(--text);
+      text-decoration: none; border-bottom: 1px solid rgba(11,107,107,0.07);
+      transition: color 0.15s, background 0.15s;
+    }
+    .mobile-nav a:hover, .mobile-nav a.active { color: var(--primary); background: rgba(11,107,107,0.04); }
+    .mobile-nav-bottom { padding: 20px 28px; display: flex; flex-direction: column; gap: 10px; margin-top: auto; }
+    .mobile-nav-btn {
+      display: block; text-align: center; padding: 13px 20px;
+      border-radius: 10px; font-size: 14px; font-weight: 700;
+      text-decoration: none; transition: all 0.2s;
+    }
+    .mobile-nav-btn.outline { border: 2px solid var(--primary); color: var(--primary); }
+    .mobile-nav-btn.outline:hover { background: var(--primary); color: #fff; }
+    .mobile-nav-btn.fill { background: var(--primary); color: #fff; border: 2px solid var(--primary); }
+    .mobile-nav-btn.fill:hover { background: var(--primary-light); }
+
     /* ─────────────── RESPONSIVE ─────────────── */
     @media (max-width: 960px) {
       .hero-inner { grid-template-columns: 1fr; }
@@ -716,12 +748,45 @@
     }
 
     @media (max-width: 620px) {
+      /* Nav */
       .nav-links { display: none; }
-      .btn-login { display: none; }
-      .hero h1 { font-size: 30px; }
+      .btn-login, .btn-register, .btn-profile, .translate-wrapper { display: none !important; }
+      .burger {
+        display: flex; flex-direction: column; justify-content: center; gap: 5px;
+        width: 40px; height: 40px; background: none; border: none; cursor: pointer;
+        padding: 6px; margin-left: auto; flex-shrink: 0;
+      }
+      .burger span { display: block; width: 22px; height: 2px; background: var(--primary); border-radius: 2px; transition: transform 0.25s, opacity 0.25s; }
+      .burger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+      .burger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+      .burger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+      /* Hero */
+      .hero-inner { padding: 44px 20px 52px; }
+      .hero h1 { font-size: 28px; line-height: 1.25; }
+      .hero-subtitle { font-size: 14px; }
+      .hero-cta { flex-direction: column; }
+      .hero-cta a, .hero-cta button { width: 100%; text-align: center; justify-content: center; }
+      .hero-stats { gap: 18px; flex-wrap: wrap; }
+
+      /* Sections */
+      .section { padding: 52px 18px; }
       .cards-grid { grid-template-columns: 1fr; }
-      .section-title { font-size: 26px; }
-      .contact-form-card { padding: 28px 22px; }
+      .section-title { font-size: 24px; }
+      .section-subtitle { font-size: 14px; }
+
+      /* Newsletter */
+      .newsletter-section { padding: 44px 18px; }
+      .newsletter-section h2 { font-size: 22px; }
+      .newsletter-form { flex-direction: column; }
+      .newsletter-form input { border-radius: 10px !important; }
+      .newsletter-btn { border-radius: 10px !important; width: 100%; }
+
+      /* Contact form */
+      .contact-form-card { padding: 24px 18px; }
+
+      /* Service tabs */
+      .svc-tab { padding: 12px 14px; font-size: 11px; }
     }
 
     /* ─────────────── MODAL ─────────────── */
@@ -909,8 +974,26 @@
       <a href="/login" class="btn-login" id="btn-login">Увійти</a>
       <a href="/register" class="btn-register" id="btn-register">Реєстрація</a>
     </div>
+    <button class="burger" id="burger-btn" aria-label="Меню">
+      <span></span><span></span><span></span>
+    </button>
   </nav>
 </header>
+
+<div class="mobile-nav" id="mobile-nav">
+  <a href="/">Головна</a>
+  <a href="/about_us">Про нас</a>
+  <a href="/#services">Послуги</a>
+  <a href="/gallery">Галерея</a>
+  <a href="/reviews">Відгуки</a>
+  <a href="/blog">Блог</a>
+  <a href="/contacts">Контакти</a>
+  <div class="mobile-nav-bottom">
+    <a href="/login" class="mobile-nav-btn outline" id="mobile-btn-login">Увійти</a>
+    <a href="/dashboard" class="mobile-nav-btn fill" id="mobile-btn-profile" style="display:none">👤 Мій профіль</a>
+    <a href="/register" class="mobile-nav-btn fill">Реєстрація →</a>
+  </div>
+</div>
 
 
 <!-- ══════════════ HERO ══════════════ -->
@@ -1486,6 +1569,34 @@
       document.querySelector('.svc-panel[data-panel="' + n + '"]').classList.add('active');
     });
   });
+})();
+</script>
+
+<!-- ══════════════ BURGER MENU ══════════════ -->
+<script>
+(function() {
+  var burger = document.getElementById('burger-btn');
+  var nav = document.getElementById('mobile-nav');
+  if (!burger || !nav) return;
+  burger.addEventListener('click', function() {
+    var open = nav.classList.toggle('open');
+    burger.classList.toggle('open');
+    document.body.style.overflow = open ? 'hidden' : '';
+  });
+  nav.querySelectorAll('a').forEach(function(a) {
+    a.addEventListener('click', function() {
+      nav.classList.remove('open');
+      burger.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+  });
+  var isAuth = document.cookie.split('; ').some(function(c) { return c.startsWith('_auth='); });
+  if (isAuth) {
+    var el = document.getElementById('mobile-btn-login');
+    var ep = document.getElementById('mobile-btn-profile');
+    if (el) el.style.display = 'none';
+    if (ep) ep.style.display = 'block';
+  }
 })();
 </script>
 
