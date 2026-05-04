@@ -213,6 +213,7 @@
     .mobile-nav a { display: block; padding: 16px 28px; font-size: 15px; font-weight: 600; color: var(--text); text-decoration: none; border-bottom: 1px solid rgba(11,107,107,0.07); transition: color 0.15s, background 0.15s; }
     .mobile-nav a:hover, .mobile-nav a.active { color: var(--primary); background: rgba(11,107,107,0.04); }
     .mobile-nav-bottom { padding: 20px 28px; display: flex; flex-direction: column; gap: 10px; margin-top: auto; }
+    .mobile-translate-wrap { border-top: 1px solid rgba(255,255,255,0.15); padding-top: 10px; display: flex; justify-content: center; }
     .mobile-nav-btn { display: block; text-align: center; padding: 13px 20px; border-radius: 10px; font-size: 14px; font-weight: 700; text-decoration: none; transition: all 0.2s; }
     .mobile-nav-btn.outline { border: 2px solid var(--primary); color: var(--primary); }
     .mobile-nav-btn.fill { background: var(--primary); color: #fff; border: 2px solid var(--primary); }
@@ -302,6 +303,9 @@
     <a href="/login" class="mobile-nav-btn outline" id="mobile-btn-login">Увійти</a>
     <a href="/dashboard" class="mobile-nav-btn fill" id="mobile-btn-profile" style="display:none">👤 Мій профіль</a>
     <a href="/register" class="mobile-nav-btn fill">Реєстрація →</a>
+    <div class="mobile-translate-wrap">
+      <div id="google_translate_element_mob"></div>
+    </div>
   </div>
 </div>
 
@@ -624,6 +628,7 @@
 <script type="text/javascript">
 function googleTranslateElementInit() {
   new google.translate.TranslateElement({ pageLanguage: 'uk', includedLanguages: 'uk,cs,en,ru,tr', layout: google.translate.TranslateElement.InlineLayout.SIMPLE, autoDisplay: false }, 'google_translate_element');
+  new google.translate.TranslateElement({ pageLanguage: 'uk', includedLanguages: 'uk,cs,en,ru,tr', layout: google.translate.TranslateElement.InlineLayout.SIMPLE, autoDisplay: false }, 'google_translate_element_mob');
 }
 </script>
 <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>

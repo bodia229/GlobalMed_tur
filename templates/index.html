@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="uk">
 <head>
   <meta charset="UTF-8">
@@ -721,6 +721,7 @@
     }
     .mobile-nav a:hover, .mobile-nav a.active { color: var(--primary); background: rgba(11,107,107,0.04); }
     .mobile-nav-bottom { padding: 20px 28px; display: flex; flex-direction: column; gap: 10px; margin-top: auto; }
+    .mobile-translate-wrap { border-top: 1px solid rgba(255,255,255,0.15); padding-top: 10px; display: flex; justify-content: center; }
     .mobile-nav-btn {
       display: block; text-align: center; padding: 13px 20px;
       border-radius: 10px; font-size: 14px; font-weight: 700;
@@ -992,6 +993,9 @@
     <a href="/login" class="mobile-nav-btn outline" id="mobile-btn-login">Увійти</a>
     <a href="/dashboard" class="mobile-nav-btn fill" id="mobile-btn-profile" style="display:none">👤 Мій профіль</a>
     <a href="/register" class="mobile-nav-btn fill">Реєстрація →</a>
+    <div class="mobile-translate-wrap">
+      <div id="google_translate_element_mob"></div>
+    </div>
   </div>
 </div>
 
