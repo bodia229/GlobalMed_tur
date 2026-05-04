@@ -1,6 +1,7 @@
 fastapi==0.115.12
 uvicorn==0.34.3
 sqlalchemy==2.0.40
+psycopg2-binary==2.9.10
 python-jose==3.3.0
 bcrypt==4.3.0
 deep-translator==1.11.4

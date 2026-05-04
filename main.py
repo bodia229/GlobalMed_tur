@@ -44,8 +44,15 @@ async def backup_loop():
 
 # --- БАЗА ДАННЫХ ---
 _DB_PATH = os.path.join(_BASE_DIR, "sql_app.db")
-SQLALCHEMY_DATABASE_URL = f"sqlite:///{_DB_PATH}"
-engine = create_engine(SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False})
+_DATABASE_URL = os.environ.get("DATABASE_URL", f"sqlite:///{_DB_PATH}")
+# Render повертає postgres://, SQLAlchemy потребує postgresql://
+if _DATABASE_URL.startswith("postgres://"):
+    _DATABASE_URL = _DATABASE_URL.replace("postgres://", "postgresql://", 1)
+_is_sqlite = _DATABASE_URL.startswith("sqlite")
+engine = create_engine(
+    _DATABASE_URL,
+    connect_args={"check_same_thread": False} if _is_sqlite else {}
+)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
 
