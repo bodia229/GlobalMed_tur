@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%230B6B6B'/><rect x='13' y='4' width='6' height='24' rx='3' fill='white'/><rect x='4' y='13' width='24' height='6' rx='3' fill='white'/></svg>">
+  <title>Редагування статті — GlobalMed</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --primary: #0B6B6B; --primary-light: #14A8A8; --accent: #E8A838;
+      --bg: #F2FAFA; --text: #1A3340; --text-light: #5A7A84;
+      --white: #FFFFFF; --shadow: rgba(11,107,107,0.10);
+      --danger: #DC2626; --danger-bg: #FEF2F2;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Montserrat', sans-serif; color: var(--text); background: var(--bg); min-height: 100vh; }
+
+    /* ─── HEADER ─── */
+    header { position: sticky; top: 0; z-index: 100; background: var(--white); box-shadow: 0 2px 18px var(--shadow); }
+    nav { max-width: 1300px; margin: 0 auto; padding: 0 28px; height: 68px; display: flex; align-items: center; gap: 16px; }
+    .logo { display: flex; align-items: center; gap: 11px; text-decoration: none; flex-shrink: 0; }
+    .logo-icon { width: 42px; height: 42px; background: var(--primary); border-radius: 10px; display: flex; align-items: center; justify-content: center; }
+    .logo-text .brand { font-size: 17px; font-weight: 700; color: var(--primary); line-height: 1.2; }
+    .logo-text .tagline { font-size: 10px; color: var(--text-light); font-weight: 500; text-transform: uppercase; letter-spacing: 0.6px; }
+    .admin-badge { background: linear-gradient(135deg, var(--primary), var(--primary-light)); color: #fff; font-size: 11px; font-weight: 700; padding: 4px 12px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.8px; }
+    .nav-right { margin-left: auto; display: flex; align-items: center; gap: 14px; }
+    .nav-email { font-size: 13px; color: var(--text-light); font-weight: 500; }
+    .btn-logout { text-decoration: none; color: var(--danger); font-size: 13px; font-weight: 600; padding: 7px 16px; border: 1.5px solid #FCA5A5; border-radius: 8px; transition: all 0.2s; }
+    .btn-logout:hover { background: var(--danger-bg); }
+
+    /* ─── PAGE ─── */
+    .page { max-width: 960px; margin: 0 auto; padding: 40px 28px 80px; }
+
+    .page-head { margin-bottom: 32px; display: flex; align-items: center; gap: 16px; }
+    .btn-back { text-decoration: none; color: var(--primary); font-size: 13px; font-weight: 600; padding: 8px 16px; border: 1.5px solid #C8E8E8; border-radius: 8px; transition: all 0.2s; }
+    .btn-back:hover { background: rgba(11,107,107,0.07); }
+    .page-head-text h1 { font-size: 24px; font-weight: 700; color: var(--text); }
+    .page-head-text p { font-size: 13px; color: var(--text-light); margin-top: 3px; }
+
+    /* ─── FORM CARD ─── */
+    .form-card { background: var(--white); border-radius: 20px; box-shadow: 0 2px 24px var(--shadow); padding: 40px 44px; }
+
+    .form-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .form-full { grid-column: 1 / -1; }
+
+    .field { display: flex; flex-direction: column; gap: 7px; margin-bottom: 4px; }
+    .field label { font-size: 11px; font-weight: 700; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.6px; }
+    .field input, .field textarea {
+      padding: 12px 16px; border-radius: 10px; border: 1.5px solid #C8E8E8;
+      background: var(--bg); color: var(--text); font-size: 14px;
+      font-family: 'Montserrat', sans-serif; outline: none; transition: border-color 0.2s;
+      resize: vertical;
+    }
+    .field input:focus, .field textarea:focus { border-color: var(--primary); }
+    .field .hint { font-size: 11px; color: var(--text-light); margin-top: 2px; }
+
+    /* ─── PREVIEW STRIP ─── */
+    .preview-strip {
+      background: rgba(11,107,107,0.04); border: 1.5px dashed rgba(11,107,107,0.2);
+      border-radius: 12px; padding: 16px 20px; margin: 20px 0;
+      display: flex; align-items: center; gap: 14px;
+    }
+    .preview-strip-img { width: 80px; height: 56px; object-fit: cover; border-radius: 8px; flex-shrink: 0; display: none; }
+    .preview-strip-placeholder { width: 80px; height: 56px; background: linear-gradient(135deg, #085858, #0B8080); border-radius: 8px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 22px; }
+    .preview-strip-info { flex: 1; }
+    .preview-strip-label { font-size: 11px; font-weight: 700; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+    .preview-strip-title { font-size: 14px; font-weight: 700; color: var(--text); }
+    .preview-strip-meta { font-size: 12px; color: var(--text-light); margin-top: 2px; }
+    .preview-link { font-size: 12px; color: var(--primary); font-weight: 600; text-decoration: none; }
+    .preview-link:hover { text-decoration: underline; }
+
+    /* ─── ACTIONS ─── */
+    .form-actions { display: flex; align-items: center; gap: 14px; margin-top: 28px; }
+    .btn-save {
+      padding: 13px 32px; background: var(--primary); color: #fff;
+      border: none; border-radius: 10px; font-size: 14px; font-weight: 700;
+      font-family: 'Montserrat', sans-serif; cursor: pointer; transition: background 0.2s;
+    }
+    .btn-save:hover { background: var(--primary-light); }
+    .btn-preview {
+      text-decoration: none; padding: 12px 24px; border: 1.5px solid #C8E8E8;
+      color: var(--primary); font-size: 13px; font-weight: 700; border-radius: 10px;
+      transition: all 0.2s;
+    }
+    .btn-preview:hover { background: rgba(11,107,107,0.07); }
+    .save-note { font-size: 12px; color: var(--text-light); margin-left: auto; }
+
+    @media (max-width: 700px) {
+      .form-card { padding: 24px 18px; }
+      .form-grid-2 { grid-template-columns: 1fr; }
+      .page-head { flex-direction: column; align-items: flex-start; gap: 10px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <a href="/" class="logo">
+      <div class="logo-icon">
+        <svg width="24" height="24" viewBox="0 0 26 26" fill="none">
+          <rect x="11" y="3" width="4" height="20" rx="2" fill="white"/>
+          <rect x="3" y="11" width="20" height="4" rx="2" fill="white"/>
+        </svg>
+      </div>
+      <div class="logo-text">
+        <div class="brand">GlobalMed</div>
+        <div class="tagline">Клініка · Туреччина</div>
+      </div>
+    </a>
+    <span class="admin-badge">Адмін-панель</span>
+    <div class="nav-right">
+      <span class="nav-email">{{ user.email }}</span>
+      <a href="/logout" class="btn-logout">Вийти →</a>
+    </div>
+  </nav>
+</header>
+
+
+<div class="page">
+
+  <div class="page-head">
+    <a href="/admin#blog" class="btn-back">← До панелі</a>
+    <div class="page-head-text">
+      <h1>Редагування статті</h1>
+      <p>ID #{{ post.id }} · /blog/{{ post.slug }}</p>
+    </div>
+  </div>
+
+  <div class="preview-strip">
+    {% if post.image_url %}
+      <img class="preview-strip-img" id="preview-img" src="{{ post.image_url }}" alt="" style="display:block;">
+    {% else %}
+      <div class="preview-strip-placeholder" id="preview-placeholder">📰</div>
+      <img class="preview-strip-img" id="preview-img" src="" alt="" style="display:none;">
+    {% endif %}
+    <div class="preview-strip-info">
+      <div class="preview-strip-label">Попередній перегляд</div>
+      <div class="preview-strip-title" id="preview-title">{{ post.title }}</div>
+      <div class="preview-strip-meta">{{ post.created_at }} · {{ post.author }}</div>
+    </div>
+    <a href="/blog/{{ post.slug }}" target="_blank" class="preview-link">Переглянути →</a>
+  </div>
+
+  <div class="form-card">
+    <form method="POST" action="/admin/blog/update">
+      <input type="hidden" name="post_id" value="{{ post.id }}">
+
+      <div class="form-grid-2">
+        <div class="field form-full">
+          <label>Заголовок *</label>
+          <input type="text" name="title" value="{{ post.title }}" required id="input-title">
+        </div>
+
+        <div class="field">
+          <label>Автор</label>
+          <input type="text" name="author" value="{{ post.author }}">
+        </div>
+
+        <div class="field">
+          <label>URL зображення</label>
+          <input type="text" name="image_url" value="{{ post.image_url or '' }}" id="input-image" placeholder="https://...">
+          <span class="hint">Вставте посилання на фото — попередній перегляд оновиться автоматично</span>
+        </div>
+
+        <div class="field form-full">
+          <label>Короткий опис (excerpt)</label>
+          <input type="text" name="excerpt" value="{{ post.excerpt or '' }}" placeholder="Кілька речень для анонсу на сторінці блогу…">
+        </div>
+
+        <div class="field form-full">
+          <label>Повний текст статті (HTML підтримується) *</label>
+          <textarea name="content" rows="20" required>{{ post.content }}</textarea>
+          <span class="hint">Теги &lt;h2&gt;, &lt;h3&gt;, &lt;p&gt;, &lt;ul&gt;, &lt;ol&gt;, &lt;li&gt;, &lt;strong&gt;, &lt;blockquote&gt; відображаються з форматуванням</span>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn-save">💾 Зберегти зміни</button>
+        <a href="/blog/{{ post.slug }}" target="_blank" class="btn-preview">👁 Переглянути статтю</a>
+        <span class="save-note">Slug не змінюється при редагуванні</span>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+(function() {
+  var titleInput = document.getElementById('input-title');
+  var imageInput = document.getElementById('input-image');
+  var previewTitle = document.getElementById('preview-title');
+  var previewImg = document.getElementById('preview-img');
+  var previewPlaceholder = document.getElementById('preview-placeholder');
+
+  titleInput.addEventListener('input', function() {
+    previewTitle.textContent = this.value || 'Без заголовку';
+  });
+
+  imageInput.addEventListener('input', function() {
+    var url = this.value.trim();
+    if (url) {
+      previewImg.src = url;
+      previewImg.style.display = 'block';
+      if (previewPlaceholder) previewPlaceholder.style.display = 'none';
+    } else {
+      previewImg.style.display = 'none';
+      if (previewPlaceholder) previewPlaceholder.style.display = 'flex';
+    }
+  });
+})();
+</script>
+</body>
+</html>

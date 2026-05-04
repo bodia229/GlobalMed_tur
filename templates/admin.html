@@ -166,12 +166,125 @@
       font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 20px;
     }
 
+    /* ─── SUBSCRIBERS ─── */
+    .subs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 12px;
+      margin-top: 4px;
+    }
+    .sub-card {
+      background: var(--white); border-radius: 12px;
+      padding: 14px 18px; box-shadow: 0 2px 12px var(--shadow);
+      display: flex; align-items: center; gap: 12px;
+    }
+    .sub-avatar {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--primary-light));
+      color: #fff; font-size: 14px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .sub-email { font-size: 13px; font-weight: 600; color: var(--text); word-break: break-all; }
+    .sub-date { font-size: 11px; color: var(--text-light); margin-top: 2px; }
+
     .empty-state {
       text-align: center; padding: 64px 20px;
       color: var(--text-light); font-size: 15px;
     }
     .empty-state .empty-icon { font-size: 48px; margin-bottom: 16px; }
     .empty-state p { line-height: 1.65; }
+
+    /* ─── CHECKBOXES ─── */
+    input[type="checkbox"] {
+      width: 17px; height: 17px; cursor: pointer;
+      accent-color: var(--primary); border-radius: 4px;
+    }
+    thead th.th-check { width: 44px; text-align: center; }
+    tbody td.td-check { text-align: center; }
+    tbody tr.selected { background: rgba(11,107,107,0.05) !important; }
+
+    /* ─── DELETE TOOLBAR ─── */
+    .delete-toolbar {
+      display: none;
+      align-items: center; gap: 14px;
+      background: #FEF2F2; border: 1.5px solid #FCA5A5;
+      border-radius: 12px; padding: 12px 20px;
+      margin-bottom: 14px;
+    }
+    .delete-toolbar.visible { display: flex; }
+    .toolbar-info { font-size: 13px; font-weight: 600; color: var(--danger); flex: 1; }
+    .btn-delete {
+      background: var(--danger); color: #fff; border: none;
+      padding: 9px 20px; border-radius: 9px; font-size: 13px;
+      font-weight: 700; font-family: 'Montserrat', sans-serif;
+      cursor: pointer; transition: all 0.2s;
+    }
+    .btn-delete:hover { background: #B91C1C; }
+    .btn-deselect {
+      background: none; border: 1.5px solid #FCA5A5; color: var(--danger);
+      padding: 8px 16px; border-radius: 9px; font-size: 13px;
+      font-weight: 600; font-family: 'Montserrat', sans-serif;
+      cursor: pointer; transition: all 0.2s;
+    }
+    .btn-deselect:hover { background: #FEF2F2; }
+
+    /* ─── BLOG MANAGEMENT ─── */
+    .blog-form-card {
+      background: var(--white); border-radius: 18px;
+      box-shadow: 0 2px 20px var(--shadow); padding: 32px 36px;
+      margin-bottom: 28px;
+    }
+    .blog-form-card h3 { font-size: 16px; font-weight: 700; color: var(--text); margin-bottom: 22px; }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .form-grid.full { grid-template-columns: 1fr; }
+    .form-field { display: flex; flex-direction: column; gap: 6px; }
+    .form-field label { font-size: 11px; font-weight: 700; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.6px; }
+    .form-field input, .form-field textarea {
+      padding: 11px 14px; border-radius: 9px; border: 1.5px solid #C8E8E8;
+      background: var(--bg); color: var(--text); font-size: 13.5px;
+      font-family: 'Montserrat', sans-serif; outline: none; transition: border-color 0.2s;
+      resize: vertical;
+    }
+    .form-field input:focus, .form-field textarea:focus { border-color: var(--primary); }
+    .btn-create-post {
+      margin-top: 18px; padding: 12px 28px; background: var(--primary); color: #fff;
+      border: none; border-radius: 10px; font-size: 14px; font-weight: 700;
+      font-family: 'Montserrat', sans-serif; cursor: pointer; transition: background 0.2s;
+    }
+    .btn-create-post:hover { background: var(--primary-light); }
+
+    .blog-posts-list { display: flex; flex-direction: column; gap: 12px; }
+    .blog-post-row {
+      background: var(--white); border-radius: 14px; padding: 18px 22px;
+      box-shadow: 0 2px 12px var(--shadow);
+      display: flex; align-items: center; gap: 16px;
+    }
+    .blog-post-img {
+      width: 64px; height: 48px; object-fit: cover; border-radius: 8px; flex-shrink: 0;
+      background: linear-gradient(135deg, #085858, #0B8080);
+    }
+    .blog-post-img-placeholder {
+      width: 64px; height: 48px; border-radius: 8px; flex-shrink: 0;
+      background: linear-gradient(135deg, #085858, #0B8080);
+      display: flex; align-items: center; justify-content: center; font-size: 22px;
+    }
+    .blog-post-info { flex: 1; min-width: 0; }
+    .blog-post-title { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .blog-post-meta { font-size: 12px; color: var(--text-light); }
+    .blog-post-meta a { color: var(--primary); font-weight: 600; text-decoration: none; }
+    .blog-post-meta a:hover { text-decoration: underline; }
+    .btn-edit-post {
+      text-decoration: none; background: none; border: 1.5px solid #C8E8E8; color: var(--primary);
+      padding: 7px 14px; border-radius: 8px; font-size: 12px; font-weight: 700;
+      transition: all 0.2s; flex-shrink: 0; white-space: nowrap;
+    }
+    .btn-edit-post:hover { background: rgba(11,107,107,0.07); }
+    .btn-delete-post {
+      background: none; border: 1.5px solid #FCA5A5; color: var(--danger);
+      padding: 7px 14px; border-radius: 8px; font-size: 12px; font-weight: 700;
+      font-family: 'Montserrat', sans-serif; cursor: pointer; transition: all 0.2s; flex-shrink: 0;
+    }
+    .btn-delete-post:hover { background: var(--danger-bg); }
 
     /* ─── RESPONSIVE ─── */
     @media (max-width: 900px) {
@@ -255,14 +368,25 @@
   <!-- Inquiries table -->
   <div class="section-head">
     <h2>Заявки пацієнтів</h2>
-    <span class="count-badge">{{ inquiries_count }} заявок</span>
+    <span class="count-badge" id="total-badge">{{ inquiries_count }} заявок</span>
   </div>
+
+  <!-- Delete toolbar -->
+  <form method="POST" action="/admin/delete-inquiries" id="delete-form">
+    <input type="hidden" name="ids" id="selected-ids">
+    <div class="delete-toolbar" id="delete-toolbar">
+      <span class="toolbar-info" id="toolbar-info">Вибрано: 0</span>
+      <button type="button" class="btn-deselect" id="btn-deselect">Скасувати</button>
+      <button type="button" class="btn-delete" id="btn-delete-confirm">🗑 Видалити вибрані</button>
+    </div>
+  </form>
 
   <div class="table-wrap">
     {% if rows %}
     <table>
       <thead>
         <tr>
+          <th class="th-check"><input type="checkbox" id="check-all" title="Вибрати всі"></th>
           <th>#</th>
           <th>Ім'я</th>
           <th>Телефон</th>
@@ -272,7 +396,8 @@
       </thead>
       <tbody>
         {% for row in rows %}
-        <tr>
+        <tr data-id="{{ row.id }}">
+          <td class="td-check"><input type="checkbox" class="row-check" value="{{ row.id }}"></td>
           <td class="td-id">#{{ row.id }}</td>
           <td class="td-name">{{ row.name }}</td>
           <td class="td-phone">{{ row.phone }}</td>
@@ -296,7 +421,169 @@
     {% endif %}
   </div>
 
+  <!-- Newsletter subscribers -->
+  <div class="section-head" style="margin-top:48px;">
+    <h2>📬 Підписники на новини</h2>
+    <span class="count-badge">{{ subscribers|length }} підписників</span>
+  </div>
+
+  {% if subscribers %}
+  <div class="subs-grid">
+    {% for s in subscribers %}
+    <div class="sub-card">
+      <div class="sub-avatar">{{ s.email[0]|upper }}</div>
+      <div>
+        <div class="sub-email">{{ s.email }}</div>
+        <div class="sub-date">{{ s.subscribed_at }}</div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="empty-state">
+    <div class="empty-icon">📭</div>
+    <p>Підписників поки немає.</p>
+  </div>
+  {% endif %}
+
+  <!-- Blog management -->
+  <div class="section-head" style="margin-top:56px;">
+    <h2>📝 Керування блогом</h2>
+    <span class="count-badge">{{ blog_posts|length }} статей</span>
+  </div>
+
+  <div class="blog-form-card">
+    <h3>Нова стаття</h3>
+    <form method="POST" action="/admin/blog/create">
+      <div class="form-grid">
+        <div class="form-field">
+          <label>Заголовок *</label>
+          <input type="text" name="title" placeholder="Назва статті" required>
+        </div>
+        <div class="form-field">
+          <label>Автор</label>
+          <input type="text" name="author" placeholder="GlobalMed" value="GlobalMed">
+        </div>
+        <div class="form-field">
+          <label>URL зображення</label>
+          <input type="text" name="image_url" placeholder="https://...">
+        </div>
+        <div class="form-field">
+          <label>Короткий опис (excerpt)</label>
+          <input type="text" name="excerpt" placeholder="Кілька речень для анонсу…">
+        </div>
+      </div>
+      <div class="form-grid full" style="margin-top:14px;">
+        <div class="form-field">
+          <label>Повний текст (HTML підтримується)</label>
+          <textarea name="content" rows="8" placeholder="Введіть текст статті…" required></textarea>
+        </div>
+      </div>
+      <button type="submit" class="btn-create-post">+ Опублікувати статтю</button>
+    </form>
+  </div>
+
+  {% if blog_posts %}
+  <div class="blog-posts-list">
+    {% for bp in blog_posts %}
+    <div class="blog-post-row">
+      {% if bp.image_url %}
+        <img class="blog-post-img" src="{{ bp.image_url }}" alt="">
+      {% else %}
+        <div class="blog-post-img-placeholder">📰</div>
+      {% endif %}
+      <div class="blog-post-info">
+        <div class="blog-post-title">{{ bp.title }}</div>
+        <div class="blog-post-meta">
+          {{ bp.created_at }} · {{ bp.author }} ·
+          <a href="/blog/{{ bp.slug }}" target="_blank">/blog/{{ bp.slug }}</a>
+        </div>
+      </div>
+      <a href="/admin/blog/edit/{{ bp.id }}" class="btn-edit-post">✏️ Редагувати</a>
+      <form method="POST" action="/admin/blog/delete" onsubmit="return confirm('Видалити статтю?')">
+        <input type="hidden" name="post_id" value="{{ bp.id }}">
+        <button type="submit" class="btn-delete-post">🗑 Видалити</button>
+      </form>
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="empty-state">
+    <div class="empty-icon">✍️</div>
+    <p>Статей поки немає. Створіть першу!</p>
+  </div>
+  {% endif %}
+
 </div>
 
+<script>
+(function() {
+  var checkAll  = document.getElementById('check-all');
+  var toolbar   = document.getElementById('delete-toolbar');
+  var toolbarInfo = document.getElementById('toolbar-info');
+  var idsInput  = document.getElementById('selected-ids');
+  var form      = document.getElementById('delete-form');
+
+  if (!checkAll) return;
+
+  function getChecked() {
+    return Array.from(document.querySelectorAll('.row-check:checked'));
+  }
+
+  function updateToolbar() {
+    var checked = getChecked();
+    var count = checked.length;
+    if (count > 0) {
+      toolbar.classList.add('visible');
+      toolbarInfo.textContent = 'Вибрано: ' + count + (count === 1 ? ' заявку' : count < 5 ? ' заявки' : ' заявок');
+    } else {
+      toolbar.classList.remove('visible');
+    }
+    // sync select-all state
+    var all = document.querySelectorAll('.row-check');
+    checkAll.indeterminate = count > 0 && count < all.length;
+    checkAll.checked = count === all.length && all.length > 0;
+    // highlight rows
+    document.querySelectorAll('tbody tr').forEach(function(tr) {
+      var cb = tr.querySelector('.row-check');
+      tr.classList.toggle('selected', cb && cb.checked);
+    });
+  }
+
+  checkAll.addEventListener('change', function() {
+    document.querySelectorAll('.row-check').forEach(function(cb) {
+      cb.checked = checkAll.checked;
+    });
+    updateToolbar();
+  });
+
+  document.querySelectorAll('.row-check').forEach(function(cb) {
+    cb.addEventListener('change', updateToolbar);
+  });
+
+  // click on row also toggles checkbox
+  document.querySelectorAll('tbody tr').forEach(function(tr) {
+    tr.addEventListener('click', function(e) {
+      if (e.target.type === 'checkbox') return;
+      var cb = tr.querySelector('.row-check');
+      if (cb) { cb.checked = !cb.checked; updateToolbar(); }
+    });
+  });
+
+  document.getElementById('btn-deselect').addEventListener('click', function() {
+    document.querySelectorAll('.row-check').forEach(function(cb) { cb.checked = false; });
+    checkAll.checked = false;
+    updateToolbar();
+  });
+
+  document.getElementById('btn-delete-confirm').addEventListener('click', function() {
+    var checked = getChecked();
+    if (!checked.length) return;
+    if (!confirm('Видалити ' + checked.length + ' заявок? Це незворотна дія.')) return;
+    idsInput.value = checked.map(function(cb) { return cb.value; }).join(',');
+    form.submit();
+  });
+})();
+</script>
 </body>
 </html>
