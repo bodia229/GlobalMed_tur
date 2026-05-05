@@ -180,14 +180,14 @@ def ensure_admin():
 ensure_admin()
 
 def send_reset_email(to_email: str, code: str):
-    user = os.environ.get("EMAIL_USER", "")
-    pwd  = os.environ.get("EMAIL_PASS", "")
-    if not user or not pwd:
-        print(f"[RESET CODE] {to_email} → {code}")
+    email_user = os.environ.get("EMAIL_USER", "")
+    email_pass = os.environ.get("EMAIL_PASS", "")
+    if not email_user or not email_pass:
+        print(f"[RESET] EMAIL_USER/EMAIL_PASS not set. Code for {to_email}: {code}")
         return
     msg = MIMEMultipart("alternative")
     msg["Subject"] = "Відновлення пароля — GlobalMed"
-    msg["From"]    = user
+    msg["From"]    = email_user
     msg["To"]      = to_email
     html = f"""
     <div style="font-family:sans-serif;max-width:480px;margin:0 auto;padding:32px;">
@@ -200,9 +200,13 @@ def send_reset_email(to_email: str, code: str):
          Якщо ви не запитували відновлення — проігноруйте цей лист.</p>
     </div>"""
     msg.attach(MIMEText(html, "html"))
-    with smtplib.SMTP_SSL("smtp.gmail.com", 465) as srv:
-        srv.login(user, pwd)
-        srv.sendmail(user, to_email, msg.as_string())
+    print(f"[RESET] Sending email to {to_email} via {email_user}")
+    with smtplib.SMTP("smtp.gmail.com", 587) as srv:
+        srv.ehlo()
+        srv.starttls()
+        srv.login(email_user, email_pass)
+        srv.sendmail(email_user, to_email, msg.as_string())
+    print(f"[RESET] Email sent successfully to {to_email}")
 
 def _make_slug(title: str, db) -> str:
     slug_base = re.sub(r"[^a-zA-Zа-яА-ЯіїєёЄІЇ0-9]+", "-", title.lower()).strip("-")
@@ -896,7 +900,9 @@ async def forgot_password(request: Request, email: str = Form(...), db: Session 
         try:
             send_reset_email(email, code)
         except Exception as e:
-            print(f"Reset email error: {e}")
+            import traceback
+            print(f"[RESET] Email error: {e}")
+            traceback.print_exc()
     return {"status": "sent"}
 
 @app.post("/reset-password")
