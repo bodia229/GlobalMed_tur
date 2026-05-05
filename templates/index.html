@@ -564,6 +564,26 @@ function gtag_report_conversion(url) {
     .btn-svc-cta { display: inline-flex; align-items: center; gap: 8px; background: var(--primary); color: #fff; padding: 13px 28px; border-radius: 10px; font-size: 14px; font-weight: 700; text-decoration: none; transition: all 0.2s; align-self: flex-start; }
     .btn-svc-cta:hover { background: var(--primary-light); transform: translateY(-1px); }
 
+    /* ─────────────── FAQ ─────────────── */
+    .faq-section { background: var(--white); }
+    .faq-tabs { display: flex; border-bottom: 2px solid rgba(11,107,107,0.12); overflow-x: auto; scrollbar-width: none; margin-bottom: 32px; }
+    .faq-tabs::-webkit-scrollbar { display: none; }
+    .faq-tab { flex-shrink: 0; padding: 14px 18px; font-size: 12px; font-weight: 700; color: var(--text-light); background: none; border: none; cursor: pointer; font-family: 'Montserrat', sans-serif; text-transform: uppercase; letter-spacing: 0.6px; position: relative; transition: color 0.2s; white-space: nowrap; }
+    .faq-tab::after { content: ''; position: absolute; bottom: -2px; left: 0; right: 0; height: 2px; background: var(--primary); transform: scaleX(0); transition: transform 0.22s; }
+    .faq-tab:hover { color: var(--primary); }
+    .faq-tab.active { color: var(--primary); }
+    .faq-tab.active::after { transform: scaleX(1); }
+    .faq-panel { display: none; max-width: 820px; margin: 0 auto; }
+    .faq-panel.active { display: block; }
+    .faq-item { border: 1px solid rgba(11,107,107,0.12); border-radius: 12px; margin-bottom: 10px; overflow: hidden; }
+    .faq-item summary { list-style: none; padding: 18px 22px; font-size: 15px; font-weight: 600; color: var(--text); cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+    .faq-item summary::-webkit-details-marker { display: none; }
+    .faq-item summary::after { content: '+'; font-size: 22px; font-weight: 300; color: var(--primary); flex-shrink: 0; transition: transform 0.22s; }
+    .faq-item[open] summary::after { transform: rotate(45deg); }
+    .faq-item[open] { background: #F8FEFE; }
+    .faq-item[open] summary { color: var(--primary); border-bottom: 1px solid rgba(11,107,107,0.10); }
+    .faq-answer { padding: 16px 22px 20px; font-size: 14px; color: var(--text-light); line-height: 1.75; }
+
     /* ─────────────── HOW IT WORKS ─────────────── */
     .steps {
       display: flex;
@@ -997,6 +1017,7 @@ function gtag_report_conversion(url) {
         </div>
       </li>
       <li><a href="#services">Послуги</a></li>
+      <li><a href="#faq">FAQ</a></li>
       <li><a href="/gallery">Галерея</a></li>
       <li><a href="/reviews">Відгуки</a></li>
       <li><a href="/blog">Блог</a></li>
@@ -1021,6 +1042,7 @@ function gtag_report_conversion(url) {
   <a href="/">Головна</a>
   <a href="/about_us">Про нас</a>
   <a href="/#services">Послуги</a>
+  <a href="/#faq">FAQ</a>
   <a href="/gallery">Галерея</a>
   <a href="/reviews">Відгуки</a>
   <a href="/blog">Блог</a>
@@ -1329,6 +1351,185 @@ function gtag_report_conversion(url) {
   </div>
 </section>
 
+
+<!-- ══════════════ FAQ ══════════════ -->
+<section class="section faq-section" id="faq">
+  <div class="section-inner">
+    <div class="section-label">Часті запитання</div>
+    <h2 class="section-title">Відповіді на ваші запитання</h2>
+    <p class="section-subtitle">Оберіть категорію та знайдіть відповідь на своє запитання</p>
+
+    <div class="faq-tabs">
+      <button class="faq-tab active" data-faq="0">🦷 Стоматологія</button>
+      <button class="faq-tab" data-faq="1">✨ Естетика</button>
+      <button class="faq-tab" data-faq="2">💇 Пересадка волосся</button>
+      <button class="faq-tab" data-faq="3">👁️ Хірургія очей</button>
+      <button class="faq-tab" data-faq="4">⚖️ Баріатрична хірургія</button>
+      <button class="faq-tab" data-faq="5">🧬 ЕКО</button>
+    </div>
+
+    <!-- ── СТОМАТОЛОГІЯ ── -->
+    <div class="faq-panel active" data-faq-panel="0">
+      <details class="faq-item">
+        <summary>Чи безпечно лікувати зуби в Туреччині?</summary>
+        <div class="faq-answer">Так. Клініки, з якими ми співпрацюємо, мають міжнародну акредитацію JCI або ISO, а хірурги — сертифікати провідних європейських стоматологічних асоціацій. GlobalMed особисто перевіряє кожну клініку перед партнерством.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Скільки часу займає All-on-4 імплантація?</summary>
+        <div class="faq-answer">Зазвичай уся процедура (включно з тимчасовим протезом) займає 3–5 днів. Постійні циркон-коронки встановлюються під час другого візиту через 3–6 місяців після повного приживлення імплантів.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Яка гарантія на зубні протези та імплантати?</summary>
+        <div class="faq-answer">Більшість наших партнерських клінік надають гарантію на імплантати від 5 до 10 років, на коронки та мости — від 2 до 5 років. Умови гарантії фіксуються письмово ще до початку лікування.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Чи потрібно знати турецьку або англійську мову?</summary>
+        <div class="faq-answer">Ні. Наш супровідник перекладає на всіх етапах — від консультації з лікарем до виписки. Ви спілкуєтеся лише з нами рідною мовою.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Що потрібно взяти з собою на стоматологічне лікування?</summary>
+        <div class="faq-answer">Паспорт, результати останніх рентгенів або КТ (якщо є), список поточних ліків та хронічних захворювань. Усе інше — аналізи, додаткова діагностика — організуємо на місці.</div>
+      </details>
+    </div>
+
+    <!-- ── ЕСТЕТИКА ── -->
+    <div class="faq-panel" data-faq-panel="1">
+      <details class="faq-item">
+        <summary>Коли можна летіти після естетичної операції?</summary>
+        <div class="faq-answer">Залежить від операції: після ринопластики чи абдомінопластики рекомендується залишитися в Туреччині 7–10 днів. Після малоінвазивних процедур (ліфт брів, блефаропластика) — достатньо 4–5 днів. Точний термін лікар узгоджує індивідуально.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Чи залишаються помітні рубці після операцій?</summary>
+        <div class="faq-answer">Сучасні техніки мінімізують рубці: розрізи робляться у природних складках шкіри або за лінією волосся. Через 6–12 місяців рубці зазвичай стають практично непомітними. Лікар покаже фото реальних результатів до консультації.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Як обирається хірург для моєї операції?</summary>
+        <div class="faq-answer">На основі вашого запиту ми підбираємо кількох профільних хірургів із нашої мережі. Ви отримуєте їхні резюме, фото результатів до/після та відгуки пацієнтів — і самі обираєте.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Чи включена анестезія та перебування в клініці у вартість?</summary>
+        <div class="faq-answer">Так, у більшості випадків пакет включає операцію, загальну анестезію, перебування в клініці та медикаменти. Точний перелік ми надаємо письмово у вигляді детального кошторису перед оплатою.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Що робити, якщо виникнуть ускладнення після повернення додому?</summary>
+        <div class="faq-answer">GlobalMed залишається на зв'язку після операції. У разі питань ми організовуємо відеоконсультацію з вашим хірургом, а при потребі — повторну поїздку до клініки.</div>
+      </details>
+    </div>
+
+    <!-- ── ПЕРЕСАДКА ВОЛОССЯ ── -->
+    <div class="faq-panel" data-faq-panel="2">
+      <details class="faq-item">
+        <summary>Яка різниця між методами FUE та DHI?</summary>
+        <div class="faq-answer">FUE (Follicular Unit Extraction) — фолікули пересаджуються за допомогою мікрощипців, потрібне часткове гоління. DHI (Direct Hair Implantation) — фолікули вводяться спеціальним пером без попереднього гоління, що дозволяє точніший контроль напрямку росту. DHI підходить для збільшення густоти між існуючим волоссям.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Коли з'явиться помітний результат?</summary>
+        <div class="faq-answer">Пересаджене волосся випадає через 2–4 тижні після процедури — це норма. Активний ріст починається з 3–4 місяці. Повний фінальний результат видно через 12–18 місяців.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Боляче під час процедури пересадки волосся?</summary>
+        <div class="faq-answer">Процедура проводиться під місцевою анестезією. Укол анестетика може бути трохи неприємним, але сама пересадка безболісна. Після процедури можливий помірний дискомфорт протягом 1–2 днів.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Скільки трансплантатів мені потрібно?</summary>
+        <div class="faq-answer">Кількість залежить від ступеня облисіння та бажаної густоти. Зазвичай від 1 500 до 4 500 трансплантатів. Точну цифру визначає трихолог під час безкоштовної онлайн-консультації після аналізу вашого фото.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Чи роблять пересадку волосся жінкам?</summary>
+        <div class="faq-answer">Так. Жіноча пересадка волосся — окрема спеціалізація. Вона ефективна при андрогенній алопеції, після пологів або хвороб. Жінкам зазвичай підходить DHI-метод без видимого гоління.</div>
+      </details>
+    </div>
+
+    <!-- ── ХІРУРГІЯ ОЧЕЙ ── -->
+    <div class="faq-panel" data-faq-panel="3">
+      <details class="faq-item">
+        <summary>Чи підходить мені лазерна корекція зору LASIK?</summary>
+        <div class="faq-answer">LASIK підходить для більшості людей від 18 до 45 років зі стабільним зором протягом 1 року та достатньою товщиною рогівки. Протипоказання: вагітність, деякі аутоімунні захворювання, кератоконус. Точну придатність визначить офтальмологічне обстеження.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Скільки часу займає сама процедура LASIK?</summary>
+        <div class="faq-answer">Лазерна корекція одного ока займає 10–15 хвилин. Обидва ока зазвичай роблять в один день. Увесь час у клініці з підготовкою та відпочинком після — близько 3–4 годин.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Коли відновлюється зір після операції?</summary>
+        <div class="faq-answer">Базовий зір покращується вже наступного дня. Повна стабілізація — протягом 1–4 тижнів. У перші дні можлива чутливість до світла та легке затуманення — це нормальна реакція.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Що таке Smart Lens і кому він підходить?</summary>
+        <div class="faq-answer">Smart Lens (преміальна інтраокулярна лінза) замінює природній кришталик та коригує зір на всіх відстанях. Підходить людям від 45 років або тим, кому LASIK протипоказаний. Одночасно вирішує проблему катаракти та пресбіопії.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Чи є обмеження після лазерної корекції?</summary>
+        <div class="faq-answer">Протягом першого тижня: уникайте тертя очей, басейну, косметики навколо очей. Спорт — через 2–4 тижні залежно від виду. Читання та робота за комп'ютером можливі вже на наступний день з невеликими обмеженнями.</div>
+      </details>
+    </div>
+
+    <!-- ── БАРІАТРИЧНА ХІРУРГІЯ ── -->
+    <div class="faq-panel" data-faq-panel="4">
+      <details class="faq-item">
+        <summary>За яких умов роблять баріатричну операцію?</summary>
+        <div class="faq-answer">Основний критерій — індекс маси тіла (ІМТ) понад 35, або ІМТ понад 30 з наявністю супутніх захворювань (діабет 2 типу, гіпертонія). Остаточне рішення приймає хірург після обстеження та аналізів.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Чи є нехірургічні варіанти схуднення?</summary>
+        <div class="faq-answer">Так. Шлунковий балон (ендоскопічно, без розрізів) і ботокс шлунку — нехірургічні варіанти для людей з ІМТ 27–35. Вони дають відчуття ситості і допомагають скинути 15–25 кг без повноцінної операції.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Скільки кілограмів можна скинути після операції?</summary>
+        <div class="faq-answer">Після рукавної резекції шлунка пацієнти втрачають у середньому 60–70% надлишкової ваги протягом 12–18 місяців. Тобто при надлишку 50 кг — реальний результат 30–35 кг і більше.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Яка реабілітація після рукавної резекції шлунка?</summary>
+        <div class="faq-answer">Перебування в клініці — 2–3 дні. Перший місяць — рідка та м'яка їжа. Повернення до звичного способу харчування — через 2–3 місяці. Важка фізична праця дозволена через 4–6 тижнів.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Чи повертається вага після баріатричної операції?</summary>
+        <div class="faq-answer">Якщо дотримуватись рекомендацій щодо харчування та фізичної активності — ні. Більшість пацієнтів утримують результат роками. Ми надаємо повний план харчування та підтримку дієтолога після операції.</div>
+      </details>
+    </div>
+
+    <!-- ── ЕКО ── -->
+    <div class="faq-panel" data-faq-panel="5">
+      <details class="faq-item">
+        <summary>Скільки коштує ЕКО в Туреччині порівняно з Чехією?</summary>
+        <div class="faq-answer">Вартість ЕКО в Туреччині — від €2 500 до €4 500 за цикл (залежно від протоколу та клініки), тоді як у Чехії аналогічні послуги коштують від €4 000 до €7 000. Економія — 40–50% при однаковому рівні медицини.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Скільки часу займає один цикл ЕКО?</summary>
+        <div class="faq-answer">Стандартний цикл ЕКО займає 12–16 днів. Початок стимуляції яєчників можна провести вдома (під контролем місцевого лікаря), а до Туреччини приїхати лише на 5–7 днів для пункції та переносу ембріона.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Чи потрібно залишатися в Туреччині на весь цикл?</summary>
+        <div class="faq-answer">Ні. Ми організовуємо гібридний протокол: стимуляція вдома під наглядом вашого гінеколога, приліт до Туреччини лише на ключові процедури (пункція та перенос). Це значно знижує витрати на проживання.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Яка успішність ЕКО в турецьких клініках?</summary>
+        <div class="faq-answer">Провідні клініки Туреччини демонструють успішність ЕКО 55–65% за перенос свіжого ембріона у жінок до 35 років. Це відповідає середньоєвропейському рівню та підтверджується даними Європейського товариства репродуктивної медицини (ESHRE).</div>
+      </details>
+      <details class="faq-item">
+        <summary>Чи дозволено ЕКО з донором в Туреччині?</summary>
+        <div class="faq-answer">Так. Туреччина легально дозволяє ЕКО з донорськими яйцеклітинами та спермою. Всі донори проходять ретельний медичний і генетичний відбір. Це важлива опція для пар, де власні клітини не дають результату.</div>
+      </details>
+    </div>
+
+  </div>
+</section>
+
+<script>
+(function() {
+  var tabs = document.querySelectorAll('.faq-tab');
+  var panels = document.querySelectorAll('.faq-panel');
+  tabs.forEach(function(tab) {
+    tab.addEventListener('click', function() {
+      var idx = this.dataset.faq;
+      tabs.forEach(function(t) { t.classList.remove('active'); });
+      panels.forEach(function(p) { p.classList.remove('active'); });
+      this.classList.add('active');
+      document.querySelector('.faq-panel[data-faq-panel="' + idx + '"]').classList.add('active');
+    });
+  });
+})();
+</script>
 
 <!-- ══════════════ MOBILE CONTACT FORM ══════════════ -->
 <section class="section mobile-contact" id="contact" style="background: linear-gradient(135deg, #085858, #0B8080); padding-top: 70px; padding-bottom: 70px;">
