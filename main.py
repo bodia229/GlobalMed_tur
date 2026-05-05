@@ -22,6 +22,7 @@ from deep_translator import GoogleTranslator
 import bcrypt
 
 # --- КОНФИГУРАЦИЯ ---
+BASE_URL = os.environ.get("BASE_URL", "https://globalmed-tur.onrender.com").rstrip("/")
 SECRET_KEY = "my_super_secret_key_123"
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24
@@ -848,6 +849,54 @@ async def reset_password(
     db.delete(entry)
     db.commit()
     return {"status": "success"}
+
+@app.get("/robots.txt", response_class=HTMLResponse)
+async def robots():
+    content = f"""User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /dashboard
+Disallow: /view-data
+Disallow: /login
+Disallow: /logout
+Disallow: /register
+
+Sitemap: {BASE_URL}/sitemap.xml
+"""
+    return HTMLResponse(content=content, media_type="text/plain")
+
+
+@app.get("/sitemap.xml", response_class=HTMLResponse)
+async def sitemap(db: Session = Depends(get_db)):
+    today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    static_pages = [
+        ("", "1.0", "weekly"),
+        ("about_us", "0.8", "monthly"),
+        ("contacts", "0.8", "monthly"),
+        ("gallery", "0.7", "monthly"),
+        ("reviews", "0.7", "monthly"),
+        ("blog", "0.8", "weekly"),
+        ("privacy", "0.3", "yearly"),
+    ]
+    urls = []
+    for path, priority, freq in static_pages:
+        loc = f"{BASE_URL}/{path}" if path else BASE_URL
+        urls.append(
+            f"  <url>\n    <loc>{loc}</loc>\n    <lastmod>{today}</lastmod>"
+            f"\n    <changefreq>{freq}</changefreq>\n    <priority>{priority}</priority>\n  </url>"
+        )
+    posts = db.query(BlogPost).all()
+    for post in posts:
+        urls.append(
+            f"  <url>\n    <loc>{BASE_URL}/blog/{post.slug}</loc>\n    <lastmod>{today}</lastmod>"
+            f"\n    <changefreq>weekly</changefreq>\n    <priority>0.6</priority>\n  </url>"
+        )
+    xml = '<?xml version="1.0" encoding="UTF-8"?>\n'
+    xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+    xml += "\n".join(urls)
+    xml += "\n</urlset>"
+    return HTMLResponse(content=xml, media_type="application/xml")
+
 
 @app.get("/ping")
 async def ping():
