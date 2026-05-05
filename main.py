@@ -676,19 +676,26 @@ async def admin_panel(request: Request, db: Session = Depends(get_db)):
     # --- аналітика: заявки за 14 днів ---
     today = datetime.now(timezone.utc).date()
     days = [today - timedelta(days=i) for i in range(13, -1, -1)]
-    day_counts: dict = defaultdict(int)
+    day_counts = defaultdict(int)
     for inq in all_inquiries:
         if inq.created_at:
             d = inq.created_at.date() if hasattr(inq.created_at, "date") else None
-            if d in day_counts or d in days:
+            if d in days:
                 day_counts[d] += 1
-    daily_stats = [{"label": d.strftime("%d.%m"), "count": day_counts.get(d, 0)} for d in days]
-    max_daily = max((s["count"] for s in daily_stats), default=0) or 1
+    max_daily = max(day_counts.values(), default=0) or 1
+    daily_stats = [
+        {"label": d.strftime("%d.%m"), "count": day_counts.get(d, 0),
+         "height": max(int(day_counts.get(d, 0) / max_daily * 90), 3)}
+        for d in days
+    ]
 
     # --- аналітика: категорії ---
-    cat_counts: Counter = Counter(_detect_category(inq.service) for inq in all_inquiries)
-    category_stats = [{"name": k, "count": v} for k, v in cat_counts.most_common()]
-    max_cat = max((c["count"] for c in category_stats), default=0) or 1
+    cat_counts = Counter(_detect_category(inq.service) for inq in all_inquiries)
+    max_cat = max(cat_counts.values(), default=0) or 1
+    category_stats = [
+        {"name": k, "count": v, "pct": int(v / max_cat * 100)}
+        for k, v in cat_counts.most_common()
+    ]
 
     return templates.TemplateResponse(
         request=request,
@@ -703,9 +710,7 @@ async def admin_panel(request: Request, db: Session = Depends(get_db)):
             "subscribers": subscribers,
             "blog_posts": blog_posts,
             "daily_stats": daily_stats,
-            "max_daily": max_daily,
             "category_stats": category_stats,
-            "max_cat": max_cat,
         }
     )
 

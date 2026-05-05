@@ -488,7 +488,7 @@ function gtag_report_conversion(url) {
         <div class="bar-col">
           <div class="bar-val">{% if d.count > 0 %}{{ d.count }}{% endif %}</div>
           <div class="bar {% if d.count == 0 %}bar-zero{% endif %}"
-               style="height: {{ [((d.count / max_daily) * 90)|int, 3]|max }}px"></div>
+               style="height: {{ d.height }}px"></div>
           <div class="bar-label">{{ d.label }}</div>
         </div>
         {% endfor %}
@@ -507,7 +507,7 @@ function gtag_report_conversion(url) {
         <div class="cat-row">
           <div class="cat-meta">{{ c.name }}<span>{{ c.count }}</span></div>
           <div class="cat-track">
-            <div class="cat-fill" style="width: {{ ((c.count / max_cat) * 100)|int }}%"></div>
+            <div class="cat-fill" style="width: {{ c.pct }}%"></div>
           </div>
         </div>
         {% endfor %}
