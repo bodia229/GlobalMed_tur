@@ -1,7 +1,19 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ru">
 
 <head>
+<!-- Google Consent Mode v2 -->
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('consent', 'default', {
+  'ad_storage': 'denied',
+  'ad_user_data': 'denied',
+  'ad_personalization': 'denied',
+  'analytics_storage': 'denied',
+  'wait_for_update': 500
+});
+</script>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18139141098"></script>
 <script>
@@ -32,5 +44,38 @@ function gtag_report_conversion(url) {
 </head>
 <body>
     
+
+<!-- ══════════════ COOKIE CONSENT BANNER ══════════════ -->
+<div id="cookie-banner" style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:99999;background:#111827;color:#fff;padding:16px 24px;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;box-shadow:0 -4px 24px rgba(0,0,0,0.4);">
+  <p style="margin:0;font-size:14px;line-height:1.6;flex:1;min-width:220px;">
+    🍪 Ми використовуємо файли cookie для реклами та аналітики згідно з вимогами Google та законодавства ЄС (GDPR).
+    <a href="/privacy" style="color:#4ade80;text-decoration:underline;">Детальніше</a>
+  </p>
+  <div style="display:flex;gap:10px;flex-shrink:0;flex-wrap:wrap;">
+    <button id="cookie-decline" style="padding:9px 20px;border-radius:8px;border:1px solid rgba(255,255,255,0.35);background:transparent;color:#fff;font-size:13px;cursor:pointer;white-space:nowrap;">Відхилити</button>
+    <button id="cookie-accept" style="padding:9px 20px;border-radius:8px;border:none;background:#16a34a;color:#fff;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;">Прийняти всі ✓</button>
+  </div>
+</div>
+<script>
+(function() {
+  var b = document.getElementById('cookie-banner');
+  var c = localStorage.getItem('gm_consent');
+  if (c === 'granted') {
+    gtag('consent', 'update', {'ad_storage':'granted','ad_user_data':'granted','ad_personalization':'granted','analytics_storage':'granted'});
+    return;
+  }
+  if (c === 'denied') return;
+  b.style.display = 'flex';
+  document.getElementById('cookie-accept').addEventListener('click', function() {
+    localStorage.setItem('gm_consent', 'granted');
+    gtag('consent', 'update', {'ad_storage':'granted','ad_user_data':'granted','ad_personalization':'granted','analytics_storage':'granted'});
+    b.style.display = 'none';
+  });
+  document.getElementById('cookie-decline').addEventListener('click', function() {
+    localStorage.setItem('gm_consent', 'denied');
+    b.style.display = 'none';
+  });
+})();
+</script>
 </body>
 </html>
