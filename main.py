@@ -4,6 +4,7 @@ import shutil
 import asyncio
 import random
 import smtplib
+from collections import Counter, defaultdict
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from datetime import datetime, timedelta, timezone
@@ -15,7 +16,7 @@ from fastapi.staticfiles import StaticFiles
 from slowapi import Limiter, _rate_limit_exceeded_handler
 from slowapi.util import get_remote_address
 from slowapi.errors import RateLimitExceeded
-from sqlalchemy import create_engine, Column, Integer, String
+from sqlalchemy import create_engine, Column, Integer, String, DateTime, text
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, Session
 from deep_translator import GoogleTranslator
@@ -75,6 +76,7 @@ class PatientInquiry(Base):
     phone = Column(String)
     service = Column(String)
     user_id = Column(Integer, index=True)
+    created_at = Column(DateTime, nullable=True, default=lambda: datetime.now(timezone.utc))
 
 class Review(Base):
     __tablename__ = "reviews"
@@ -132,6 +134,12 @@ async def not_found_handler(request: Request, exc):
 async def startup():
     make_backup()
     asyncio.create_task(backup_loop())
+    with engine.connect() as conn:
+        try:
+            conn.execute(text("ALTER TABLE inquiries ADD COLUMN created_at DATETIME"))
+            conn.commit()
+        except Exception:
+            pass
 
 # --- ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ ---
 def get_db():
@@ -621,6 +629,23 @@ async def dashboard(request: Request, db: Session = Depends(get_db)):
         context={"user": user, "inquiries": my_inquiries}
     )
 
+def _detect_category(text_: str) -> str:
+    t = (text_ or "").lower()
+    if any(k in t for k in ["зуб", "стоматолог", "імплант", "коронк", "вінір", "протез", "dental"]):
+        return "Стоматологія"
+    if any(k in t for k in ["волосс", "fue", "dhi", "трихолог", "hair"]):
+        return "Пересадка волосся"
+    if any(k in t for k in ["lasik", "зір", "лінза", "катаракт", "офтальм", "smart lens"]):
+        return "Хірургія очей"
+    if any(k in t for k in ["баріатр", "шлунок", "балон", "резекц", "схуднення", "bariatric"]):
+        return "Баріатрична хірургія"
+    if any(k in t for k in ["еко", "запліднення", "безпліддя", "ембріон", "ікзі", "ivf"]):
+        return "ЕКО"
+    if any(k in t for k in ["ринопласт", "ніс", "грудей", "ліпосакц", "естетик", "блефаро", "підтяжк", "фейсліфт", "абдомін"]):
+        return "Естетика"
+    return "Інше"
+
+
 @app.get("/admin", response_class=HTMLResponse)
 async def admin_panel(request: Request, db: Session = Depends(get_db)):
     token = request.cookies.get("access_token")
@@ -648,6 +673,23 @@ async def admin_panel(request: Request, db: Session = Depends(get_db)):
     inquiries_count = len(rows)
     registered_count = sum(1 for r in rows if r["user_email"])
 
+    # --- аналітика: заявки за 14 днів ---
+    today = datetime.now(timezone.utc).date()
+    days = [today - timedelta(days=i) for i in range(13, -1, -1)]
+    day_counts: dict = defaultdict(int)
+    for inq in all_inquiries:
+        if inq.created_at:
+            d = inq.created_at.date() if hasattr(inq.created_at, "date") else None
+            if d in day_counts or d in days:
+                day_counts[d] += 1
+    daily_stats = [{"label": d.strftime("%d.%m"), "count": day_counts.get(d, 0)} for d in days]
+    max_daily = max((s["count"] for s in daily_stats), default=0) or 1
+
+    # --- аналітика: категорії ---
+    cat_counts: Counter = Counter(_detect_category(inq.service) for inq in all_inquiries)
+    category_stats = [{"name": k, "count": v} for k, v in cat_counts.most_common()]
+    max_cat = max((c["count"] for c in category_stats), default=0) or 1
+
     return templates.TemplateResponse(
         request=request,
         name="admin.html",
@@ -660,6 +702,10 @@ async def admin_panel(request: Request, db: Session = Depends(get_db)):
             "guest_count": inquiries_count - registered_count,
             "subscribers": subscribers,
             "blog_posts": blog_posts,
+            "daily_stats": daily_stats,
+            "max_daily": max_daily,
+            "category_stats": category_stats,
+            "max_cat": max_cat,
         }
     )
 
