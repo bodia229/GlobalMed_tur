@@ -1068,11 +1068,14 @@ function gtag_report_conversion(url) {
     <div class="hero-card">
       <h3>Залишити заявку</h3>
       <p class="card-sub">Ми зв'яжемося з вами протягом 24 годин</p>
-      <form action="/submit-order" method="post">
+      <div id="hero-form-success" style="display:none; background:#F0FDF4; border:1px solid #86EFAC; color:#166534; font-size:14px; font-weight:500; padding:14px 16px; border-radius:9px; margin-bottom:12px; text-align:center;">
+        ✅ Заявку прийнято! Ми зв'яжемося з вами найближчим часом.
+      </div>
+      <form id="hero-form">
         <input type="text" name="name" placeholder="Ваше ім'я" required>
         <input type="text" name="phone" placeholder="Номер телефону" required>
         <textarea name="service_text" placeholder="Опишіть бажану послугу або діагноз..."></textarea>
-        <button type="submit" class="btn-submit" onclick="gtag_report_conversion();">Відправити заявку →</button>
+        <button type="submit" id="hero-submit-btn" class="btn-submit">Відправити заявку →</button>
       </form>
     </div>
   </div>
@@ -1323,11 +1326,14 @@ function gtag_report_conversion(url) {
     <p class="section-subtitle" style="color: rgba(255,255,255,0.7);">Ми зв'яжемося з вами протягом 24 годин і відповімо на всі запитання</p>
 
     <div class="contact-form-card">
-      <form action="/submit-order" method="post">
+      <div id="mobile-form-success" style="display:none; background:#F0FDF4; border:1px solid #86EFAC; color:#166534; font-size:14px; font-weight:500; padding:14px 16px; border-radius:9px; margin-bottom:12px; text-align:center;">
+        ✅ Заявку прийнято! Ми зв'яжемося з вами найближчим часом.
+      </div>
+      <form id="mobile-contact-form">
         <input type="text" name="name" placeholder="Ваше ім'я" required>
         <input type="text" name="phone" placeholder="Номер телефону" required>
         <textarea name="service_text" placeholder="Опишіть бажану послугу або діагноз..."></textarea>
-        <button type="submit" class="btn-submit" onclick="gtag_report_conversion();">Відправити заявку →</button>
+        <button type="submit" id="mobile-submit-btn" class="btn-submit">Відправити заявку →</button>
       </form>
     </div>
   </div>
@@ -1653,6 +1659,37 @@ function googleTranslateElementInit() {
 }
 </script>
 <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+<!-- ══════════════ INLINE FORMS AJAX ══════════════ -->
+<script>
+(function() {
+  function setupInlineForm(formId, btnId, successId) {
+    var form = document.getElementById(formId);
+    var btn  = document.getElementById(btnId);
+    var succ = document.getElementById(successId);
+    if (!form) return;
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      gtag_report_conversion();
+      btn.disabled = true;
+      btn.textContent = 'Надсилаємо…';
+      try {
+        var res  = await fetch('/submit-order', { method: 'POST', body: new FormData(form) });
+        var data = await res.json();
+        if (data.status === 'success') {
+          form.style.display = 'none';
+          succ.style.display = 'block';
+          form.reset();
+        }
+      } catch(err) {}
+      btn.disabled = false;
+      btn.textContent = 'Відправити заявку →';
+    });
+  }
+  setupInlineForm('hero-form',          'hero-submit-btn',   'hero-form-success');
+  setupInlineForm('mobile-contact-form', 'mobile-submit-btn', 'mobile-form-success');
+})();
+</script>
 
 </body>
 </html>
