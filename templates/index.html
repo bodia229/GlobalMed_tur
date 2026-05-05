@@ -1072,7 +1072,7 @@ function gtag_report_conversion(url) {
         <input type="text" name="name" placeholder="Ваше ім'я" required>
         <input type="text" name="phone" placeholder="Номер телефону" required>
         <textarea name="service_text" placeholder="Опишіть бажану послугу або діагноз..."></textarea>
-        <button type="submit" class="btn-submit" onclick="return gtag_report_conversion();">Відправити заявку →</button>
+        <button type="submit" class="btn-submit" onclick="gtag_report_conversion();">Відправити заявку →</button>
       </form>
     </div>
   </div>
@@ -1327,7 +1327,7 @@ function gtag_report_conversion(url) {
         <input type="text" name="name" placeholder="Ваше ім'я" required>
         <input type="text" name="phone" placeholder="Номер телефону" required>
         <textarea name="service_text" placeholder="Опишіть бажану послугу або діагноз..."></textarea>
-        <button type="submit" class="btn-submit" onclick="return gtag_report_conversion();">Відправити заявку →</button>
+        <button type="submit" class="btn-submit" onclick="gtag_report_conversion();">Відправити заявку →</button>
       </form>
     </div>
   </div>
@@ -1400,7 +1400,7 @@ function gtag_report_conversion(url) {
         <label>Послуга</label>
         <input type="text" name="service_text" id="consult-service" placeholder="Яка послуга вас цікавить?">
       </div>
-      <button type="submit" class="modal-submit" id="consult-submit-btn" onclick="return gtag_report_conversion();">Надіслати заявку →</button>
+      <button type="submit" class="modal-submit" id="consult-submit-btn" onclick="gtag_report_conversion();">Надіслати заявку →</button>
     </form>
   </div>
 </div>
