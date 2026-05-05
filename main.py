@@ -134,9 +134,10 @@ async def not_found_handler(request: Request, exc):
 async def startup():
     make_backup()
     asyncio.create_task(backup_loop())
+    col_type = "DATETIME" if _is_sqlite else "TIMESTAMP"
     with engine.connect() as conn:
         try:
-            conn.execute(text("ALTER TABLE inquiries ADD COLUMN created_at DATETIME"))
+            conn.execute(text(f"ALTER TABLE inquiries ADD COLUMN created_at {col_type}"))
             conn.commit()
         except Exception:
             pass
