@@ -1464,6 +1464,19 @@ function gtag_report_conversion(url) {
   document.querySelectorAll('.btn-login').forEach(btn =>
     btn.addEventListener('click', e => { e.preventDefault(); openModal(); })
   );
+
+  var mobileLoginBtn = document.getElementById('mobile-btn-login');
+  if (mobileLoginBtn) {
+    mobileLoginBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      var nav = document.getElementById('mobile-nav');
+      var burger = document.getElementById('burger-btn');
+      if (nav) nav.classList.remove('open');
+      if (burger) burger.classList.remove('open');
+      openModal();
+    });
+  }
   document.getElementById('modal-close-btn').addEventListener('click', closeModal);
   overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });

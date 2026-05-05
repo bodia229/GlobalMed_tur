@@ -546,6 +546,10 @@ async def register(request: Request, email: str = Form(...), password: str = For
     db.commit()
     return {"message": "Акаунт створено!"}
 
+@app.get("/login")
+async def login_redirect():
+    return RedirectResponse(url="/", status_code=302)
+
 @app.post("/login")
 @limiter.limit("10/minute")
 async def login(request: Request, response: Response, email: str = Form(...), password: str = Form(...), db: Session = Depends(get_db)):
