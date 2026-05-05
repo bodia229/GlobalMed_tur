@@ -2,6 +2,10 @@ import os
 import re
 import shutil
 import asyncio
+import random
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 from datetime import datetime, timedelta, timezone
 from jose import jwt, JWTError
 from fastapi import FastAPI, Request, Form, Depends, Cookie, Response, HTTPException
@@ -97,6 +101,13 @@ class NewsletterSubscriber(Base):
     email = Column(String, unique=True, index=True)
     subscribed_at = Column(String)
 
+class PasswordResetCode(Base):
+    __tablename__ = "reset_codes"
+    id = Column(Integer, primary_key=True, index=True)
+    email = Column(String, index=True)
+    code = Column(String)
+    expires_at = Column(String)
+
 Base.metadata.create_all(bind=engine)
 
 # --- ИНИЦИАЛИЗАЦИЯ ---
@@ -152,6 +163,31 @@ def ensure_admin():
         db.close()
 
 ensure_admin()
+
+def send_reset_email(to_email: str, code: str):
+    user = os.environ.get("EMAIL_USER", "")
+    pwd  = os.environ.get("EMAIL_PASS", "")
+    if not user or not pwd:
+        print(f"[RESET CODE] {to_email} → {code}")
+        return
+    msg = MIMEMultipart("alternative")
+    msg["Subject"] = "Відновлення пароля — GlobalMed"
+    msg["From"]    = user
+    msg["To"]      = to_email
+    html = f"""
+    <div style="font-family:sans-serif;max-width:480px;margin:0 auto;padding:32px;">
+      <h2 style="color:#0B6B6B;margin-bottom:8px;">GlobalMed</h2>
+      <p style="color:#444;">Ваш код для відновлення пароля:</p>
+      <div style="font-size:40px;font-weight:700;letter-spacing:10px;color:#0B6B6B;
+                  padding:24px;background:#F2FAFA;border-radius:12px;text-align:center;
+                  margin:20px 0;">{code}</div>
+      <p style="color:#888;font-size:13px;">Код дійсний 15 хвилин.<br>
+         Якщо ви не запитували відновлення — проігноруйте цей лист.</p>
+    </div>"""
+    msg.attach(MIMEText(html, "html"))
+    with smtplib.SMTP_SSL("smtp.gmail.com", 465) as srv:
+        srv.login(user, pwd)
+        srv.sendmail(user, to_email, msg.as_string())
 
 def _make_slug(title: str, db) -> str:
     slug_base = re.sub(r"[^a-zA-Zа-яА-ЯіїєёЄІЇ0-9]+", "-", title.lower()).strip("-")
@@ -765,6 +801,53 @@ async def subscribe(request: Request, email: str = Form(...), db: Session = Depe
     db.add(subscriber)
     db.commit()
     return {"status": "success", "message": "Дякуємо! Ви успішно підписались на новини."}
+
+@app.post("/forgot-password")
+@limiter.limit("3/minute")
+async def forgot_password(request: Request, email: str = Form(...), db: Session = Depends(get_db)):
+    user = db.query(User).filter(User.email == email).first()
+    if user:
+        db.query(PasswordResetCode).filter(PasswordResetCode.email == email).delete()
+        db.commit()
+        code = str(random.randint(100000, 999999))
+        expires_at = (datetime.now(timezone.utc) + timedelta(minutes=15)).isoformat()
+        db.add(PasswordResetCode(email=email, code=code, expires_at=expires_at))
+        db.commit()
+        try:
+            send_reset_email(email, code)
+        except Exception as e:
+            print(f"Reset email error: {e}")
+    return {"status": "sent"}
+
+@app.post("/reset-password")
+@limiter.limit("5/minute")
+async def reset_password(
+    request: Request,
+    email: str = Form(...),
+    code: str = Form(...),
+    new_password: str = Form(...),
+    db: Session = Depends(get_db)
+):
+    entry = db.query(PasswordResetCode).filter(
+        PasswordResetCode.email == email,
+        PasswordResetCode.code == code.strip()
+    ).first()
+    if not entry:
+        return {"error": "Невірний код підтвердження"}
+    expires = datetime.fromisoformat(entry.expires_at)
+    if datetime.now(timezone.utc) > expires:
+        db.delete(entry)
+        db.commit()
+        return {"error": "Код прострочений. Запросіть новий."}
+    user = db.query(User).filter(User.email == email).first()
+    if not user:
+        return {"error": "Користувача не знайдено"}
+    if len(new_password) < 6:
+        return {"error": "Пароль має бути не менше 6 символів"}
+    user.password_hash = get_password_hash(new_password)
+    db.delete(entry)
+    db.commit()
+    return {"status": "success"}
 
 @app.get("/ping")
 async def ping():

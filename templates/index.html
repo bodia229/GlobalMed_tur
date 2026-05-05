@@ -1365,23 +1365,74 @@ function gtag_report_conversion(url) {
       </div>
       <span class="modal-logo-name">GlobalMed</span>
     </div>
-    <h2>Вхід в акаунт</h2>
-    <p class="modal-sub">Введіть email і пароль для входу</p>
-    <div class="modal-error" id="login-error"></div>
-    <form id="login-form">
-      <div class="modal-field">
-        <label>Email</label>
-        <input type="email" name="email" placeholder="example@email.com" autocomplete="email" required>
+
+    <!-- КРОК 1: Вхід -->
+    <div id="ls1">
+      <h2>Вхід в акаунт</h2>
+      <p class="modal-sub">Введіть email і пароль для входу</p>
+      <div class="modal-error" id="login-error"></div>
+      <form id="login-form">
+        <div class="modal-field">
+          <label>Email</label>
+          <input type="email" name="email" placeholder="example@email.com" autocomplete="email" required>
+        </div>
+        <div class="modal-field">
+          <label>Пароль</label>
+          <input type="password" name="password" placeholder="••••••••" autocomplete="current-password" required>
+        </div>
+        <button type="submit" class="modal-submit">Увійти →</button>
+      </form>
+      <p class="modal-footer-note">
+        Немає акаунта? <a href="/register">Зареєструватися</a>
+      </p>
+      <p style="text-align:center;margin-top:10px;">
+        <a href="#" id="forgot-link" style="color:#0B6B6B;font-size:13px;font-weight:500;">Забули пароль?</a>
+      </p>
+    </div>
+
+    <!-- КРОК 2: Введення email для скидання -->
+    <div id="ls2" style="display:none;">
+      <h2>Відновлення пароля</h2>
+      <p class="modal-sub">Введіть email — надішлемо код підтвердження</p>
+      <div class="modal-error" id="forgot-error"></div>
+      <form id="forgot-form">
+        <div class="modal-field">
+          <label>Email</label>
+          <input type="email" name="email" id="forgot-email-inp" placeholder="example@email.com" required>
+        </div>
+        <button type="submit" class="modal-submit" id="forgot-submit-btn">Надіслати код →</button>
+      </form>
+      <p class="modal-footer-note">
+        <a href="#" id="back-to-login-link" style="color:#0B6B6B;">← Назад до входу</a>
+      </p>
+    </div>
+
+    <!-- КРОК 3: Введення коду + нового пароля -->
+    <div id="ls3" style="display:none;">
+      <h2>Введіть код</h2>
+      <p class="modal-sub" id="reset-hint">Код надіслано на ваш email</p>
+      <div class="modal-error" id="reset-error"></div>
+      <div id="reset-success-msg" style="display:none;background:#F0FDF4;border:1px solid #86EFAC;color:#166534;font-size:13px;font-weight:500;padding:12px 16px;border-radius:9px;margin-bottom:16px;text-align:center;">
+        ✅ Пароль змінено! Тепер можете <a href="#" id="go-to-login-link" style="color:#166534;font-weight:700;">увійти</a>.
       </div>
-      <div class="modal-field">
-        <label>Пароль</label>
-        <input type="password" name="password" placeholder="••••••••" autocomplete="current-password" required>
-      </div>
-      <button type="submit" class="modal-submit">Увійти →</button>
-    </form>
-    <p class="modal-footer-note">
-      Немає акаунта? <a href="/register">Зареєструватися</a>
-    </p>
+      <form id="reset-form">
+        <input type="hidden" name="email" id="reset-email-hidden">
+        <div class="modal-field">
+          <label>Код з листа (6 цифр)</label>
+          <input type="text" name="code" placeholder="123456" maxlength="6" inputmode="numeric" required
+                 style="letter-spacing:6px;font-size:20px;text-align:center;">
+        </div>
+        <div class="modal-field">
+          <label>Новий пароль</label>
+          <input type="password" name="new_password" placeholder="••••••••" minlength="6" required>
+        </div>
+        <button type="submit" class="modal-submit" id="reset-submit-btn">Змінити пароль →</button>
+      </form>
+      <p class="modal-footer-note">
+        <a href="#" id="resend-link" style="color:#0B6B6B;">Надіслати код ще раз</a>
+      </p>
+    </div>
+
   </div>
 </div>
 
@@ -1465,23 +1516,35 @@ function gtag_report_conversion(url) {
 
 <script>
 (function () {
-  const overlay = document.getElementById('login-modal');
-  const errorEl = document.getElementById('login-error');
+  var overlay  = document.getElementById('login-modal');
+  var ls1 = document.getElementById('ls1');
+  var ls2 = document.getElementById('ls2');
+  var ls3 = document.getElementById('ls3');
+
+  function showStep(n) {
+    ls1.style.display = n === 1 ? '' : 'none';
+    ls2.style.display = n === 2 ? '' : 'none';
+    ls3.style.display = n === 3 ? '' : 'none';
+  }
 
   function openModal() {
+    showStep(1);
     overlay.classList.add('active');
     document.body.style.overflow = 'hidden';
   }
   function closeModal() {
     overlay.classList.remove('active');
     document.body.style.overflow = '';
-    errorEl.style.display = 'none';
-    errorEl.textContent = '';
+    showStep(1);
+    ['login-error','forgot-error','reset-error'].forEach(function(id) {
+      var el = document.getElementById(id);
+      if (el) { el.style.display = 'none'; el.textContent = ''; }
+    });
   }
 
-  document.querySelectorAll('.btn-login').forEach(btn =>
-    btn.addEventListener('click', e => { e.preventDefault(); openModal(); })
-  );
+  document.querySelectorAll('.btn-login').forEach(function(btn) {
+    btn.addEventListener('click', function(e) { e.preventDefault(); openModal(); });
+  });
 
   var mobileLoginBtn = document.getElementById('mobile-btn-login');
   if (mobileLoginBtn) {
@@ -1495,31 +1558,93 @@ function gtag_report_conversion(url) {
       openModal();
     });
   }
-  document.getElementById('modal-close-btn').addEventListener('click', closeModal);
-  overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
-  document.getElementById('login-form').addEventListener('submit', async e => {
+  document.getElementById('modal-close-btn').addEventListener('click', closeModal);
+  overlay.addEventListener('click', function(e) { if (e.target === overlay) closeModal(); });
+  document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeModal(); });
+
+  // ── Крок 1: Логін ──
+  document.getElementById('login-form').addEventListener('submit', async function(e) {
     e.preventDefault();
-    const btn = e.target.querySelector('.modal-submit');
-    btn.disabled = true;
-    btn.textContent = 'Завантаження…';
-    errorEl.style.display = 'none';
+    var btn = e.target.querySelector('.modal-submit');
+    var errEl = document.getElementById('login-error');
+    btn.disabled = true; btn.textContent = 'Завантаження…';
+    errEl.style.display = 'none';
     try {
-      const res  = await fetch('/login', { method: 'POST', body: new FormData(e.target) });
-      const data = await res.json();
+      var res  = await fetch('/login', { method: 'POST', body: new FormData(e.target) });
+      var data = await res.json();
       if (data.error) {
-        errorEl.textContent = data.error;
-        errorEl.style.display = 'block';
+        errEl.textContent = data.error; errEl.style.display = 'block';
       } else if (data.redirect) {
         window.location.href = data.redirect;
       }
     } catch {
-      errorEl.textContent = "Помилка з'єднання. Спробуйте знову.";
-      errorEl.style.display = 'block';
+      errEl.textContent = "Помилка з'єднання. Спробуйте знову."; errEl.style.display = 'block';
     }
-    btn.disabled = false;
-    btn.textContent = 'Увійти →';
+    btn.disabled = false; btn.textContent = 'Увійти →';
+  });
+
+  // ── Навігація між кроками ──
+  document.getElementById('forgot-link').addEventListener('click', function(e) {
+    e.preventDefault(); showStep(2);
+  });
+  document.getElementById('back-to-login-link').addEventListener('click', function(e) {
+    e.preventDefault(); showStep(1);
+  });
+  document.getElementById('resend-link').addEventListener('click', function(e) {
+    e.preventDefault(); showStep(2);
+  });
+  document.getElementById('go-to-login-link').addEventListener('click', function(e) {
+    e.preventDefault();
+    document.getElementById('reset-success-msg').style.display = 'none';
+    showStep(1);
+  });
+
+  // ── Крок 2: Запит коду ──
+  document.getElementById('forgot-form').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    var btn = document.getElementById('forgot-submit-btn');
+    var errEl = document.getElementById('forgot-error');
+    var email = document.getElementById('forgot-email-inp').value.trim();
+    btn.disabled = true; btn.textContent = 'Надсилаємо…';
+    errEl.style.display = 'none';
+    try {
+      var res  = await fetch('/forgot-password', { method: 'POST', body: new FormData(e.target) });
+      var data = await res.json();
+      if (data.status === 'sent') {
+        document.getElementById('reset-email-hidden').value = email;
+        document.getElementById('reset-hint').textContent = 'Код надіслано на ' + email;
+        document.getElementById('reset-success-msg').style.display = 'none';
+        document.getElementById('reset-error').style.display = 'none';
+        document.getElementById('reset-form').style.display = '';
+        showStep(3);
+      }
+    } catch {
+      errEl.textContent = "Помилка з'єднання."; errEl.style.display = 'block';
+    }
+    btn.disabled = false; btn.textContent = 'Надіслати код →';
+  });
+
+  // ── Крок 3: Зміна пароля ──
+  document.getElementById('reset-form').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    var btn = document.getElementById('reset-submit-btn');
+    var errEl = document.getElementById('reset-error');
+    btn.disabled = true; btn.textContent = 'Зберігаємо…';
+    errEl.style.display = 'none';
+    try {
+      var res  = await fetch('/reset-password', { method: 'POST', body: new FormData(e.target) });
+      var data = await res.json();
+      if (data.error) {
+        errEl.textContent = data.error; errEl.style.display = 'block';
+      } else if (data.status === 'success') {
+        document.getElementById('reset-form').style.display = 'none';
+        document.getElementById('reset-success-msg').style.display = 'block';
+      }
+    } catch {
+      errEl.textContent = "Помилка з'єднання."; errEl.style.display = 'block';
+    }
+    btn.disabled = false; btn.textContent = 'Змінити пароль →';
   });
 })();
 </script>
