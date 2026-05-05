@@ -4,6 +4,22 @@
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18139141098"></script>
 <script>
+function gtag_report_conversion(url) {
+  var callback = function () {
+    if (typeof(url) != 'undefined') {
+      window.location = url;
+    }
+  };
+  gtag('event', 'conversion', {
+      'send_to': 'AW-18139141098/C3AJCIqMmKccEOqntclD',
+      'value': 1.0,
+      'currency': 'CZK',
+      'event_callback': callback
+  });
+  return false;
+}
+</script>
+<script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
@@ -1056,7 +1072,7 @@
         <input type="text" name="name" placeholder="Ваше ім'я" required>
         <input type="text" name="phone" placeholder="Номер телефону" required>
         <textarea name="service_text" placeholder="Опишіть бажану послугу або діагноз..."></textarea>
-        <button type="submit" class="btn-submit">Відправити заявку →</button>
+        <button type="submit" class="btn-submit" onclick="return gtag_report_conversion();">Відправити заявку →</button>
       </form>
     </div>
   </div>
@@ -1311,7 +1327,7 @@
         <input type="text" name="name" placeholder="Ваше ім'я" required>
         <input type="text" name="phone" placeholder="Номер телефону" required>
         <textarea name="service_text" placeholder="Опишіть бажану послугу або діагноз..."></textarea>
-        <button type="submit" class="btn-submit">Відправити заявку →</button>
+        <button type="submit" class="btn-submit" onclick="return gtag_report_conversion();">Відправити заявку →</button>
       </form>
     </div>
   </div>
@@ -1384,7 +1400,7 @@
         <label>Послуга</label>
         <input type="text" name="service_text" id="consult-service" placeholder="Яка послуга вас цікавить?">
       </div>
-      <button type="submit" class="modal-submit" id="consult-submit-btn">Надіслати заявку →</button>
+      <button type="submit" class="modal-submit" id="consult-submit-btn" onclick="return gtag_report_conversion();">Надіслати заявку →</button>
     </form>
   </div>
 </div>
