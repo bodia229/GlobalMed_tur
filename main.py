@@ -136,16 +136,16 @@ async def startup():
     make_backup()
     asyncio.create_task(backup_loop())
     col_type = "DATETIME" if _is_sqlite else "TIMESTAMP"
-    with engine.connect() as conn:
-        for col_def in [
-            f"created_at {col_type}",
-            "status VARCHAR DEFAULT 'pending'",
-        ]:
+    for col_def in [
+        f"created_at {col_type}",
+        "status VARCHAR DEFAULT 'pending'",
+    ]:
+        with engine.connect() as conn:
             try:
                 conn.execute(text(f"ALTER TABLE inquiries ADD COLUMN {col_def}"))
                 conn.commit()
             except Exception:
-                pass
+                conn.rollback()
 
 # --- ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ ---
 def get_db():
