@@ -191,6 +191,30 @@ function gtag_report_conversion(url) {
       color: var(--text-light);
     }
 
+    /* ─── STATUS ─── */
+    .status-cell { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+    .status-badge {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 20px;
+    }
+    .status-pending  { background: rgba(232,168,56,0.13); color: #B45309; }
+    .status-in_progress { background: rgba(11,107,107,0.10); color: var(--primary); }
+    .status-done     { background: rgba(22,163,74,0.12); color: #15803D; }
+    .status-btns { display: flex; gap: 4px; }
+    .status-btn {
+      font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 6px;
+      border: 1.5px solid transparent; cursor: pointer; font-family: 'Montserrat', sans-serif;
+      background: none; transition: all 0.15s;
+    }
+    .status-btn:hover { opacity: 0.75; }
+    .status-btn.s-pending    { border-color: #B45309; color: #B45309; }
+    .status-btn.s-in_progress{ border-color: var(--primary); color: var(--primary); }
+    .status-btn.s-done       { border-color: #15803D; color: #15803D; }
+    .status-btn.active       { color: #fff; }
+    .status-btn.s-pending.active    { background: #B45309; }
+    .status-btn.s-in_progress.active{ background: var(--primary); }
+    .status-btn.s-done.active       { background: #15803D; }
+
     .badge-reg {
       display: inline-flex; align-items: center; gap: 5px;
       background: rgba(11, 107, 107, 0.09); color: var(--primary);
@@ -546,6 +570,7 @@ function gtag_report_conversion(url) {
           <th>Телефон</th>
           <th>Послуга / Опис</th>
           <th>Тип</th>
+          <th>Статус</th>
         </tr>
       </thead>
       <tbody>
@@ -562,6 +587,23 @@ function gtag_report_conversion(url) {
             {% else %}
               <span class="badge-guest">Гість</span>
             {% endif %}
+          </td>
+          <td>
+            <div class="status-cell" id="status-cell-{{ row.id }}">
+              <span class="status-badge status-{{ row.status }}">
+                {% if row.status == 'pending' %}⏳ Прийнята
+                {% elif row.status == 'in_progress' %}🔄 В роботі
+                {% else %}✅ Готово{% endif %}
+              </span>
+              <div class="status-btns">
+                <button class="status-btn s-pending {% if row.status == 'pending' %}active{% endif %}"
+                        onclick="setStatus({{ row.id }}, 'pending')">Прийнята</button>
+                <button class="status-btn s-in_progress {% if row.status == 'in_progress' %}active{% endif %}"
+                        onclick="setStatus({{ row.id }}, 'in_progress')">В роботі</button>
+                <button class="status-btn s-done {% if row.status == 'done' %}active{% endif %}"
+                        onclick="setStatus({{ row.id }}, 'done')">Готово</button>
+              </div>
+            </div>
           </td>
         </tr>
         {% endfor %}
@@ -771,6 +813,26 @@ function gtag_report_conversion(url) {
     b.style.display = 'none';
   });
 })();
+</script>
+<script>
+function setStatus(id, status) {
+  fetch('/admin/inquiry/' + id + '/status', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({status: status})
+  }).then(function(r) { return r.json(); }).then(function(data) {
+    if (!data.ok) return;
+    var cell = document.getElementById('status-cell-' + id);
+    if (!cell) return;
+    var labels = {pending: '⏳ Прийнята', in_progress: '🔄 В роботі', done: '✅ Готово'};
+    var badge = cell.querySelector('.status-badge');
+    badge.className = 'status-badge status-' + status;
+    badge.textContent = labels[status];
+    cell.querySelectorAll('.status-btn').forEach(function(btn) {
+      btn.classList.toggle('active', btn.classList.contains('s-' + status));
+    });
+  });
+}
 </script>
 </body>
 </html>

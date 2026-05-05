@@ -111,7 +111,7 @@ function gtag_report_conversion(url) {
     }
     .btn-new-inquiry:hover { background: var(--primary-light); }
 
-    /* ─── TABLE ─── */
+    /* ─── SECTION HEAD ─── */
     .section-head { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; }
     .section-head h2 { font-size: 18px; font-weight: 700; color: var(--text); }
     .count-badge {
@@ -119,33 +119,59 @@ function gtag_report_conversion(url) {
       font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 20px;
     }
 
-    .table-wrap {
-      background: var(--white); border-radius: 18px;
-      box-shadow: 0 2px 20px var(--shadow); overflow: hidden;
+    /* ─── INQUIRY CARDS ─── */
+    .inq-list { display: flex; flex-direction: column; gap: 14px; }
+
+    .inq-card {
+      background: var(--white); border-radius: 16px;
+      box-shadow: 0 2px 18px var(--shadow);
+      padding: 22px 26px;
     }
 
-    table { width: 100%; border-collapse: collapse; }
-    thead th {
-      background: rgba(11, 107, 107, 0.05);
-      padding: 14px 20px; text-align: left;
-      font-size: 11px; font-weight: 700; color: var(--text-light);
-      text-transform: uppercase; letter-spacing: 0.7px;
-      border-bottom: 1px solid rgba(11, 107, 107, 0.08);
+    .inq-card-top {
+      display: flex; align-items: flex-start;
+      justify-content: space-between; gap: 16px;
+      margin-bottom: 20px; flex-wrap: wrap;
     }
-    tbody tr {
-      border-bottom: 1px solid rgba(11, 107, 107, 0.06);
-      transition: background 0.15s;
+    .inq-num { font-size: 12px; font-weight: 700; color: var(--text-light); }
+    .inq-service {
+      font-size: 14px; color: var(--text-light); line-height: 1.6;
+      max-width: 600px; margin-top: 4px;
     }
-    tbody tr:last-child { border-bottom: none; }
-    tbody tr:hover { background: rgba(11, 107, 107, 0.03); }
-    tbody td { padding: 14px 20px; font-size: 13.5px; color: var(--text); vertical-align: middle; }
+    .inq-phone { font-size: 13px; font-weight: 700; color: var(--primary); white-space: nowrap; }
 
-    .td-id { color: var(--text-light); font-weight: 600; font-size: 13px; }
-    .td-name { font-weight: 600; }
-    .td-phone { color: var(--primary); font-weight: 600; }
-    .td-service {
-      max-width: 340px; white-space: nowrap;
-      overflow: hidden; text-overflow: ellipsis; color: var(--text-light);
+    /* ─── STEPPER ─── */
+    .stepper { display: flex; align-items: center; gap: 0; }
+    .step-item { display: flex; align-items: center; gap: 0; }
+    .step-circle {
+      width: 32px; height: 32px; border-radius: 50%; border: 2px solid;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 700; flex-shrink: 0;
+      transition: all 0.3s;
+    }
+    .step-label {
+      font-size: 11px; font-weight: 600; white-space: nowrap;
+      margin-left: 7px;
+    }
+    .step-line { flex: 1; height: 2px; min-width: 30px; margin: 0 8px; }
+
+    /* inactive */
+    .step-item.inactive .step-circle { border-color: #D0E8E8; color: #D0E8E8; background: #fff; }
+    .step-item.inactive .step-label  { color: #C0D8D8; }
+    .step-line.inactive { background: #D0E8E8; }
+
+    /* active (current) */
+    .step-item.active .step-circle { border-color: var(--primary); color: var(--primary); background: rgba(11,107,107,0.07); }
+    .step-item.active .step-label  { color: var(--primary); }
+
+    /* done */
+    .step-item.done .step-circle { border-color: #16a34a; background: #16a34a; color: #fff; }
+    .step-item.done .step-label  { color: #16a34a; }
+    .step-line.done { background: #16a34a; }
+
+    @media (max-width: 520px) {
+      .step-label { display: none; }
+      .step-line { min-width: 16px; }
     }
 
     .empty-state {
@@ -157,7 +183,7 @@ function gtag_report_conversion(url) {
 
     @media (max-width: 620px) {
       .nav-email { display: none; }
-      thead th:nth-child(3), tbody td:nth-child(3) { display: none; }
+      .inq-card { padding: 16px 16px; }
     }
   </style>
 </head>
@@ -201,37 +227,66 @@ function gtag_report_conversion(url) {
     <span class="count-badge">{{ inquiries|length }}</span>
   </div>
 
-  <div class="table-wrap">
-    {% if inquiries %}
-    <table>
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Ім'я</th>
-          <th>Телефон</th>
-          <th>Послуга / Опис</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for inq in inquiries %}
-        <tr>
-          <td class="td-id">#{{ inq.id }}</td>
-          <td class="td-name">{{ inq.name }}</td>
-          <td class="td-phone">{{ inq.phone }}</td>
-          <td class="td-service" title="{{ inq.service }}">{{ inq.service }}</td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-    {% else %}
-    <div class="empty-state">
-      <div class="empty-icon">📋</div>
-      <h3>Заявок поки немає</h3>
-      <p>Залиште заявку — ми безкоштовно проконсультуємо<br>і підберемо найкращу клініку для вас.</p>
-      <a href="/#contact" class="btn-new-inquiry">Залишити заявку →</a>
+  {% if inquiries %}
+  <div class="inq-list">
+    {% for inq in inquiries %}
+    {% set st = inq.status or 'pending' %}
+    <div class="inq-card">
+      <div class="inq-card-top">
+        <div>
+          <div class="inq-num">Заявка #{{ inq.id }}</div>
+          <div class="inq-service">{{ inq.service or '—' }}</div>
+        </div>
+        <div class="inq-phone">{{ inq.phone }}</div>
+      </div>
+
+      <!-- Stepper -->
+      <div class="stepper">
+        <!-- Прийнята -->
+        <div class="step-item {% if st == 'pending' %}active{% else %}done{% endif %}">
+          <div class="step-circle">{% if st == 'pending' %}1{% else %}✓{% endif %}</div>
+          <div class="step-label">Прийнята</div>
+        </div>
+
+        <div class="step-line {% if st in ('in_progress', 'done') %}done{% else %}inactive{% endif %}"></div>
+
+        <!-- В роботі -->
+        {% if st == 'pending' %}
+        <div class="step-item inactive">
+          <div class="step-circle">2</div>
+          <div class="step-label">В роботі</div>
+        </div>
+        {% elif st == 'in_progress' %}
+        <div class="step-item active">
+          <div class="step-circle">2</div>
+          <div class="step-label">В роботі</div>
+        </div>
+        {% else %}
+        <div class="step-item done">
+          <div class="step-circle">✓</div>
+          <div class="step-label">В роботі</div>
+        </div>
+        {% endif %}
+
+        <div class="step-line {% if st == 'done' %}done{% else %}inactive{% endif %}"></div>
+
+        <!-- Готово -->
+        <div class="step-item {% if st == 'done' %}done{% else %}inactive{% endif %}">
+          <div class="step-circle">{% if st == 'done' %}✓{% else %}3{% endif %}</div>
+          <div class="step-label">Готово</div>
+        </div>
+      </div>
     </div>
-    {% endif %}
+    {% endfor %}
   </div>
+  {% else %}
+  <div class="empty-state">
+    <div class="empty-icon">📋</div>
+    <h3>Заявок поки немає</h3>
+    <p>Залиште заявку — ми безкоштовно проконсультуємо<br>і підберемо найкращу клініку для вас.</p>
+    <a href="/#contact" class="btn-new-inquiry">Залишити заявку →</a>
+  </div>
+  {% endif %}
 
 </div>
 

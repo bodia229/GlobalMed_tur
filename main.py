@@ -77,6 +77,7 @@ class PatientInquiry(Base):
     service = Column(String)
     user_id = Column(Integer, index=True)
     created_at = Column(DateTime, nullable=True, default=lambda: datetime.now(timezone.utc))
+    status = Column(String, default="pending")
 
 class Review(Base):
     __tablename__ = "reviews"
@@ -136,11 +137,15 @@ async def startup():
     asyncio.create_task(backup_loop())
     col_type = "DATETIME" if _is_sqlite else "TIMESTAMP"
     with engine.connect() as conn:
-        try:
-            conn.execute(text(f"ALTER TABLE inquiries ADD COLUMN created_at {col_type}"))
-            conn.commit()
-        except Exception:
-            pass
+        for col_def in [
+            f"created_at {col_type}",
+            "status VARCHAR DEFAULT 'pending'",
+        ]:
+            try:
+                conn.execute(text(f"ALTER TABLE inquiries ADD COLUMN {col_def}"))
+                conn.commit()
+            except Exception:
+                pass
 
 # --- ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ ---
 def get_db():
@@ -666,6 +671,7 @@ async def admin_panel(request: Request, db: Session = Depends(get_db)):
             "phone": inq.phone or "",
             "service": inq.service or "",
             "user_email": users_map.get(inq.user_id, "") if inq.user_id else "",
+            "status": inq.status or "pending",
         })
 
     subscribers = db.query(NewsletterSubscriber).order_by(NewsletterSubscriber.id.desc()).all()
@@ -730,6 +736,27 @@ async def delete_inquiries(
         db.query(PatientInquiry).filter(PatientInquiry.id.in_(id_list)).delete(synchronize_session=False)
         db.commit()
     return RedirectResponse(url="/admin", status_code=302)
+
+@app.post("/admin/inquiry/{inquiry_id}/status")
+async def update_inquiry_status(
+    inquiry_id: int,
+    request: Request,
+    db: Session = Depends(get_db)
+):
+    token = request.cookies.get("access_token")
+    user = await get_current_user(token, db)
+    if not user or user.email not in ADMIN_EMAILS:
+        return {"error": "forbidden"}, 403
+    body = await request.json()
+    new_status = body.get("status")
+    if new_status not in ("pending", "in_progress", "done"):
+        return {"error": "invalid status"}
+    inq = db.query(PatientInquiry).filter(PatientInquiry.id == inquiry_id).first()
+    if inq:
+        inq.status = new_status
+        db.commit()
+    return {"ok": True}
+
 
 @app.post("/submit-order")
 @limiter.limit("10/minute")
