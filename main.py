@@ -508,35 +508,43 @@ async def get_current_user(access_token: str = Cookie(None), db: Session = Depen
 # --- ЭНДПОИНТЫ ---
 
 @app.get("/", response_class=HTMLResponse)
-async def read_home(request: Request):
+async def read_home(request: Request, db: Session = Depends(get_db)):
+    token = request.cookies.get("access_token")
+    user = await get_current_user(token, db)
     return templates.TemplateResponse(
         request=request,
         name="index.html",
-        context={"page_title": "Global Medicine Clinic"}
+        context={"page_title": "Global Medicine Clinic", "user": user}
     )
 
 @app.get("/about_us", response_class=HTMLResponse)
-async def read_about(request: Request):
+async def read_about(request: Request, db: Session = Depends(get_db)):
+    token = request.cookies.get("access_token")
+    user = await get_current_user(token, db)
     return templates.TemplateResponse(
         request=request,
         name="about_us.html",
-        context={"page_title": "About us"}
+        context={"page_title": "About us", "user": user}
     )
 
 @app.get("/contacts", response_class=HTMLResponse)
-async def contacts_page(request: Request):
+async def contacts_page(request: Request, db: Session = Depends(get_db)):
+    token = request.cookies.get("access_token")
+    user = await get_current_user(token, db)
     return templates.TemplateResponse(
         request=request,
         name="contacts.html",
-        context={"page_title": "Контакти — GlobalMed"}
+        context={"page_title": "Контакти — GlobalMed", "user": user}
     )
 
 @app.get("/gallery", response_class=HTMLResponse)
-async def gallery_page(request: Request):
+async def gallery_page(request: Request, db: Session = Depends(get_db)):
+    token = request.cookies.get("access_token")
+    user = await get_current_user(token, db)
     return templates.TemplateResponse(
         request=request,
         name="gallery.html",
-        context={"page_title": "Галерея — GlobalMed"}
+        context={"page_title": "Галерея — GlobalMed", "user": user}
     )
 
 @app.get("/reviews", response_class=HTMLResponse)
@@ -792,17 +800,21 @@ async def view_data(db: Session = Depends(get_db)):
 
 @app.get("/blog", response_class=HTMLResponse)
 async def blog_list(request: Request, db: Session = Depends(get_db)):
+    token = request.cookies.get("access_token")
+    user = await get_current_user(token, db)
     posts = db.query(BlogPost).order_by(BlogPost.id.desc()).all()
     return templates.TemplateResponse(request=request, name="blog.html",
-        context={"page_title": "Блог — GlobalMed", "posts": posts})
+        context={"page_title": "Блог — GlobalMed", "posts": posts, "user": user})
 
 @app.get("/blog/{slug}", response_class=HTMLResponse)
 async def blog_post(slug: str, request: Request, db: Session = Depends(get_db)):
+    token = request.cookies.get("access_token")
+    user = await get_current_user(token, db)
     post = db.query(BlogPost).filter(BlogPost.slug == slug).first()
     if not post:
         raise HTTPException(status_code=404)
     return templates.TemplateResponse(request=request, name="blog_post.html",
-        context={"page_title": f"{post.title} — GlobalMed", "post": post})
+        context={"page_title": f"{post.title} — GlobalMed", "post": post, "user": user})
 
 @app.post("/admin/blog/create")
 async def blog_create(

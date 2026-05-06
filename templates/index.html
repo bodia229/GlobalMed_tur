@@ -1046,9 +1046,13 @@ function gtag_report_conversion(url) {
   <a href="/blog">Блог</a>
   <a href="/contacts">Контакти</a>
   <div class="mobile-nav-bottom">
+    {% if user %}
+    <a href="/dashboard" class="mobile-nav-btn fill">👤 Мій профіль</a>
+    <a href="/logout" class="mobile-nav-btn outline">Вийти</a>
+    {% else %}
     <a href="/login" class="mobile-nav-btn outline" id="mobile-btn-login">Увійти</a>
-    <a href="/dashboard" class="mobile-nav-btn fill" id="mobile-btn-profile" style="display:none">👤 Мій профіль</a>
     <a href="/register" class="mobile-nav-btn fill">Реєстрація →</a>
+    {% endif %}
     <div class="mobile-translate-wrap">
       <div id="google_translate_element_mob"></div>
     </div>
@@ -1973,13 +1977,6 @@ function gtag_report_conversion(url) {
       document.body.style.overflow = '';
     });
   });
-  var isAuth = document.cookie.split('; ').some(function(c) { return c.startsWith('_auth='); });
-  if (isAuth) {
-    var el = document.getElementById('mobile-btn-login');
-    var ep = document.getElementById('mobile-btn-profile');
-    if (el) el.style.display = 'none';
-    if (ep) ep.style.display = 'block';
-  }
 })();
 </script>
 
@@ -2034,6 +2031,8 @@ function googleTranslateElementInit() {
 .float-btn{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;box-shadow:0 4px 18px rgba(0,0,0,0.22);transition:transform 0.2s,box-shadow 0.2s;}
 .float-btn:hover{transform:scale(1.10);box-shadow:0 8px 28px rgba(0,0,0,0.28);}
 .float-wa{background:#25D366;}.float-vi{background:#7360F2;}
+body:has(#mobile-nav.open) .float-btns,
+body:has(.modal-overlay.active) .float-btns{display:none!important;}
 </style>
 <div class="float-btns">
   <a href="https://wa.me/420607118531" target="_blank" rel="noopener" class="float-btn float-wa" title="WhatsApp">

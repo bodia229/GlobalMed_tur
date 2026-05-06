@@ -1324,6 +1324,8 @@ function googleTranslateElementInit() {
 .float-btn{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;box-shadow:0 4px 18px rgba(0,0,0,0.22);transition:transform 0.2s,box-shadow 0.2s;}
 .float-btn:hover{transform:scale(1.10);box-shadow:0 8px 28px rgba(0,0,0,0.28);}
 .float-wa{background:#25D366;}.float-vi{background:#7360F2;}
+body:has(#mobile-nav.open) .float-btns,
+body:has(.modal-overlay.active) .float-btns{display:none!important;}
 </style>
 <div class="float-btns">
   <a href="https://wa.me/420607118531" target="_blank" rel="noopener" class="float-btn float-wa" title="WhatsApp">
