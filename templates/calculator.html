@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<!-- Google Consent Mode v2 -->
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('consent', 'default', {
+  'ad_storage': 'denied',
+  'ad_user_data': 'denied',
+  'ad_personalization': 'denied',
+  'analytics_storage': 'denied',
+  'wait_for_update': 500
+});
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-18139141098"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'AW-18139141098');
+</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%230B6B6B'/><rect x='13' y='4' width='6' height='24' rx='3' fill='white'/><rect x='4' y='13' width='24' height='6' rx='3' fill='white'/></svg>">
+  <title>Калькулятор вартості — GlobalMed</title>
+  <meta name="description" content="Розрахуйте орієнтовну вартість стоматологічного лікування в Туреччині з GlobalMed. Прайс 2026, валюта €.">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --primary:       #0B6B6B;
+      --primary-light: #14A8A8;
+      --accent:        #E8A838;
+      --accent-dark:   #C98E25;
+      --bg:            #F2FAFA;
+      --text:          #1A3340;
+      --text-light:    #5A7A84;
+      --white:         #FFFFFF;
+      --shadow:        rgba(11, 107, 107, 0.10);
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Montserrat', sans-serif; color: var(--text); background: var(--bg); }
+
+    /* ─── HEADER ─── */
+    header { position: sticky; top: 0; z-index: 200; background: var(--white); box-shadow: 0 2px 18px var(--shadow); }
+    nav { max-width: 1200px; margin: 0 auto; padding: 0 28px; height: 70px; display: flex; align-items: center; gap: 24px; }
+    .logo { display: flex; align-items: center; gap: 11px; text-decoration: none; flex-shrink: 0; }
+    .logo-icon { width: 44px; height: 44px; background: var(--primary); border-radius: 11px; display: flex; align-items: center; justify-content: center; }
+    .logo-text .brand { font-size: 18px; font-weight: 700; color: var(--primary); letter-spacing: -0.3px; line-height: 1.2; }
+    .logo-text .tagline { font-size: 10px; color: var(--text-light); font-weight: 500; text-transform: uppercase; letter-spacing: 0.6px; }
+    .nav-links { display: flex; list-style: none; gap: 4px; margin-left: 8px; flex: 1; }
+    .nav-links a { text-decoration: none; color: var(--text); font-size: 14px; font-weight: 500; padding: 8px 14px; border-radius: 8px; transition: background 0.2s, color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--primary); background: rgba(11, 107, 107, 0.07); }
+    .nav-right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; margin-left: auto; }
+    .translate-wrapper { border: 1.5px solid #C8E8E8; border-radius: 8px; padding: 3px 10px; background: #F5FDFD; display: flex; align-items: center; }
+    .goog-te-gadget { font-family: 'Montserrat', sans-serif !important; font-size: 0 !important; }
+    .goog-te-gadget .goog-te-combo { border: none !important; outline: none !important; font-family: 'Montserrat', sans-serif !important; font-size: 13px !important; font-weight: 600 !important; color: var(--primary) !important; cursor: pointer; background: transparent; padding: 4px 0; }
+    .goog-logo-link, .goog-te-gadget > span { display: none !important; }
+    .btn-login { text-decoration: none; color: var(--primary); font-size: 14px; font-weight: 600; padding: 8px 18px; border: 2px solid var(--primary); border-radius: 9px; transition: all 0.2s; }
+    .btn-login:hover { background: var(--primary); color: var(--white); }
+    .btn-register { text-decoration: none; color: var(--white); font-size: 14px; font-weight: 600; padding: 8px 18px; background: var(--primary); border: 2px solid var(--primary); border-radius: 9px; transition: all 0.2s; }
+    .btn-register:hover { background: var(--primary-light); border-color: var(--primary-light); }
+    .btn-profile { text-decoration: none; color: var(--white); font-size: 14px; font-weight: 600; padding: 8px 18px; background: var(--primary); border: 2px solid var(--primary); border-radius: 9px; transition: all 0.2s; display: none; align-items: center; gap: 6px; }
+    .btn-profile:hover { background: var(--primary-light); border-color: var(--primary-light); }
+
+    /* burger */
+    .burger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 8px; }
+    .burger span { width: 24px; height: 2px; background: var(--text); border-radius: 2px; transition: all 0.3s; display: block; }
+    .burger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .burger.open span:nth-child(2) { opacity: 0; }
+    .burger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* ─── PAGE HERO ─── */
+    .page-hero { background: linear-gradient(135deg, #085858 0%, #0B8080 55%, #13B5B5 100%); padding: 64px 28px 60px; text-align: center; }
+    .page-hero-inner { max-width: 700px; margin: 0 auto; }
+    .page-label { display: inline-flex; align-items: center; gap: 7px; background: rgba(255,255,255,0.14); color: #fff; font-size: 11px; font-weight: 700; padding: 6px 14px; border-radius: 20px; margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.22); text-transform: uppercase; letter-spacing: 0.8px; }
+    .page-hero h1 { font-size: 38px; font-weight: 700; color: #fff; line-height: 1.2; margin-bottom: 16px; letter-spacing: -0.5px; }
+    .page-hero h1 span { color: var(--accent); }
+    .page-hero p { font-size: 16px; color: rgba(255,255,255,0.82); line-height: 1.7; margin-bottom: 28px; }
+    .free-badge { display: inline-flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.13); border: 1px solid rgba(255,255,255,0.25); border-radius: 12px; padding: 12px 22px; color: #fff; font-size: 13px; font-weight: 500; }
+    .free-badge strong { color: var(--accent); font-weight: 700; }
+
+    /* ─── MAIN LAYOUT ─── */
+    .calc-wrapper { max-width: 1100px; margin: 0 auto; padding: 52px 24px 120px; display: grid; grid-template-columns: 1fr 340px; gap: 32px; align-items: start; }
+
+    /* ─── CATEGORIES ─── */
+    .calc-categories { display: flex; flex-direction: column; gap: 20px; }
+
+    .cat-card { background: var(--white); border-radius: 18px; box-shadow: 0 2px 20px var(--shadow); overflow: hidden; }
+    .cat-header { display: flex; align-items: center; gap: 14px; padding: 20px 24px; cursor: pointer; user-select: none; }
+    .cat-icon { width: 44px; height: 44px; border-radius: 11px; display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; }
+    .cat-icon.blue   { background: #E8F4FF; }
+    .cat-icon.green  { background: #E8FFF0; }
+    .cat-icon.orange { background: #FFF5E8; }
+    .cat-icon.purple { background: #F3EEFF; }
+    .cat-title { font-size: 16px; font-weight: 700; color: var(--text); flex: 1; }
+    .cat-subtitle { font-size: 12px; color: var(--text-light); margin-top: 2px; font-weight: 400; }
+    .cat-chevron { color: var(--text-light); transition: transform 0.25s; }
+    .cat-card.open .cat-chevron { transform: rotate(180deg); }
+    .cat-body { padding: 0 24px 20px; display: none; }
+    .cat-card.open .cat-body { display: block; }
+
+    /* ─── SERVICE ROW ─── */
+    .svc-row { display: flex; align-items: center; padding: 13px 0; border-bottom: 1px solid rgba(11,107,107,0.07); gap: 12px; }
+    .svc-row:last-child { border-bottom: none; }
+    .svc-name { flex: 1; font-size: 14px; font-weight: 500; color: var(--text); line-height: 1.4; }
+    .svc-hint { font-size: 11px; color: var(--text-light); font-weight: 400; display: block; margin-top: 2px; }
+    .svc-price { font-size: 14px; font-weight: 700; color: var(--primary); white-space: nowrap; min-width: 64px; text-align: right; }
+    .svc-qty { display: flex; align-items: center; gap: 0; border: 1.5px solid #C8E8E8; border-radius: 9px; overflow: hidden; flex-shrink: 0; }
+    .qty-btn { width: 32px; height: 32px; background: none; border: none; cursor: pointer; font-size: 18px; font-weight: 600; color: var(--primary); display: flex; align-items: center; justify-content: center; transition: background 0.15s; line-height: 1; }
+    .qty-btn:hover { background: rgba(11,107,107,0.08); }
+    .qty-val { width: 32px; text-align: center; font-size: 14px; font-weight: 700; color: var(--text); font-family: 'Montserrat', sans-serif; }
+
+    /* ─── STICKY SUMMARY ─── */
+    .calc-summary { position: sticky; top: 90px; background: var(--white); border-radius: 20px; box-shadow: 0 4px 32px var(--shadow); padding: 28px 28px 24px; }
+    .summary-title { font-size: 17px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+    .summary-year { font-size: 12px; color: var(--text-light); margin-bottom: 22px; }
+    .summary-free { background: #F2FAFA; border-radius: 10px; padding: 12px 16px; margin-bottom: 20px; }
+    .summary-free-title { font-size: 11px; font-weight: 700; color: var(--primary); text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 8px; }
+    .summary-free-item { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text); margin-bottom: 5px; font-weight: 500; }
+    .summary-free-item:last-child { margin-bottom: 0; }
+    .check-icon { color: #22c55e; font-size: 14px; }
+
+    .summary-divider { height: 1px; background: rgba(11,107,107,0.08); margin: 18px 0; }
+
+    .summary-selected { margin-bottom: 18px; min-height: 48px; }
+    .summary-empty { font-size: 13px; color: var(--text-light); font-style: italic; text-align: center; padding: 10px 0; }
+    .summary-line { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; margin-bottom: 8px; font-size: 13px; }
+    .summary-line .s-name { color: var(--text); flex: 1; line-height: 1.4; }
+    .summary-line .s-val { font-weight: 700; color: var(--primary); white-space: nowrap; }
+
+    .summary-total-row { display: flex; justify-content: space-between; align-items: center; margin-top: 16px; }
+    .summary-total-label { font-size: 14px; font-weight: 600; color: var(--text-light); }
+    .summary-total-val { font-size: 28px; font-weight: 700; color: var(--primary); letter-spacing: -0.5px; }
+    .summary-total-val span { font-size: 16px; font-weight: 600; }
+
+    .summary-note { font-size: 11px; color: var(--text-light); margin-top: 10px; line-height: 1.6; }
+
+    .btn-inquiry { display: block; width: 100%; margin-top: 20px; padding: 15px 20px; background: var(--accent); color: #fff; border: none; border-radius: 11px; font-size: 15px; font-weight: 700; cursor: pointer; font-family: 'Montserrat', sans-serif; transition: all 0.2s; box-shadow: 0 4px 18px rgba(232,168,56,0.4); text-align: center; text-decoration: none; }
+    .btn-inquiry:hover { background: var(--accent-dark); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(232,168,56,0.45); }
+    .btn-reset { display: block; width: 100%; margin-top: 10px; padding: 11px 20px; background: none; border: 1.5px solid #C8E8E8; border-radius: 11px; font-size: 13px; font-weight: 600; color: var(--text-light); cursor: pointer; font-family: 'Montserrat', sans-serif; transition: all 0.2s; }
+    .btn-reset:hover { border-color: var(--primary); color: var(--primary); }
+
+    /* ─── INQUIRY MODAL ─── */
+    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.52); z-index: 9999; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.25s; padding: 20px; }
+    .modal-overlay.active { opacity: 1; pointer-events: all; }
+    .modal-card { background: var(--white); border-radius: 20px; padding: 40px 36px; width: 100%; max-width: 460px; position: relative; transform: translateY(20px) scale(0.97); transition: transform 0.25s; box-shadow: 0 20px 60px rgba(0,0,0,0.18); }
+    .modal-overlay.active .modal-card { transform: translateY(0) scale(1); }
+    .modal-close { position: absolute; top: 16px; right: 16px; background: #F2FAFA; border: none; width: 32px; height: 32px; border-radius: 50%; cursor: pointer; font-size: 16px; color: var(--text-light); display: flex; align-items: center; justify-content: center; transition: background 0.15s; }
+    .modal-close:hover { background: #E0F2F2; }
+    .modal-logo-row { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
+    .modal-logo-icon { width: 36px; height: 36px; background: var(--primary); border-radius: 9px; display: flex; align-items: center; justify-content: center; }
+    .modal-logo-name { font-size: 16px; font-weight: 700; color: var(--primary); }
+    .modal-card h2 { font-size: 22px; font-weight: 700; margin-bottom: 6px; }
+    .modal-sub { font-size: 13px; color: var(--text-light); margin-bottom: 24px; line-height: 1.6; }
+    .modal-field { margin-bottom: 16px; }
+    .modal-field label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; }
+    .modal-field input, .modal-field textarea { width: 100%; padding: 12px 14px; border: 1.5px solid #C8E8E8; border-radius: 10px; font-size: 14px; font-family: 'Montserrat', sans-serif; outline: none; transition: border-color 0.2s; color: var(--text); background: #FAFEFE; }
+    .modal-field input:focus, .modal-field textarea:focus { border-color: var(--primary); }
+    .modal-field textarea { resize: vertical; min-height: 90px; }
+    .modal-submit { width: 100%; padding: 14px; background: var(--primary); color: #fff; border: none; border-radius: 11px; font-size: 15px; font-weight: 700; cursor: pointer; font-family: 'Montserrat', sans-serif; transition: background 0.2s; margin-top: 6px; }
+    .modal-submit:hover { background: var(--primary-light); }
+    .modal-submit:disabled { opacity: 0.6; cursor: default; }
+    .modal-success { text-align: center; padding: 20px 0 10px; }
+    .modal-success .success-icon { font-size: 48px; margin-bottom: 16px; }
+    .modal-success h3 { font-size: 20px; font-weight: 700; margin-bottom: 10px; color: var(--primary); }
+    .modal-success p { font-size: 14px; color: var(--text-light); line-height: 1.7; }
+    .modal-error { background: #FFF0F0; color: #c0392b; border-radius: 8px; padding: 10px 14px; font-size: 13px; margin-bottom: 14px; display: none; }
+
+    /* ─── FOOTER ─── */
+    footer { background: var(--primary); color: rgba(255,255,255,0.85); text-align: center; padding: 36px 24px; font-size: 13px; }
+    .footer-brand { font-size: 20px; font-weight: 700; color: #fff; margin-bottom: 6px; }
+    .footer-tagline { margin-bottom: 16px; }
+    footer a { color: rgba(255,255,255,0.75); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+    .footer-disclaimer { max-width: 600px; margin: 16px auto 0; font-size: 11px; color: rgba(255,255,255,0.5); line-height: 1.7; }
+    .footer-copy { margin-top: 12px; font-size: 12px; color: rgba(255,255,255,0.4); }
+
+    /* ─── MOBILE ─── */
+    .mobile-nav { display: flex; flex-direction: column; position: fixed; top: 70px; left: 0; right: 0; bottom: 0; background: var(--white); z-index: 199; padding: 12px 0 40px; overflow-y: auto; transform: translateX(100%); transition: transform 0.28s cubic-bezier(0.4,0,0.2,1); }
+    .mobile-nav.open { transform: translateX(0); }
+    .mobile-nav a { display: block; padding: 16px 28px; font-size: 15px; font-weight: 600; color: var(--text); text-decoration: none; border-bottom: 1px solid rgba(11,107,107,0.07); transition: color 0.15s, background 0.15s; }
+    .mobile-nav a:hover, .mobile-nav a.active { color: var(--primary); background: rgba(11,107,107,0.04); }
+    .mobile-nav-bottom { padding: 20px 28px; display: flex; flex-direction: column; gap: 10px; margin-top: auto; }
+    .mobile-translate-wrap { border-top: 1px solid rgba(255,255,255,0.15); padding-top: 10px; display: flex; justify-content: center; }
+    .mobile-nav-btn { display: block; text-align: center; padding: 13px 20px; border-radius: 10px; font-size: 14px; font-weight: 700; text-decoration: none; transition: all 0.2s; }
+    .mobile-nav-btn.outline { border: 2px solid var(--primary); color: var(--primary); }
+    .mobile-nav-btn.fill { background: var(--primary); color: #fff; border: 2px solid var(--primary); }
+
+    /* login modal styles reuse */
+    .modal-login .modal-card h2 { font-size: 22px; }
+
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+      .burger { display: flex; }
+      .calc-wrapper { grid-template-columns: 1fr; }
+      .calc-summary { position: static; }
+    }
+    @media (max-width: 600px) {
+      .page-hero h1 { font-size: 28px; }
+      .calc-wrapper { padding: 32px 16px 80px; }
+      .cat-body { padding: 0 16px 16px; }
+      .cat-header { padding: 16px 18px; }
+    }
+
+    /* float buttons */
+    .float-btns { position: fixed; bottom: 80px; right: 24px; display: flex; flex-direction: column; gap: 10px; z-index: 9998; }
+    .float-btn { width: 52px; height: 52px; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; box-shadow: 0 4px 18px rgba(0,0,0,0.22); transition: transform 0.2s, box-shadow 0.2s; }
+    .float-btn:hover { transform: scale(1.10); box-shadow: 0 8px 28px rgba(0,0,0,0.28); }
+    .float-wa { background: #25D366; }
+    .float-vi { background: #7360F2; }
+    body:has(#mobile-nav.open) .float-btns,
+    body:has(.modal-overlay.active) .float-btns { display: none !important; }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════ HEADER ══════════════ -->
+<header>
+  <nav>
+    <a href="/" class="logo">
+      <div class="logo-icon">
+        <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
+          <rect x="11" y="3" width="4" height="20" rx="2" fill="white"/>
+          <rect x="3" y="11" width="20" height="4" rx="2" fill="white"/>
+        </svg>
+      </div>
+      <div class="logo-text">
+        <div class="brand">GlobalMed</div>
+        <div class="tagline">Клініка · Туреччина</div>
+      </div>
+    </a>
+
+    <ul class="nav-links">
+      <li><a href="/">Головна</a></li>
+      <li><a href="/about_us">Про нас</a></li>
+      <li><a href="/#services">Послуги</a></li>
+      <li><a href="/gallery">Галерея</a></li>
+      <li><a href="/reviews">Відгуки</a></li>
+      <li><a href="/blog">Блог</a></li>
+      <li><a href="/calculator" class="active">Ціни</a></li>
+      <li><a href="/contacts">Контакти</a></li>
+    </ul>
+
+    <div class="nav-right">
+      <div class="translate-wrapper">
+        <div id="google_translate_element"></div>
+      </div>
+      <a href="/dashboard" class="btn-profile" id="btn-profile">👤 Мій профіль</a>
+      <a href="/login" class="btn-login" id="btn-login">Увійти</a>
+      <a href="/register" class="btn-register" id="btn-register">Реєстрація</a>
+    </div>
+    <button class="burger" id="burger-btn" aria-label="Меню"><span></span><span></span><span></span></button>
+  </nav>
+</header>
+
+<div class="mobile-nav" id="mobile-nav">
+  <a href="/">Головна</a>
+  <a href="/about_us">Про нас</a>
+  <a href="/#services">Послуги</a>
+  <a href="/gallery">Галерея</a>
+  <a href="/reviews">Відгуки</a>
+  <a href="/blog">Блог</a>
+  <a href="/calculator" class="active">Ціни</a>
+  <a href="/contacts">Контакти</a>
+  <div class="mobile-nav-bottom">
+    <a href="/login" class="mobile-nav-btn outline" id="mobile-btn-login">Увійти</a>
+    <a href="/dashboard" class="mobile-nav-btn fill" id="mobile-btn-profile" style="display:none">👤 Мій профіль</a>
+    <a href="/register" class="mobile-nav-btn fill">Реєстрація →</a>
+    <div class="mobile-translate-wrap">
+      <div id="google_translate_element_mob"></div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════ HERO ══════════════ -->
+<section class="page-hero">
+  <div class="page-hero-inner">
+    <div class="page-label">💶 Прайс 2026 · Євро</div>
+    <h1>Калькулятор <span>вартості лікування</span></h1>
+    <p>Оберіть необхідні процедури — система розрахує орієнтовну вартість у режимі реального часу.</p>
+    <div class="free-badge">
+      ✓ <strong>Безкоштовно:</strong>&nbsp; Консультація &nbsp;·&nbsp; Панорамний знімок &nbsp;·&nbsp; 3D КТ-томографія
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════ CALCULATOR ══════════════ -->
+<div class="calc-wrapper">
+
+  <!-- LEFT: Categories -->
+  <div class="calc-categories">
+
+    <!-- 1. Лікування -->
+    <div class="cat-card open" data-cat="treatment">
+      <div class="cat-header">
+        <div class="cat-icon blue">🦷</div>
+        <div>
+          <div class="cat-title">Лікування та естетика</div>
+          <div class="cat-subtitle">Пломби, канали, відбілювання, чистка</div>
+        </div>
+        <svg class="cat-chevron" width="18" height="18" viewBox="0 0 12 8" fill="none">
+          <path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="cat-body">
+        <div class="svc-row">
+          <div class="svc-name">Професійна чистка зубів</div>
+          <div class="svc-price">100 €</div>
+          <div class="svc-qty">
+            <button class="qty-btn" data-dir="-1">−</button>
+            <span class="qty-val" data-price="100" data-name="Чистка зубів">0</span>
+            <button class="qty-btn" data-dir="1">+</button>
+          </div>
+        </div>
+        <div class="svc-row">
+          <div class="svc-name">
+            Композитна пломба
+            <span class="svc-hint">за 1 зуб</span>
+          </div>
+          <div class="svc-price">100 €</div>
+          <div class="svc-qty">
+            <button class="qty-btn" data-dir="-1">−</button>
+            <span class="qty-val" data-price="100" data-name="Пломба">0</span>
+            <button class="qty-btn" data-dir="1">+</button>
+          </div>
+        </div>
+        <div class="svc-row">
+          <div class="svc-name">
+            Лікування кореневих каналів
+            <span class="svc-hint">за 1 канал</span>
+          </div>
+          <div class="svc-price">100 €</div>
+          <div class="svc-qty">
+            <button class="qty-btn" data-dir="-1">−</button>
+            <span class="qty-val" data-price="100" data-name="Лікування каналів">0</span>
+            <button class="qty-btn" data-dir="1">+</button>
+          </div>
+        </div>
+        <div class="svc-row">
+          <div class="svc-name">Лазерне відбілювання зубів</div>
+          <div class="svc-price">250 €</div>
+          <div class="svc-qty">
+            <button class="qty-btn" data-dir="-1">−</button>
+            <span class="qty-val" data-price="250" data-name="Лазерне відбілювання">0</span>
+            <button class="qty-btn" data-dir="1">+</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. Коронки і вініри -->
+    <div class="cat-card" data-cat="crowns">
+      <div class="cat-header">
+        <div class="cat-icon green">👑</div>
+        <div>
+          <div class="cat-title">Коронки та вініри</div>
+          <div class="cat-subtitle">Циркон, E-max, тимчасові конструкції</div>
+        </div>
+        <svg class="cat-chevron" width="18" height="18" viewBox="0 0 12 8" fill="none">
+          <path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="cat-body">
+        <div class="svc-row">
+          <div class="svc-name">
+            Циркон. коронка Full Zirconia
+            <span class="svc-hint">за 1 коронку</span>
+          </div>
+          <div class="svc-price">200 €</div>
+          <div class="svc-qty">
+            <button class="qty-btn" data-dir="-1">−</button>
+            <span class="qty-val" data-price="200" data-name="Коронка Full Zirconia">0</span>
+            <button class="qty-btn" data-dir="1">+</button>
+          </div>
+        </div>
+        <div class="svc-row">
+          <div class="svc-name">
+            Циркон. коронка (ручна естетика)
+            <span class="svc-hint">за 1 коронку</span>
+          </div>
+          <div class="svc-price">250 €</div>
+          <div class="svc-qty">
+            <button class="qty-btn" data-dir="-1">−</button>
+            <span class="qty-val" data-price="250" data-name="Коронка Zirconia (естетика)">0</span>
+            <button class="qty-btn" data-dir="1">+</button>
+          </div>
+        </div>
+        <div class="svc-row">
+          <div class="svc-name">
+            Вінір E-max
+            <span class="svc-hint">за 1 вінір</span>
+          </div>
+          <div class="svc-price">300 €</div>
+          <div class="svc-qty">
+            <button class="qty-btn" data-dir="-1">−</button>
+            <span class="qty-val" data-price="300" data-name="Вінір E-max">0</span>
+            <button class="qty-btn" data-dir="1">+</button>
+          </div>
+        </div>
+        <div class="svc-row">
+          <div class="svc-name">
+            Тимчасова коронка
+            <span class="svc-hint">за 1 коронку</span>
+          </div>
+          <div class="svc-price">50 €</div>
+          <div class="svc-qty">
+            <button class="qty-btn" data-dir="-1">−</button>
+            <span class="qty-val" data-price="50" data-name="Тимчасова коронка">0</span>
+            <button class="qty-btn" data-dir="1">+</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. Імплантація -->
+    <div class="cat-card" data-cat="implants">
+      <div class="cat-header">
+        <div class="cat-icon orange">🔩</div>
+        <div>
+          <div class="cat-title">Імплантація та хірургія</div>
+          <div class="cat-subtitle">Імпланти, видалення, синусліфтинг</div>
+        </div>
+        <svg class="cat-chevron" width="18" height="18" viewBox="0 0 12 8" fill="none">
+          <path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="cat-body">
+        <div class="svc-row">
+          <div class="svc-name">
+            Імплант Osstem
+            <span class="svc-hint">Південна Корея · за 1 імплант</span>
+          </div>
+          <div class="svc-price">400 €</div>
+          <div class="svc-qty">
+            <button class="qty-btn" data-dir="-1">−</button>
+            <span class="qty-val" data-price="400" data-name="Імплант Osstem">0</span>
+            <button class="qty-btn" data-dir="1">+</button>
+          </div>
+        </div>
+        <div class="svc-row">
+          <div class="svc-name">
+            Імплант Straumann
+            <span class="svc-hint">Швейцарія · за 1 імплант</span>
+          </div>
+          <div class="svc-price">700 €</div>
+          <div class="svc-qty">
+            <button class="qty-btn" data-dir="-1">−</button>
+            <span class="qty-val" data-price="700" data-name="Імплант Straumann">0</span>
+            <button class="qty-btn" data-dir="1">+</button>
+          </div>
+        </div>
+        <div class="svc-row">
+          <div class="svc-name">
+            Видалення зуба
+            <span class="svc-hint">за 1 зуб</span>
+          </div>
+          <div class="svc-price">50 €</div>
+          <div class="svc-qty">
+            <button class="qty-btn" data-dir="-1">−</button>
+            <span class="qty-val" data-price="50" data-name="Видалення зуба">0</span>
+            <button class="qty-btn" data-dir="1">+</button>
+          </div>
+        </div>
+        <div class="svc-row">
+          <div class="svc-name">
+            Хірург. видалення ретинованого зуба
+            <span class="svc-hint">за 1 зуб</span>
+          </div>
+          <div class="svc-price">150 €</div>
+          <div class="svc-qty">
+            <button class="qty-btn" data-dir="-1">−</button>
+            <span class="qty-val" data-price="150" data-name="Видалення ретинованого зуба">0</span>
+            <button class="qty-btn" data-dir="1">+</button>
+          </div>
+        </div>
+        <div class="svc-row">
+          <div class="svc-name">
+            Синусліфтинг
+            <span class="svc-hint">нарощування кістки</span>
+          </div>
+          <div class="svc-price">300 €</div>
+          <div class="svc-qty">
+            <button class="qty-btn" data-dir="-1">−</button>
+            <span class="qty-val" data-price="300" data-name="Синусліфтинг">0</span>
+            <button class="qty-btn" data-dir="1">+</button>
+          </div>
+        </div>
+        <div class="svc-row">
+          <div class="svc-name">
+            Кісткова пластика
+            <span class="svc-hint">за 1 одиницю кісткового матеріалу</span>
+          </div>
+          <div class="svc-price">150 €</div>
+          <div class="svc-qty">
+            <button class="qty-btn" data-dir="-1">−</button>
+            <span class="qty-val" data-price="150" data-name="Кісткова пластика">0</span>
+            <button class="qty-btn" data-dir="1">+</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. All-on-X -->
+    <div class="cat-card" data-cat="allonx">
+      <div class="cat-header">
+        <div class="cat-icon purple">😁</div>
+        <div>
+          <div class="cat-title">Системи All-on-X</div>
+          <div class="cat-subtitle">Повна щелепа на імплантах (4 або 6 опор)</div>
+        </div>
+        <svg class="cat-chevron" width="18" height="18" viewBox="0 0 12 8" fill="none">
+          <path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="cat-body">
+        <div class="svc-row">
+          <div class="svc-name">
+            All-on-4 Osstem
+            <span class="svc-hint">повна щелепа · Osstem (Корея)</span>
+          </div>
+          <div class="svc-price">3 500 €</div>
+          <div class="svc-qty">
+            <button class="qty-btn" data-dir="-1">−</button>
+            <span class="qty-val" data-price="3500" data-name="All-on-4 Osstem" data-max="2">0</span>
+            <button class="qty-btn" data-dir="1">+</button>
+          </div>
+        </div>
+        <div class="svc-row">
+          <div class="svc-name">
+            All-on-4 Straumann
+            <span class="svc-hint">повна щелепа · Straumann (Швейцарія)</span>
+          </div>
+          <div class="svc-price">5 500 €</div>
+          <div class="svc-qty">
+            <button class="qty-btn" data-dir="-1">−</button>
+            <span class="qty-val" data-price="5500" data-name="All-on-4 Straumann" data-max="2">0</span>
+            <button class="qty-btn" data-dir="1">+</button>
+          </div>
+        </div>
+        <div class="svc-row">
+          <div class="svc-name">
+            All-on-6 Osstem
+            <span class="svc-hint">повна щелепа · Osstem (Корея)</span>
+          </div>
+          <div class="svc-price">4 500 €</div>
+          <div class="svc-qty">
+            <button class="qty-btn" data-dir="-1">−</button>
+            <span class="qty-val" data-price="4500" data-name="All-on-6 Osstem" data-max="2">0</span>
+            <button class="qty-btn" data-dir="1">+</button>
+          </div>
+        </div>
+        <div class="svc-row">
+          <div class="svc-name">
+            All-on-6 Straumann
+            <span class="svc-hint">повна щелепа · Straumann (Швейцарія)</span>
+          </div>
+          <div class="svc-price">7 500 €</div>
+          <div class="svc-qty">
+            <button class="qty-btn" data-dir="-1">−</button>
+            <span class="qty-val" data-price="7500" data-name="All-on-6 Straumann" data-max="2">0</span>
+            <button class="qty-btn" data-dir="1">+</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /calc-categories -->
+
+
+  <!-- RIGHT: Summary -->
+  <div class="calc-summary">
+    <div class="summary-title">Ваш кошторис</div>
+    <div class="summary-year">Прайс 2026 · Валюта: Євро (€)</div>
+
+    <div class="summary-free">
+      <div class="summary-free-title">Включено безкоштовно</div>
+      <div class="summary-free-item"><span class="check-icon">✓</span> Консультація лікаря</div>
+      <div class="summary-free-item"><span class="check-icon">✓</span> Панорамний знімок</div>
+      <div class="summary-free-item"><span class="check-icon">✓</span> 3D КТ-томографія</div>
+    </div>
+
+    <div class="summary-divider"></div>
+
+    <div class="summary-selected" id="summary-lines">
+      <div class="summary-empty" id="summary-empty">Оберіть послуги зліва</div>
+    </div>
+
+    <div class="summary-divider"></div>
+
+    <div class="summary-total-row">
+      <div class="summary-total-label">Орієнтовно</div>
+      <div class="summary-total-val" id="total-display"><span>€</span> 0</div>
+    </div>
+    <div class="summary-note">* Вартість є орієнтовною. Точна ціна визначається після огляду лікаря та безкоштовної КТ-діагностики.</div>
+
+    <button class="btn-inquiry" id="btn-inquiry">Отримати консультацію →</button>
+    <button class="btn-reset" id="btn-reset">Скинути все</button>
+  </div>
+
+</div><!-- /calc-wrapper -->
+
+
+<!-- ══════════════ INQUIRY MODAL ══════════════ -->
+<div class="modal-overlay" id="inquiry-modal">
+  <div class="modal-card">
+    <button class="modal-close" id="inquiry-close">✕</button>
+    <div class="modal-logo-row">
+      <div class="modal-logo-icon">
+        <svg width="22" height="22" viewBox="0 0 26 26" fill="none">
+          <rect x="11" y="3" width="4" height="20" rx="2" fill="white"/>
+          <rect x="3" y="11" width="20" height="4" rx="2" fill="white"/>
+        </svg>
+      </div>
+      <span class="modal-logo-name">GlobalMed</span>
+    </div>
+    <h2>Безкоштовна консультація</h2>
+    <p class="modal-sub">Залиште контакт — наш координатор зв'яжеться з вами та уточнить деталі.</p>
+    <div class="modal-error" id="inquiry-error"></div>
+    <div id="inquiry-form-wrap">
+      <form id="inquiry-form">
+        <div class="modal-field">
+          <label>Ваше ім'я</label>
+          <input type="text" name="name" placeholder="Ім'я та прізвище" required>
+        </div>
+        <div class="modal-field">
+          <label>Телефон (WhatsApp / Viber)</label>
+          <input type="tel" name="phone" placeholder="+420 XXX XXX XXX" required>
+        </div>
+        <div class="modal-field">
+          <label>Обрані послуги</label>
+          <textarea name="service_text" id="inquiry-services" readonly></textarea>
+        </div>
+        <button type="submit" class="modal-submit" id="inquiry-submit">Надіслати заявку →</button>
+      </form>
+    </div>
+    <div class="modal-success" id="inquiry-success" style="display:none">
+      <div class="success-icon">🎉</div>
+      <h3>Заявку отримано!</h3>
+      <p>Координатор GlobalMed зв'яжеться з вами найближчим часом для уточнення деталей та підтвердження вартості.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ LOGIN MODAL ══════════════ -->
+<div class="modal-overlay modal-login" id="login-modal">
+  <div class="modal-card">
+    <button class="modal-close" id="modal-close-btn">✕</button>
+    <div class="modal-logo-row">
+      <div class="modal-logo-icon">
+        <svg width="22" height="22" viewBox="0 0 26 26" fill="none">
+          <rect x="11" y="3" width="4" height="20" rx="2" fill="white"/>
+          <rect x="3" y="11" width="20" height="4" rx="2" fill="white"/>
+        </svg>
+      </div>
+      <span class="modal-logo-name">GlobalMed</span>
+    </div>
+    <h2>Вхід в акаунт</h2>
+    <p class="modal-sub">Введіть email і пароль для входу</p>
+    <div class="modal-error" id="login-error"></div>
+    <form id="login-form">
+      <div class="modal-field">
+        <label>Email</label>
+        <input type="email" name="email" placeholder="example@email.com" autocomplete="email" required>
+      </div>
+      <div class="modal-field">
+        <label>Пароль</label>
+        <input type="password" name="password" placeholder="••••••••" autocomplete="current-password" required>
+      </div>
+      <button type="submit" class="modal-submit">Увійти →</button>
+    </form>
+    <p style="text-align:center;margin-top:16px;font-size:13px;color:var(--text-light);">
+      Немає акаунта? <a href="/register" style="color:var(--primary);font-weight:600;">Зареєструватися</a>
+    </p>
+  </div>
+</div>
+
+
+<!-- ══════════════ FOOTER ══════════════ -->
+<footer>
+  <div class="footer-brand">GlobalMed</div>
+  <div class="footer-tagline">Медичний туризм · Прага → Туреччина</div>
+  <div>
+    <a href="mailto:info@globalmed.clinic">info@globalmed.clinic</a>
+    &nbsp;·&nbsp;
+    <a href="tel:+420607118531">+420 607 118 531</a>
+  </div>
+  <div class="footer-disclaimer">Будучи посередницькою організацією, ми надаємо вам цю послугу в закладах, що мають ліцензію на надання послуг у сфері медичного туризму. Послуги надаються підприємством Renewal Medical Clinic.</div>
+  <div class="footer-copy">© 2026 GlobalMed. Всі права захищені.</div>
+</footer>
+
+
+<!-- ══ FLOATING CONTACT BUTTONS ══ -->
+<div class="float-btns">
+  <a href="https://wa.me/420607118531" target="_blank" rel="noopener" class="float-btn float-wa" title="WhatsApp">
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </a>
+  <a href="viber://chat?number=%2B420607118531" class="float-btn float-vi" title="Viber">
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M11.4 0C5.1 0 0 5.1 0 11.4c0 3.8 1.9 7.3 5 9.4v4.6l4.3-2.4c.7.1 1.4.2 2.1.2 6.3 0 11.4-5.1 11.4-11.4C23.8 5.1 18.7 0 11.4 0zm5.7 15.8c-.3.8-1.6 1.5-2.3 1.5-.1 0-.3 0-.5-.1-1.1-.3-2.2-.8-3.2-1.5-1-.7-1.8-1.5-2.5-2.5-.7-1-1.2-2.1-1.5-3.2-.2-.6-.1-1.6.5-2.2.3-.3.6-.4.8-.5.5-.2 1 0 1.3.4l1.3 1.8c.3.4.2 1-.1 1.4l-.5.5c-.1.1-.1.3 0 .4.3.5.7 1 1.1 1.4.4.4.9.8 1.4 1.1.1.1.3.1.4 0l.5-.5c.4-.3 1-.4 1.4-.1l1.8 1.3c.5.4.6.9.1 1.8z"/></svg>
+  </a>
+</div>
+
+
+<!-- ══════════════ COOKIE BANNER ══════════════ -->
+<div id="cookie-banner" style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:99999;background:#111827;color:#fff;padding:16px 24px;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;box-shadow:0 -4px 24px rgba(0,0,0,0.4);">
+  <p style="margin:0;font-size:14px;line-height:1.6;flex:1;min-width:220px;">
+    🍪 Ми використовуємо файли cookie для реклами та аналітики згідно з вимогами Google та законодавства ЄС (GDPR).
+    <a href="/privacy" style="color:#4ade80;text-decoration:underline;">Детальніше</a>
+  </p>
+  <div style="display:flex;gap:10px;flex-shrink:0;flex-wrap:wrap;">
+    <button id="cookie-decline" style="padding:9px 20px;border-radius:8px;border:1px solid rgba(255,255,255,0.35);background:transparent;color:#fff;font-size:13px;cursor:pointer;white-space:nowrap;">Відхилити</button>
+    <button id="cookie-accept" style="padding:9px 20px;border-radius:8px;border:none;background:#16a34a;color:#fff;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;">Прийняти всі ✓</button>
+  </div>
+</div>
+
+
+<!-- ══════════════ SCRIPTS ══════════════ -->
+<script>
+// Auth state
+(function() {
+  var isAuth = document.cookie.split('; ').some(function(c) { return c.startsWith('_auth='); });
+  if (isAuth) {
+    document.getElementById('btn-profile').style.display = 'inline-flex';
+    document.getElementById('btn-login').style.display = 'none';
+    document.getElementById('btn-register').style.display = 'none';
+    var mp = document.getElementById('mobile-btn-profile');
+    var ml = document.getElementById('mobile-btn-login');
+    if (mp) mp.style.display = 'block';
+    if (ml) ml.style.display = 'none';
+  }
+})();
+</script>
+
+<script>
+// Mobile burger
+(function() {
+  var burger = document.getElementById('burger-btn');
+  var nav = document.getElementById('mobile-nav');
+  if (!burger || !nav) return;
+  burger.addEventListener('click', function() {
+    var open = nav.classList.toggle('open');
+    burger.classList.toggle('open');
+    document.body.style.overflow = open ? 'hidden' : '';
+  });
+  nav.querySelectorAll('a').forEach(function(a) {
+    a.addEventListener('click', function() {
+      nav.classList.remove('open');
+      burger.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+  });
+})();
+</script>
+
+<script>
+// Category accordion
+document.querySelectorAll('.cat-header').forEach(function(header) {
+  header.addEventListener('click', function() {
+    header.closest('.cat-card').classList.toggle('open');
+  });
+});
+</script>
+
+<script>
+// ─── CALCULATOR LOGIC ───
+var total = 0;
+
+function updateSummary() {
+  var lines = document.getElementById('summary-lines');
+  var empty = document.getElementById('summary-empty');
+  var totalEl = document.getElementById('total-display');
+
+  // Gather all selected
+  var selected = [];
+  document.querySelectorAll('.qty-val').forEach(function(el) {
+    var qty = parseInt(el.textContent) || 0;
+    if (qty > 0) {
+      selected.push({ name: el.dataset.name, qty: qty, price: parseInt(el.dataset.price), sub: qty * parseInt(el.dataset.price) });
+    }
+  });
+
+  // Clear previous lines (keep empty)
+  Array.from(lines.children).forEach(function(c) { if (c.id !== 'summary-empty') c.remove(); });
+
+  if (selected.length === 0) {
+    empty.style.display = 'block';
+    total = 0;
+  } else {
+    empty.style.display = 'none';
+    total = 0;
+    selected.forEach(function(s) {
+      total += s.sub;
+      var div = document.createElement('div');
+      div.className = 'summary-line';
+      div.innerHTML = '<span class="s-name">' + s.name + (s.qty > 1 ? ' × ' + s.qty : '') + '</span><span class="s-val">' + s.sub.toLocaleString('uk-UA') + ' €</span>';
+      lines.appendChild(div);
+    });
+  }
+
+  totalEl.innerHTML = '<span>€</span> ' + total.toLocaleString('uk-UA');
+}
+
+document.querySelectorAll('.svc-qty').forEach(function(row) {
+  var valEl = row.querySelector('.qty-val');
+  var maxVal = parseInt(valEl.dataset.max) || 30;
+
+  row.querySelectorAll('.qty-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var cur = parseInt(valEl.textContent) || 0;
+      var dir = parseInt(btn.dataset.dir);
+      var next = Math.max(0, Math.min(maxVal, cur + dir));
+      valEl.textContent = next;
+      updateSummary();
+    });
+  });
+});
+
+// Reset
+document.getElementById('btn-reset').addEventListener('click', function() {
+  document.querySelectorAll('.qty-val').forEach(function(el) { el.textContent = '0'; });
+  updateSummary();
+});
+
+// Inquiry modal
+var inquiryModal = document.getElementById('inquiry-modal');
+document.getElementById('btn-inquiry').addEventListener('click', function() {
+  // Fill textarea with selected services + total
+  var lines = [];
+  document.querySelectorAll('.qty-val').forEach(function(el) {
+    var qty = parseInt(el.textContent) || 0;
+    if (qty > 0) {
+      var price = qty * parseInt(el.dataset.price);
+      lines.push(el.dataset.name + (qty > 1 ? ' × ' + qty : '') + ' — ' + price + ' €');
+    }
+  });
+  var txt = lines.length > 0
+    ? lines.join('\n') + '\n\nОрієнтовна сума: ' + total.toLocaleString('uk-UA') + ' €\n(+ Консультація, Знімок, КТ — безкоштовно)'
+    : 'Консультація (послуги уточнюються)';
+  document.getElementById('inquiry-services').value = txt;
+  inquiryModal.classList.add('active');
+  document.body.style.overflow = 'hidden';
+});
+
+document.getElementById('inquiry-close').addEventListener('click', function() {
+  inquiryModal.classList.remove('active');
+  document.body.style.overflow = '';
+});
+inquiryModal.addEventListener('click', function(e) {
+  if (e.target === inquiryModal) {
+    inquiryModal.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+});
+
+// Submit inquiry form
+document.getElementById('inquiry-form').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  var btn = document.getElementById('inquiry-submit');
+  var err = document.getElementById('inquiry-error');
+  btn.disabled = true;
+  btn.textContent = 'Надсилання…';
+  err.style.display = 'none';
+  try {
+    var res = await fetch('/submit-order', { method: 'POST', body: new FormData(e.target) });
+    var data = await res.json();
+    if (data.status === 'success') {
+      document.getElementById('inquiry-form-wrap').style.display = 'none';
+      document.getElementById('inquiry-success').style.display = 'block';
+    } else {
+      err.textContent = 'Помилка. Спробуйте ще раз.';
+      err.style.display = 'block';
+      btn.disabled = false;
+      btn.textContent = 'Надіслати заявку →';
+    }
+  } catch {
+    err.textContent = "Помилка з'єднання. Спробуйте знову.";
+    err.style.display = 'block';
+    btn.disabled = false;
+    btn.textContent = 'Надіслати заявку →';
+  }
+});
+</script>
+
+<script>
+// Login modal
+(function() {
+  var overlay = document.getElementById('login-modal');
+  var errorEl = document.getElementById('login-error');
+  function openModal() { overlay.classList.add('active'); document.body.style.overflow = 'hidden'; }
+  function closeModal() { overlay.classList.remove('active'); document.body.style.overflow = ''; errorEl.style.display = 'none'; }
+  document.querySelectorAll('.btn-login').forEach(function(btn) {
+    btn.addEventListener('click', function(e) { e.preventDefault(); openModal(); });
+  });
+  document.getElementById('modal-close-btn').addEventListener('click', closeModal);
+  overlay.addEventListener('click', function(e) { if (e.target === overlay) closeModal(); });
+  document.addEventListener('keydown', function(e) { if (e.key === 'Escape') { closeModal(); inquiryModal.classList.remove('active'); document.body.style.overflow = ''; } });
+
+  document.getElementById('login-form').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    var btn = e.target.querySelector('.modal-submit');
+    btn.disabled = true; btn.textContent = 'Завантаження…';
+    errorEl.style.display = 'none';
+    try {
+      var res = await fetch('/login', { method: 'POST', body: new FormData(e.target) });
+      var data = await res.json();
+      if (data.error) { errorEl.textContent = data.error; errorEl.style.display = 'block'; }
+      else if (data.redirect) { window.location.href = data.redirect; }
+    } catch { errorEl.textContent = "Помилка з'єднання."; errorEl.style.display = 'block'; }
+    btn.disabled = false; btn.textContent = 'Увійти →';
+  });
+})();
+</script>
+
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({
+    pageLanguage: 'uk',
+    includedLanguages: 'uk,cs,en,ru,tr',
+    layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+    autoDisplay: false
+  }, 'google_translate_element');
+}
+</script>
+<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+<script>
+// Cookie consent
+(function() {
+  var b = document.getElementById('cookie-banner');
+  var c = localStorage.getItem('gm_consent');
+  if (c === 'granted') { gtag('consent', 'update', {'ad_storage':'granted','ad_user_data':'granted','ad_personalization':'granted','analytics_storage':'granted'}); return; }
+  if (c === 'denied') return;
+  b.style.display = 'flex';
+  document.getElementById('cookie-accept').addEventListener('click', function() {
+    localStorage.setItem('gm_consent', 'granted');
+    gtag('consent', 'update', {'ad_storage':'granted','ad_user_data':'granted','ad_personalization':'granted','analytics_storage':'granted'});
+    b.style.display = 'none';
+  });
+  document.getElementById('cookie-decline').addEventListener('click', function() {
+    localStorage.setItem('gm_consent', 'denied');
+    b.style.display = 'none';
+  });
+})();
+</script>
+
+</body>
+</html>

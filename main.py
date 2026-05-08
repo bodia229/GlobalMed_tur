@@ -794,6 +794,16 @@ async def create_order(
     db.refresh(new_inquiry)
     return {"status": "success", "translated_text": translated_text}
 
+@app.get("/calculator", response_class=HTMLResponse)
+async def calculator_page(request: Request, db: Session = Depends(get_db)):
+    token = request.cookies.get("access_token")
+    user = await get_current_user(token, db)
+    return templates.TemplateResponse(
+        request=request,
+        name="calculator.html",
+        context={"page_title": "Калькулятор вартості — GlobalMed", "user": user}
+    )
+
 @app.get("/view-data")
 async def view_data(db: Session = Depends(get_db)):
     return db.query(PatientInquiry).all()
