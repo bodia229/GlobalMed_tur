@@ -24,7 +24,7 @@ import bcrypt
 
 # --- КОНФИГУРАЦИЯ ---
 BASE_URL = os.environ.get("BASE_URL", "https://globalmed-tur.onrender.com").rstrip("/")
-SECRET_KEY = "my_super_secret_key_123"
+SECRET_KEY = os.environ.get("SECRET_KEY", "change-me-before-deploy")
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24
 ADMIN_EMAILS = {"info.globalmed.clinic@gmail.com", "bogdan.bondarenk0.2020@gmail.com"}
