@@ -1,0 +1,30 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:github.com)",
+      "WebSearch",
+      "PowerShell(head -60)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)",
+      "Bash(python -c \"import main\")",
+      "Bash(python -m uvicorn main:app --host 127.0.0.1 --port 8001)",
+      "Bash(curl -s -c \"cookie.txt\" -b \"cookie.txt\" http://127.0.0.1:8001/admin)",
+      "Bash(python -c ' *)",
+      "Bash(venvScriptspython.exe -c ' *)",
+      "Bash(python -m uvicorn main:app --host 127.0.0.1 --port 8002)",
+      "Bash(curl -v --cookie \"access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJpbmZvLmdsb2JhbG1lZC5jbGluaWNAZ21haWwuY29tIiwiZXhwIjoxNzc4MTAyMzM1fQ.3god_vrUGnZo5vzKNd_OCCcS31SXUXcA3LQ6xOm16_k\" http://127.0.0.1:8002/admin)",
+      "Bash(C:\\\\Users\\\\user\\\\Desktop\\\\розсилка\\\\venv\\\\Scripts\\\\python.exe -m pip install customtkinter selenium \"webdriver-manager>=4.0.0\" pillow)",
+      "PowerShell(New-Item -ItemType Directory -Path \"C:\\\\Users\\\\user\\\\Desktop\\\\����� 䥩�㪠\" -Force)",
+      "PowerShell(python -m venv \"C:\\\\Users\\\\user\\\\Desktop\\\\����� 䥩�㪠\\\\venv\")",
+      "PowerShell(& \"C:\\\\Users\\\\user\\\\Desktop\\\\����� 䥩�㪠\\\\venv\\\\Scripts\\\\python.exe\" -c \"import ast; ast.parse\\(open\\('C:/Users/user/Desktop/����� 䥩�㪠/main.py', encoding='utf-8'\\).read\\(\\)\\); print\\('OK'\\)\")",
+      "PowerShell(& \"C:\\\\Users\\\\user\\\\Desktop\\\\஧ᨫ��\\\\venv\\\\Scripts\\\\python.exe\" -c \"import ast; ast.parse\\(open\\('C:/Users/user/Desktop/஧ᨫ��/main.py', encoding='utf-8'\\).read\\(\\)\\); print\\('஧ᨫ��: OK'\\)\")",
+      "PowerShell(& \"C:\\\\Users\\\\user\\\\Desktop\\\\����� 䥩�㪠\\\\venv\\\\Scripts\\\\python.exe\" -c \"import ast; ast.parse\\(open\\('C:/Users/user/Desktop/����� 䥩�㪠/main.py', encoding='utf-8'\\).read\\(\\)\\); print\\('�����: OK'\\)\")",
+      "PowerShell(& \"C:\\\\Users\\\\user\\\\Desktop\\\\஧ᨫ��\\\\venv\\\\Scripts\\\\python.exe\" -c \"import ast; ast.parse\\(open\\('C:/Users/user/Desktop/஧ᨫ��/main.py', encoding='utf-8'\\).read\\(\\)\\); print\\('OK'\\)\")",
+      "PowerShell(\\(Get-Item \"C:\\\\Users\\\\user\\\\AppData\\\\Local\\\\Programs\\\\Opera GX\\\\opera.exe\"\\).VersionInfo.ProductVersion)",
+      "WebFetch(domain:www.ru.renewalmedicalclinic.com)",
+      "Bash(python -m venv venv)",
+      "Bash(venv\\\\Scripts\\\\pip install *)"
+    ]
+  }
+}
